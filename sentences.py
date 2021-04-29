@@ -1,6 +1,8 @@
 import random
 
 # from main import speak
+import pyttsx3
+
 import homeassistant.lights
 import homeassistant.spotify
 
@@ -30,7 +32,7 @@ previousTrack = ["Voici le morceau précédent", "Voici le morceau précédent m
 
 
 def answer(answers):
-    # speak(random.choice(answers))
+    speak(random.choice(answers))
     print(random.choice(answers))
 
 
@@ -45,32 +47,43 @@ def recogniseSentence(sentence):
 
     # allume la lumière
     elif sentence in turnOnLightsDetection:
-        homeassistant.lights.turnOn("light.lumieres_chambre")
         answer(turningOnLights)
+        homeassistant.lights.turnOn("light.lumieres_chambre")
 
     # éteint la lumière
     elif sentence in turnOffLightsDetection:
-        homeassistant.lights.turnOff("light.lumieres_chambre")
         answer(turningOffLights)
+        homeassistant.lights.turnOff("light.lumieres_chambre")
 
     # allume les leds
     elif sentence in turnOnLedsDetection:
-        homeassistant.lights.turnOn("light.leds_chambre")
         answer(turningOffLights)
+        homeassistant.lights.turnOn("light.leds_chambre")
 
     # éteint les leds
     elif sentence in turnOffLedsDetection:
-        homeassistant.lights.turnOff("light.leds_chambre")
         answer(turningOffLights)
+        homeassistant.lights.turnOff("light.leds_chambre")
 
     # mets le morceau suivant
     elif sentence in nextTrackDetection:
-        homeassistant.spotify.nextTrack("media_player.spotify_mathieu_broillet")
         answer(nextTrack)
+        homeassistant.spotify.nextTrack("media_player.spotify_mathieu_broillet")
 
     # mets le morceau précédent
     elif sentence in previousTrackDetection:
         homeassistant.spotify.nextTrack("media_player.spotify_mathieu_broillet")
         answer(previousTrack)
+        
     else:
         answer(dontUnderstand)
+
+
+def speak(text):
+    rate = 100  # Sets the default rate of speech
+    engine = pyttsx3.init()  # Initialises the speech engine
+    voices = engine.getProperty('voices')  # sets the properties for speech
+    engine.setProperty('voice', voices[0].id)  # Gender and type of voice
+    engine.setProperty('rate', rate + 50)  # Adjusts the rate of speech
+    engine.say(text)  # tells Python to speak variable 'text'
+    engine.runAndWait()  # waits for speech to finish and then continues with program
