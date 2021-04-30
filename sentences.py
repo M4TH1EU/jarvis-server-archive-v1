@@ -1,6 +1,6 @@
-import random
 import csv
-import openpyxl
+import random
+
 # from main import speak
 import pyttsx3
 
@@ -8,6 +8,7 @@ import homeassistant.lights
 import homeassistant.spotify
 
 sentences = {}
+
 
 def registerSentences():
     # our csv file and a csv reader (encoded in utf8 for special character compatibility)
@@ -28,8 +29,8 @@ def registerSentences():
             if 'Column' in sentenceId:
                 break
             else:
-                # fix an issue with first id
-                sentenceId = sentenceId.replace('\ufeff', '')
+                # fix issue with unicode caracter
+                sentenceId = sentenceId.replace('\ufeff', '').replace('\n', '')
 
                 # creating an entry to be able to use .append afterward
                 if sentenceId not in sentences:
@@ -37,7 +38,7 @@ def registerSentences():
 
                 # if the entry is not empty then add it to the sentences dict
                 if lines[column] != "":
-                    sentences[sentenceId].append(lines[column])
+                    sentences[sentenceId].append(lines[column].lower())
 
             # increment column
             column = column + 1
@@ -46,64 +47,82 @@ def registerSentences():
         column = 0
 
 
-def checkAndAnswer(sentence, sentence_id):
-    if sentence in getSentences(sentence_id):
-        speak(random.choice(getSentences(sentence_id)))
-        print(random.choice(getSentences(sentence_id)))
+def answer(sentence_id):
+    if getSentencesById(sentence_id):
+        speak(random.choice(getSentencesById(sentence_id)))
+        print(random.choice(getSentencesById(sentence_id)))
+    else:
+        speak(random.choice(getSentencesById("dontUnderstand")))
 
 
-def getSentences(sentence_id):
+def getSentences():
+    return sentences
+
+
+def getSentencesById(sentence_id):
     return sentences[sentence_id]
 
 
 def recogniseSentence(sentence):
+    print(sentence)
+
     # hey john
-    if sentence in getSentences('hotwordDetection'):
-        checkAndAnswer('hotwordDetection')
+    if sentence in getSentencesById('hotwordDetection'):
+        answer('yesSir')
 
     # comment ça va
-    elif sentence in howAreYouDetection:
-        checkAndAnswer(allGoodSir)
+    elif sentence in getSentencesById('howAreYouDetection'):
+        answer('allGoodSir')
 
     # allume la lumière
-    elif sentence in turnOnLightsDetection:
-        checkAndAnswer(turningOnLights)
+    elif sentence in getSentencesById('turnOnLightsDetection'):
+        answer('turningOnLights')
         homeassistant.lights.turnOn("light.lumieres_chambre")
 
     # éteint la lumière
-    elif sentence in turnOffLightsDetection:
-        checkAndAnswer(turningOffLights)
+    elif sentence in getSentencesById('turnOffLightsDetection'):
+        answer('turningOffLights')
         homeassistant.lights.turnOff("light.lumieres_chambre")
 
     # allume les leds
-    elif sentence in turnOnLedsDetection:
-        checkAndAnswer(turningOffLights)
+    elif sentence in getSentencesById('turnOnLedsDetection'):
+        answer('turningOffLights')
         homeassistant.lights.turnOn("light.leds_chambre")
 
     # éteint les leds
-    elif sentence in turnOffLedsDetection:
-        checkAndAnswer(turningOffLights)
+    elif sentence in getSentencesById('turnOffLedsDetection'):
+        answer('turningOffLights')
         homeassistant.lights.turnOff("light.leds_chambre")
 
     # mets le morceau suivant
-    elif sentence in nextTrackDetection:
-        checkAndAnswer(nextTrack)
+    elif sentence in getSentencesById('nextTrackDetection'):
+        answer('nextTrack')
         homeassistant.spotify.nextTrack("media_player.spotify_mathieu_broillet")
 
     # mets le morceau précédent
-    elif sentence in previousTrackDetection:
-        homeassistant.spotify.nextTrack("media_player.spotify_mathieu_broillet")
-        checkAndAnswer(previousTrack)
+    elif sentence in getSentencesById('previousTrackDetection'):
+        answer('previousTrack')
+        homeassistant.spotify.previousTrack("media_player.spotify_mathieu_broillet")
+
+    # relance la musique
+    elif sentence in getSentencesById('resumeMusicDetection'):
+        answer('resumeMusic')
+        homeassistant.spotify.play("media_player.spotify_mathieu_broillet")
+
+    # mets la musique sur pause
+    elif sentence in getSentencesById('pauseMusicDetection'):
+        answer('pauseMusic')
+        homeassistant.spotify.pause("media_player.spotify_mathieu_broillet")
 
     else:
-        checkAndAnswer(dontUnderstand)
+        answer('dontUnderstand')
 
 
 def speak(text):
     rate = 100  # Sets the default rate of speech
     engine = pyttsx3.init()  # Initialises the speech engine
     voices = engine.getProperty('voices')  # sets the properties for speech
-    engine.setProperty('voice', voices[0].sentencesId)  # Gender and type of voice
+    engine.setProperty('voice', voices[0])  # Gender and type of voice
     engine.setProperty('rate', rate + 50)  # Adjusts the rate of speech
     engine.say(text)  # tells Python to speak variable 'text'
     engine.runAndWait()  # waits for speech to finish and then continues with program

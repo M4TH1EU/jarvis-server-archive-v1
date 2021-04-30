@@ -1,8 +1,10 @@
+import os
+
 import requests
 from requests.structures import CaseInsensitiveDict
 
-token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI3NWIzNDMyYTQ2NDI0ZWU1YWJiNTc3OTk0M2RhZTg1MSIsImlhdCI6MTYxOTY4Njc2NywiZXhwIjoxOTM1MDQ2NzY3fQ.uR-SfCKJiDqm4NzIWR9rgQ8lAzQAWcm_yj3_PE9tVeQ"
-ha_url = "https://homeassistant.broillet.org/api/"
+token = os.getenv('HOMEASSISTANT_API_TOKEN')
+ha_url = os.getenv('HOMEASSISTANT_API_URL')
 
 
 def callApiPost(data, service):

@@ -6,7 +6,7 @@ import speech_recognition as sr
 import sentences
 
 r = sr.Recognizer()
-r.energy_threshold = 1000
+r.energy_threshold = 1
 keywords = [("hey john", 1), ("john", 1), ]
 source = sr.Microphone()
 
@@ -15,12 +15,11 @@ source = sr.Microphone()
 
 def listen(recognizer, audio):
     try:
-        # speech_as_text = recognizer.recognize_sphinx(
-        #    audio, keyword_entries=keywords)
-        speech_as_text = "john"
+        speech_as_text = recognizer.recognize_sphinx(
+            audio, keyword_entries=keywords)
         print(speech_as_text)
         if "hey john" in speech_as_text or "john":
-            sentences.recogniseSentence(speech_as_text)  # answer with something like "yes sir ?"
+            sentences.answer('yesSir')  # answer with something like "yes sir ?"
             recognize_main()  # starts listening for your sentence
     except sr.UnknownValueError:
         print("Oops! Didn't catch that")
@@ -33,16 +32,15 @@ def start_listening_for_hotword():  # initial keyword call
 
 
 def recognize_main():  # Main reply call function
-    # r = sr.Recognizer()  # sets r variable
-    # with sr.Microphone() as source:  # sets microphone
-    #    print("Dites quelques chose!")  # prints to screen
-    #    audio = r.listen(source)  # sets variable 'audio'
+    r = sr.Recognizer()
+    print("Dites quelques chose!")
+    audio = r.listen(source)
+    data = ""
 
-    data = ""  # assigns user voice entry to variable 'data'
     try:
         # now uses Google speech recognition
-        # data = r.recognize_google(audio, language="fr-FR")
-        data = input("Entrez phrase : ")
+        data = r.recognize_google(audio, language="fr-FR")
+        # data = input("Entrez phrase : ")
         data = data.lower()  # makes all voice entries show as lower case
         # shows what user said and what was recognised
         # print("Vous avez dit: " + data)
@@ -59,4 +57,5 @@ def recognize_main():  # Main reply call function
 
 """Main program"""
 while 1:  # This starts a loop so the speech recognition is always listening to you
+    sentences.registerSentences()
     start_listening_for_hotword()
