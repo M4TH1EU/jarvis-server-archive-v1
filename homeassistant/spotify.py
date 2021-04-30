@@ -47,3 +47,31 @@ def play(entity_id):
     """
 
     callApiPost('{"entity_id": "' + entity_id + '" }', "media_player/media_play")
+
+
+def turnUpVolume(entity_id):
+    """
+    Turn the volume up
+
+    Parameters
+    ----------
+    entity_id : str
+    """
+
+    # calling it twice to really see a volume difference
+    callApiPost('{"entity_id": "' + entity_id + '" }', "media_player/volume_up")
+    callApiPost('{"entity_id": "' + entity_id + '" }', "media_player/volume_up")
+
+
+def turnDownVolume(entity_id):
+    """
+    Turn the volume down
+
+    Parameters
+    ----------
+    entity_id : str
+    """
+
+    # calling it twice to really see a volume difference
+    callApiPost('{"entity_id": "' + entity_id + '" }', "media_player/volume_down")
+    callApiPost('{"entity_id": "' + entity_id + '" }', "media_player/volume_down")

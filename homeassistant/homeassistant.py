@@ -3,8 +3,8 @@ import os
 import requests
 from requests.structures import CaseInsensitiveDict
 
-token = os.getenv('HOMEASSISTANT_API_TOKEN')
-ha_url = os.getenv('HOMEASSISTANT_API_URL')
+token = os.getenv('HOMEASSISTANT_API_TOKEN')  # long-term token
+ha_url = os.getenv('HOMEASSISTANT_API_URL')  # https://my.homeassistant.com/api/
 
 
 def callApiPost(data, service):

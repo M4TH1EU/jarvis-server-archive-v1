@@ -114,6 +114,16 @@ def recogniseSentence(sentence):
         answer('pauseMusic')
         homeassistant.spotify.pause("media_player.spotify_mathieu_broillet")
 
+    # monte le son
+    elif sentence in getSentencesById('turnUpVolumeDetection'):
+        answer('turningUpVolume')
+        homeassistant.spotify.turnUpVolume("media_player.spotify_mathieu_broillet")
+
+    # baisse le son
+    elif sentence in getSentencesById('turnDownVolumeDetection'):
+        answer('turningDownVolume')
+        homeassistant.spotify.turnDownVolume("media_player.spotify_mathieu_broillet")
+
     else:
         answer('dontUnderstand')
 

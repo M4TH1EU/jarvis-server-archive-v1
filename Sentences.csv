@@ -1,14 +1,14 @@
-ï»¿hotwordDetection|yesSir|howAreYouDetection|allGoodSir|dontUnderstand|turnOnLightsDetection|turnOffLightsDetection|turningOnLights|turningOffLights|turnOnLedsDetection|turnOffLedsDetection|nextTrackDetection|previousTrackDetection|nextTrack|previousTrack|resumeMusicDetection|pauseMusicDetection|resumeMusic|pauseMusic
-hey john|Oui monsieur ?|comment ca va|Je vais bien monsieur|Je suis dÃ©solÃ©, je n'ai pas compris|allume la lumiÃ¨re|Ã©teint la lumiÃ¨re|J'allume les lumiÃ¨res|J'Ã©teinds les lumiÃ¨res|allume les leds|Ã©teint les leds|morceau suivant|morceau prÃ©cÃ©dent|Voici le morceau suivant monsieur|Voici le morceau prÃ©cÃ©dent|Reprend la musique|Mets en pause la musique|Je relance la musique|La musique s'arrÃªte
-john|Oui ?|ca va|Tout va bien|Je ne suis pas sur de comprendre votre demande.|allume les lumiÃ¨res|Ã©teint les lumiÃ¨res|J'allume la lumiÃ¨re|J'Ã©teinds la lumiÃ¨re|allume les bandes leds|Ã©teint les bandes leds|mets le morceau suivant|mets le morceau prÃ©cÃ©dent|Voici le morceau suivant|Voici le morceau prÃ©cÃ©dent monsieur|Remets la musique|Mets la musique en pause|La musique reprend|Je mets sur pause
-|Que puis-je faire pour vous?|comment vas-tu|Tout va bien monsieur|Je n'ai pas compris votre demande|allume les lampes|arrÃªte la lumiÃ¨re|Les lumiÃ¨res s'allument monsieur|Les lumiÃ¨res s'Ã©teignent monsieur|||joue le titre suivant|joue le titre prÃ©cÃ©dent|Je passe cette chanson|VoilÃ  le morceau prÃ©cÃ©dent|Relance la musique|Mets la musique sur pause|De suite|Le musique est sur pause
-|Que puis-je faire pour vous monsieur?|tu vas bien|Je vais bien merci|Je n'ai pas compris.|dÃ©marre la lumiÃ¨re|arrÃªte les lumiÃ¨res|||||joue le morceau suivant|joue le morceau prÃ©cÃ©dent|Morceau suivant||RedÃ©marre la musique|Pause la musique|Le son reprend|Je mets la musique sur pause
-|Je vous Ã©coute|comment Ã§a va|||dÃ©marre les lumiÃ¨res|||||||rejoue le morceau prÃ©cÃ©dent|||Mets de la musique|ArrÃªte la musique|Je remets la musique|
-||Ã§a va|||||||||||||Joue de la musique|Coupe la musique||
-|||||||||||||||Joue la musique|Mets sur pause||
-|||||||||||||||Mets la musique|Coupe la zik||
-|||||||||||||||Remets de la musique|ArrÃªte la zik||
-|||||||||||||||Mets un peu de musique s'il te plait|||
-|||||||||||||||Mets un peu de musique|||
-|||||||||||||||remets de la musique s'il te plaÃ®t|||
-|||||||||||||||remets de la musique|||
+hotwordDetection	yesSir	howAreYouDetection	allGoodSir	dontUnderstand	turnOnLightsDetection	turnOffLightsDetection	turningOnLights	turningOffLights	turnOnLedsDetection	turnOffLedsDetection	nextTrackDetection	previousTrackDetection	nextTrack	previousTrack	resumeMusicDetection	pauseMusicDetection	resumeMusic	pauseMusic	turnUpVolumeDetection	turnDownVolumeDetection	turningUpVolume	turningDownVolume
+hey john	Oui monsieur ?	comment ca va	Je vais bien monsieur	Je suis désolé, je n'ai pas compris	allume la lumière	éteint la lumière	J'allume les lumières	J'éteinds les lumières	allume les leds	éteint les leds	morceau suivant	morceau précédent	Voici le morceau suivant monsieur	Voici le morceau précédent	Reprend la musique	Mets en pause la musique	Je relance la musique	La musique s'arrête	Monte le son	Descend le volume		
+john	Oui ?	ca va	Tout va bien	Je ne suis pas sur de comprendre votre demande.	allume les lumières	éteint les lumières	J'allume la lumière	J'éteinds la lumière	allume les bandes leds	éteint les bandes leds	mets le morceau suivant	mets le morceau précédent	Voici le morceau suivant	Voici le morceau précédent monsieur	Remets la musique	Mets la musique en pause	La musique reprend	Je mets sur pause	Monte le volume	Baisse un peu le son		
+	Que puis-je faire pour vous?	comment vas-tu	Tout va bien monsieur	Je n'ai pas compris votre demande	allume les lampes	arrête la lumière	Les lumières s'allument monsieur	Les lumières s'éteignent monsieur			joue le titre suivant	joue le titre précédent	Je passe cette chanson	Voilà le morceau précédent	Relance la musique	Mets la musique sur pause	De suite	Le musique est sur pause	Augmente le son	Baisse le son		
+	Que puis-je faire pour vous monsieur?	tu vas bien	Je vais bien merci	Je n'ai pas compris.	démarre la lumière	arrête les lumières					joue le morceau suivant	joue le morceau précédent	Morceau suivant		Redémarre la musique	Pause la musique	Le son reprend	Je mets la musique sur pause	Augment le volume	Descend le son		
+	Je vous écoute	comment ça va			démarre les lumières							rejoue le morceau précédent			Mets de la musique	Arrête la musique	Je remets la musique		Monter le volume			
+		ça va													Joue de la musique	Coupe la musique			Monte un peu le son			
+															Joue la musique	Mets sur pause						
+															Mets la musique	Coupe la zik						
+															Remets de la musique	Arrête la zik						
+															Mets un peu de musique s'il te plait							
+															Mets un peu de musique							
+															remets de la musique s'il te plaît							
+															remets de la musique							
