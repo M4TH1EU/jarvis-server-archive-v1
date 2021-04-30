@@ -1,13 +1,18 @@
 """variables"""
+import struct
 import time
 
+import pvporcupine
+import pyaudio
 import speech_recognition as sr
 
 import sentences
 
+porcupine = None
+pa = None
+audio_stream = None
 r = sr.Recognizer()
-r.energy_threshold = 1
-keywords = [("hey john", 1), ("john", 1), ]
+
 source = sr.Microphone()
 
 """Functions"""
@@ -15,13 +20,28 @@ source = sr.Microphone()
 
 def listen(recognizer, audio):
     try:
-        speech_as_text = recognizer.recognize_sphinx(
-            audio, keyword_entries=keywords)
-        print(speech_as_text)
-        if "hey john" in speech_as_text or "john":
-            sentences.answer('yesSir')  # answer with something like "yes sir ?"
-            recognize_main()  # starts listening for your sentence
-    except sr.UnknownValueError:
+        porcupine = pvporcupine.create(keywords=['jarvis'])
+        pa = pyaudio.PyAudio()
+
+        audio_stream = pa.open(
+            rate=porcupine.sample_rate,
+            channels=1,
+            format=pyaudio.paInt16,
+            input=True,
+            frames_per_buffer=porcupine.frame_length
+        )
+
+        while True:
+            pcm = audio_stream.read(porcupine.frame_length)
+            pcm = struct.unpack_from("h" * porcupine.frame_length, pcm)
+
+            keyword_index = porcupine.process(pcm)
+
+            if keyword_index >= 0:
+                sentences.answer('yesSir')  # answer with something like "yes sir ?"
+                recognize_main()  # starts listening for your sentence
+
+    except:
         print("Oops! Didn't catch that")
 
 

@@ -1,7 +1,8 @@
 import csv
+# from main import speak
+import datetime as datetime
 import random
 
-# from main import speak
 import pyttsx3
 
 import homeassistant.lights
@@ -63,6 +64,10 @@ def getSentencesById(sentence_id):
     return sentences[sentence_id]
 
 
+def getRandomSentenceFromId(sentence_id):
+    return random.choice(getSentencesById(sentence_id))
+
+
 def recogniseSentence(sentence):
     print(sentence)
 
@@ -86,7 +91,7 @@ def recogniseSentence(sentence):
 
     # allume les leds
     elif sentence in getSentencesById('turnOnLedsDetection'):
-        answer('turningOffLights')
+        answer('turningOnLights')
         homeassistant.lights.turnOn("light.leds_chambre")
 
     # éteint les leds
@@ -124,6 +129,9 @@ def recogniseSentence(sentence):
         answer('turningDownVolume')
         homeassistant.spotify.turnDownVolume("media_player.spotify_mathieu_broillet")
 
+    elif sentence in getSentencesById('whatTimeIsIt'):
+        current_time = datetime.datetime.now().strftime("%H:%M")
+        speak(getRandomSentenceFromId('itIsTime') + " " + current_time)
     else:
         answer('dontUnderstand')
 
