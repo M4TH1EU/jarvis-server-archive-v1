@@ -20,9 +20,12 @@ def callApiPost(data, service):
     service : light/turn_on
     """
 
-    url_service = ha_url + "services/" + service
-    headers = CaseInsensitiveDict()
-    headers["Authorization"] = 'Bearer ' + token
-    headers["Content-Type"] = "application/json"
+    try:
+        url_service = ha_url + "services/" + service
+        headers = CaseInsensitiveDict()
+        headers["Authorization"] = 'Bearer ' + token
+        headers["Content-Type"] = "application/json"
 
-    requests.post(url_service, headers=headers, data=data)
+        requests.post(url_service, headers=headers, data=data)
+    except:
+        print("Error when calling HomeAssistant API")
