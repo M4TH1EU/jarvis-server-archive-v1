@@ -8,6 +8,7 @@ import pyttsx3
 
 import homeassistant.lights
 import homeassistant.spotify
+from plugins import wiki
 
 sentences = {}
 
@@ -128,14 +129,23 @@ def recogniseSentence(sentence):
         answer('turningDownVolume')
         homeassistant.spotify.turnDownVolume("media_player.spotify_mathieu_broillet")
 
+    # il est quelle heure
     elif sentence in getSentencesById('whatTimeIsIt'):
         current_time = datetime.datetime.now().strftime("%H:%M")
         speak(getRandomSentenceFromId('itIsTime') + " " + current_time)
 
+    # non rien finalement
     elif sentence in getSentencesById('nothingDetection'):
         beepy.beep(sound='error')
+
     else:
-        answer('dontUnderstand')
+
+        # cherche XYZ sur wikipédia
+        if is_custom_sentence('wikiDetection', sentence):
+            speak(wiki.getDescription(get_words_out_of_custom_sentence('wikiDetection', sentence)))
+
+        else:
+            answer('dontUnderstand')
 
 
 def speak(text):
@@ -146,3 +156,17 @@ def speak(text):
     engine.setProperty('rate', rate + 50)  # Adjusts the rate of speech
     engine.say(text)  # tells Python to speak variable 'text'
     engine.runAndWait()  # waits for speech to finish and then continues with program
+
+
+def is_custom_sentence(sentence_id, sentence):
+    if sentence.startswith(tuple(getSentencesById(sentence_id))):
+        return True
+    else:
+        return False
+
+
+def get_words_out_of_custom_sentence(sentence_id, sentence):
+    for var in getSentencesById(sentence_id):
+        if sentence.startswith(var):
+            custom_words_found = [word for word in sentence.split() if word not in var.split()]
+            return " ".join(custom_words_found)

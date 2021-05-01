@@ -11,16 +11,15 @@ def getDescription(name):
 
     try:
         page = wikipedia.page(name, auto_suggest=True)
-    except wikipedia.exceptions.PageError:
+    except:
         try:
             try:
                 page = wikipedia.page(name, auto_suggest=False)
-            except wikipedia.exceptions.DisambiguationError:
+            except:
                 wikipedia.set_lang("en")
                 page = wikipedia.page(name, auto_suggest=False)
-        except wikipedia.exceptions.PageError:
-            print(sentences.getRandomSentenceFromId('wikipediaNotFound'))
-            return
+        except:
+            return sentences.getRandomSentenceFromId('wikipediaNotFound')
 
     summary = re.sub("[\(\[].*?[\)\]]", "", page.summary)
     summary = summary.replace("Inc.", "Inc")
@@ -28,5 +27,5 @@ def getDescription(name):
     if "en.wiki" in page.url:
         translator = Translator(to_lang="fr", from_lang="en")
         summary = translator.translate(summary)
-    print(summary)
-    sentences.speak(summary)
+
+    return summary
