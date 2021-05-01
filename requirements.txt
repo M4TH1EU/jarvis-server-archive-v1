@@ -7,7 +7,6 @@ enum34==1.1.10
 idna==2.10
 meteoswissdata==0.1.1
 numpy==1.20.2
-pocketsphinx==0.1.15
 pvporcupine==1.9.5
 PyAudio==0.2.11
 pypiwin32==223
