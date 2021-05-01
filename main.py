@@ -54,7 +54,7 @@ def start_listening_for_hotword():  # initial keyword call
 def recognize_main():  # Main reply call function
     r = sr.Recognizer()
     print("Dites quelques chose!")
-    audio = r.listen(source)
+    audio = r.listen(source, phrase_time_limit=7)
     data = ""
 
     try:
@@ -62,14 +62,17 @@ def recognize_main():  # Main reply call function
         data = r.recognize_google(audio, language="fr-FR")
         # data = input("Entrez phrase : ")
         data = data.lower()  # makes all voice entries show as lower case
-        # shows what user said and what was recognised
-        # print("Vous avez dit: " + data)
 
-        sentences.recogniseSentence(data)
-        print("finish")
+        # add support for multiples actions in one sentence (two actions here)
+        if "et" in data:
+            phrases = data.split(" et ")
+            sentences.recogniseSentence(phrases[0])
+            sentences.recogniseSentence(phrases[1])
+        else:
+            sentences.recogniseSentence(data)
+
     except sr.UnknownValueError:
-        print("John n'a pas compris votre demande")
-        print(data)
+        sentences.answer('dontUnderstand')
     except sr.RequestError as e:  # if you get a request error from Google speech engine
         print(
             "Erreur du service Google Speech Recognition ; {0}".format(e))

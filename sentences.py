@@ -3,6 +3,7 @@ import csv
 import datetime as datetime
 import random
 
+import beepy
 import pyttsx3
 
 import homeassistant.lights
@@ -51,9 +52,9 @@ def registerSentences():
 def answer(sentence_id):
     if getSentencesById(sentence_id):
         speak(random.choice(getSentencesById(sentence_id)))
-        print(random.choice(getSentencesById(sentence_id)))
     else:
         speak(random.choice(getSentencesById("dontUnderstand")))
+        beepy.beep(sound='coin')
 
 
 def getSentences():
@@ -69,9 +70,7 @@ def getRandomSentenceFromId(sentence_id):
 
 
 def recogniseSentence(sentence):
-    print(sentence)
-
-    # hey john
+    # hey jarvis
     if sentence in getSentencesById('hotwordDetection'):
         answer('yesSir')
 
@@ -132,6 +131,9 @@ def recogniseSentence(sentence):
     elif sentence in getSentencesById('whatTimeIsIt'):
         current_time = datetime.datetime.now().strftime("%H:%M")
         speak(getRandomSentenceFromId('itIsTime') + " " + current_time)
+
+    elif sentence in getSentencesById('nothingDetection'):
+        beepy.beep(sound='error')
     else:
         answer('dontUnderstand')
 
