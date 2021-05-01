@@ -53,7 +53,6 @@ def start_listening_for_hotword():  # initial keyword call
 
 def recognize_main():  # Main reply call function
     r = sr.Recognizer()
-    print("Dites quelques chose!")
     audio = r.listen(source, phrase_time_limit=7)
     data = ""
 
