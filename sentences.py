@@ -8,7 +8,7 @@ import pyttsx3
 
 import homeassistant.lights
 import homeassistant.spotify
-from plugins import wiki
+from plugins import wiki, spotipy
 
 sentences = {}
 
@@ -144,6 +144,21 @@ def recogniseSentence(sentence):
         if is_custom_sentence('wikiDetection', sentence):
             speak(wiki.getDescription(get_words_out_of_custom_sentence('wikiDetection', sentence)))
 
+        # joue i'm still standing de elton john
+        elif is_custom_sentence('playSong', sentence):
+            print("custom : " + get_words_out_of_custom_sentence('playSong', sentence))
+            words = get_words_out_of_custom_sentence('playSong', sentence).replace("'", '')
+            song = words
+
+            # talking to the user while spotify is searching
+            answer('doneSir')
+
+            if " de " in words:
+                song = words.split(" de ")[0]
+                artist = words.split(" de ")[1]
+                spotipy.playSong(artist, song)
+            else:
+                spotipy.playSongWithoutArtist(song)
         else:
             answer('dontUnderstand')
 
