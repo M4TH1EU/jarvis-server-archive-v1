@@ -11,6 +11,7 @@ import homeassistant.spotify
 from plugins import wiki, spotipy
 
 sentences = {}
+last_answer = ""
 
 
 def registerSentences():
@@ -60,6 +61,9 @@ def answer(sentence_id):
 
 def getSentences():
     return sentences
+
+def getLastAnswer():
+    return last_answer
 
 
 def getSentencesById(sentence_id):

@@ -7,7 +7,7 @@ token = os.getenv('HOMEASSISTANT_API_TOKEN')  # long-term token
 ha_url = os.getenv('HOMEASSISTANT_API_URL')  # https://my.homeassistant.com/api/
 
 
-def callApiPost(data, service):
+def callService(data, service):
     """
     Call a specific service (POST) on the HA API with a given payload
 
@@ -31,3 +31,24 @@ def callApiPost(data, service):
         requests.post(url_service, headers=headers, data=data)
     except:
         print("Error when calling HomeAssistant API")
+
+
+def getState(entity_id):
+    """
+        Retrieve the state of an entity (GET) on the HA API with a given payload
+
+        Parameters
+        ----------
+        entity_id : str
+        """
+
+    try:
+        url_service = ha_url + "states/" + entity_id
+        headers = CaseInsensitiveDict()
+        headers["Authorization"] = 'Bearer ' + token
+        headers["Content-Type"] = "application/json"
+
+        return requests.get(url_service, headers=headers).content
+    except:
+        print("Error when calling HomeAssistant API")
+        return ""

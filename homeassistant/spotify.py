@@ -1,4 +1,4 @@
-from homeassistant.homeassistant import callApiPost
+from homeassistant.homeassistant import callService
 
 
 def nextTrack(entity_id):
@@ -10,7 +10,7 @@ def nextTrack(entity_id):
     entity_id : str
     """
 
-    callApiPost('{"entity_id": "' + entity_id + '" }', "media_player/media_next_track")
+    callService('{"entity_id": "' + entity_id + '" }', "media_player/media_next_track")
 
 
 def previousTrack(entity_id):
@@ -22,7 +22,7 @@ def previousTrack(entity_id):
     entity_id : str
     """
 
-    callApiPost('{"entity_id": "' + entity_id + '" }', "media_player/media_previous_track")
+    callService('{"entity_id": "' + entity_id + '" }', "media_player/media_previous_track")
 
 
 def pause(entity_id):
@@ -34,7 +34,7 @@ def pause(entity_id):
     entity_id : str
     """
 
-    callApiPost('{"entity_id": "' + entity_id + '" }', "media_player/media_pause")
+    callService('{"entity_id": "' + entity_id + '" }', "media_player/media_pause")
 
 
 def play(entity_id):
@@ -46,7 +46,7 @@ def play(entity_id):
     entity_id : str
     """
 
-    callApiPost('{"entity_id": "' + entity_id + '" }', "media_player/media_play")
+    callService('{"entity_id": "' + entity_id + '" }', "media_player/media_play")
 
 
 def turnUpVolume(entity_id):
@@ -59,8 +59,8 @@ def turnUpVolume(entity_id):
     """
 
     # calling it twice to really see a volume difference
-    callApiPost('{"entity_id": "' + entity_id + '" }', "media_player/volume_up")
-    callApiPost('{"entity_id": "' + entity_id + '" }', "media_player/volume_up")
+    callService('{"entity_id": "' + entity_id + '" }', "media_player/volume_up")
+    callService('{"entity_id": "' + entity_id + '" }', "media_player/volume_up")
 
 
 def turnDownVolume(entity_id):
@@ -73,5 +73,5 @@ def turnDownVolume(entity_id):
     """
 
     # calling it twice to really see a volume difference
-    callApiPost('{"entity_id": "' + entity_id + '" }', "media_player/volume_down")
-    callApiPost('{"entity_id": "' + entity_id + '" }', "media_player/volume_down")
+    callService('{"entity_id": "' + entity_id + '" }', "media_player/volume_down")
+    callService('{"entity_id": "' + entity_id + '" }', "media_player/volume_down")

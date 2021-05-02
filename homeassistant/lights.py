@@ -1,4 +1,4 @@
-from homeassistant.homeassistant import callApiPost
+from homeassistant.homeassistant import callService
 
 
 def turnOn(entity_id):
@@ -10,7 +10,7 @@ def turnOn(entity_id):
     entity_id : str
     """
 
-    callApiPost('{"entity_id": "' + entity_id + '" }', "light/turn_on")
+    callService('{"entity_id": "' + entity_id + '" }', "light/turn_on")
 
 
 def turnOff(entity_id):
@@ -21,7 +21,7 @@ def turnOff(entity_id):
     ----------
     entity_id : str
     """
-    callApiPost('{"entity_id": "' + entity_id + '" }', "light/turn_off")
+    callService('{"entity_id": "' + entity_id + '" }', "light/turn_off")
 
 
 def changeColorWithName(entity_id, color):
@@ -33,7 +33,7 @@ def changeColorWithName(entity_id, color):
     entity_id : str
     color : str
     """
-    callApiPost('{"entity_id": "' + entity_id +
+    callService('{"entity_id": "' + entity_id +
                 '", "color_name": "' + color + '" }', "light/turn_on")
 
 
@@ -49,7 +49,7 @@ def changeColorWithRGB(entity_id, r, g, b):
     b : int
 
     """
-    callApiPost('{"entity_id": "' + entity_id +
+    callService('{"entity_id": "' + entity_id +
                 '", "rgb_color": "[' + r + ',' + g + ',' + b + ']" }', "light/turn_on")
 
 
@@ -63,5 +63,5 @@ def changeBrightness(entity_id, brightness):
     brightness : int
 
     """
-    callApiPost('{"entity_id": "' + entity_id +
+    callService('{"entity_id": "' + entity_id +
                 '", "brightness": "' + brightness + '" }', "light/turn_on")
