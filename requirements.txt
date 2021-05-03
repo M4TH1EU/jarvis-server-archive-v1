@@ -5,10 +5,8 @@ comtypes==1.1.10
 DateTime==4.3
 enum34==1.1.10
 idna==2.10
-meteoswissdata==0.1.1
 numpy==1.20.2
 pvporcupine==1.9.5
-PyAudio==0.2.11
 pypiwin32==223
 pyttsx3==2.90
 pytz==2021.1
@@ -18,3 +16,6 @@ simpleaudio==1.0.4
 SpeechRecognition==3.8.1
 urllib3==1.26.4
 zope.interface==5.4.0
+wikipedia==1.4.0
+translate
+spotipy
