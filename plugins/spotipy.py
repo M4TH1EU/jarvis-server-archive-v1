@@ -1,4 +1,5 @@
 import os
+import random
 
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
@@ -11,12 +12,19 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope,
 
 
 def playSong(artist, song):
-    track_uri = sp.search(q=("artist:" + artist + " track:" + song), limit=3)['tracks']['items'][0]['uri']
+    track_uri = sp.search(q=("artist:" + artist + " track:" + song), limit=3, type='track')['tracks']['items'][0]['uri']
+    sp.add_to_queue(uri=track_uri)
+    sp.next_track()
+
+
+def playArtist(artist):
+    track_uri = sp.search(q=("artist:" + artist), limit=10, type='track')['tracks']['items'][random.randint(0, 9)][
+        'uri']
     sp.add_to_queue(uri=track_uri)
     sp.next_track()
 
 
 def playSongWithoutArtist(song):
-    track_uri = sp.search(q=("track:" + song), limit=3)['tracks']['items'][0]['uri']
+    track_uri = sp.search(q=("track:" + song), limit=3, type='track')['tracks']['items'][0]['uri']
     sp.add_to_queue(uri=track_uri)
     sp.next_track()
