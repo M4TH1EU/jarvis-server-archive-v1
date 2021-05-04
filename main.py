@@ -11,17 +11,10 @@ import sentences
 
 no_voice_mode = False
 
-porcupine = None
-pa = None
-audio_stream = None
-r = sr.Recognizer()
-
-source = sr.Microphone()
-
 """Functions"""
 
 
-def listen(recognizer, audio):
+def listen():
     try:
         porcupine = pvporcupine.create(keywords=['jarvis'])
         pa = pyaudio.PyAudio()
@@ -43,47 +36,48 @@ def listen(recognizer, audio):
             if keyword_index >= 0 or no_voice_mode:
                 sentences.answer('yesSir')  # answer with something like "yes sir ?"
                 recognize_main()  # starts listening for your sentence
-
-    except:
-        print("Oops! Didn't catch that")
+    except Exception as e:
+        print("Oops! Une erreur est survenue/je n'ai pas compris")
+        print(e)
 
 
 def start_listening_for_hotword():  # initial keyword call
     print("Waiting for a keyword...")  # Prints to screen
-    r.listen_in_background(source, listen)  # Sets off recognition sequence
+    listen()
     time.sleep(1000000)  # keeps loop running
 
 
 def recognize_main():  # Main reply call function
     r = sr.Recognizer()
-    audio = r.listen(source, phrase_time_limit=7)
-    data = ""
 
-    try:
+    with sr.Microphone(device_index=0) as source:
+        r.adjust_for_ambient_noise(source, duration=0.2)
+        audio = r.listen(source, phrase_time_limit=7)
+        data = ""
 
-        if no_voice_mode:
-            data = input("Entrez phrase : ").lower()
-        else:
-            # now uses Google speech recognition
-            data = r.recognize_google(audio, language="fr-FR")
-            data = data.lower()  # makes all voice entries show as lower case
+        try:
+            if no_voice_mode:
+                data = input("Entrez phrase : ").lower()
+            else:
+                # now uses Google speech recognition
+                data = r.recognize_google(audio, language="fr-FR")
+                data = data.lower()  # makes all voice entries show as lower case
 
-        print(data)
+            print("DATA : " + data)
 
-        # add support for multiples actions in one sentence (two actions here)
-        if "et" in data:
-            phrases = data.split(" et ")
-            sentences.recogniseSentence(phrases[0])
-            sentences.recogniseSentence(phrases[1])
-        else:
-            sentences.recogniseSentence(data)
+            # add support for multiples actions in one sentence (two actions here)
+            if " et " in data:
+                phrases = data.split(" et ")
+                sentences.recogniseSentence(phrases[0])
+                sentences.recogniseSentence(phrases[1])
+            else:
+                sentences.recogniseSentence(data)
 
-
-    except sr.UnknownValueError:
-        sentences.answer('dontUnderstand')
-    except sr.RequestError as e:  # if you get a request error from Google speech engine
-        print(
-            "Erreur du service Google Speech Recognition ; {0}".format(e))
+        except sr.UnknownValueError:
+            sentences.answer('dontUnderstand')
+        except sr.RequestError as e:  # if you get a request error from Google speech engine
+            print(
+                "Erreur du service Google Speech Recognition ; {0}".format(e))
 
 
 """Main program"""
