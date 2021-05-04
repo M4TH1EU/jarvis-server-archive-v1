@@ -1,6 +1,7 @@
 import csv
 # from main import speak
 import datetime as datetime
+import json
 import random
 
 import beepy
@@ -162,6 +163,23 @@ def recogniseSentence(sentence):
         if is_custom_sentence('wikiDetection', sentence):
             speak(wiki.getDescription(get_words_out_of_custom_sentence('wikiDetection', sentence)))
 
+        # mets le réveil à 6h45
+        elif is_custom_sentence('alarmClockDetection', sentence):
+            spoke_time = get_words_out_of_custom_sentence('alarmClockDetection', sentence)
+            spoke_time = spoke_time.replace("demain", "").replace("matin", "").replace(" ", "")
+
+            hours = spoke_time.split("h")[0]
+            minutes = spoke_time.split("h")[1]
+
+            spoke_time = datetime.time(hour=int(hours), minute=int(minutes))
+
+            with open('alarms.json', 'w') as alarms_file:
+                json.dump(spoke_time, alarms_file)
+
+            print(spoke_time)
+
+
+        # quel temps fait il
         elif sentence in getSentencesById('weatherInfoDetection'):
             homeassistant_weather_entity_id = 'weather.bussigny_sur_oron'
             today_date = datetime.date.today().strftime("%Y-%m-%d")
@@ -190,7 +208,7 @@ def recogniseSentence(sentence):
 
         # joue i'm still standing de elton john
         elif is_custom_sentence('playSong', sentence):
-            # print("custom : " + get_words_out_of_custom_sentence('playSong', sentence))
+            print("custom : " + get_words_out_of_custom_sentence('playSong', sentence))
 
             words = get_words_out_of_custom_sentence('playSong', sentence).replace("'", '')
             song = words
@@ -203,7 +221,10 @@ def recogniseSentence(sentence):
                 artist = words.split(" de ")[1]
                 spotipy.playSong(artist, song)
             else:
-                spotipy.playSongWithoutArtist(song)
+                if " de " in sentence:
+                    spotipy.playArtist(song)
+                else:
+                    spotipy.playSongWithoutArtist(song)
         else:
             answer('dontUnderstand')
 
