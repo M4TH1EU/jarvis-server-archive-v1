@@ -1,13 +1,15 @@
 """variables"""
 import struct
+import sys
 import time
 
 import pvporcupine
 import pyaudio
 import speech_recognition as sr
 
-import homeassistant.meteo
 import sentences
+
+no_voice_mode = False
 
 porcupine = None
 pa = None
@@ -38,7 +40,7 @@ def listen(recognizer, audio):
 
             keyword_index = porcupine.process(pcm)
 
-            if keyword_index >= 0:
+            if keyword_index >= 0 or no_voice_mode:
                 sentences.answer('yesSir')  # answer with something like "yes sir ?"
                 recognize_main()  # starts listening for your sentence
 
@@ -58,10 +60,14 @@ def recognize_main():  # Main reply call function
     data = ""
 
     try:
-        # now uses Google speech recognition
-        data = r.recognize_google(audio, language="fr-FR")
-        # data = input("Entrez phrase : ")
-        data = data.lower()  # makes all voice entries show as lower case
+
+        if no_voice_mode:
+            data = input("Entrez phrase : ").lower()
+        else:
+            # now uses Google speech recognition
+            data = r.recognize_google(audio, language="fr-FR")
+            # data = input("Entrez phrase : ")
+            data = data.lower()  # makes all voice entries show as lower case
 
         # add support for multiples actions in one sentence (two actions here)
         if "et" in data:
@@ -80,5 +86,9 @@ def recognize_main():  # Main reply call function
 
 """Main program"""
 while 1:  # This starts a loop so the speech recognition is always listening to you
+    if 'no-voice' in sys.argv:
+        print("[WARN] No voice mode enabled")
+        no_voice_mode = True
+
     sentences.registerSentences()
     start_listening_for_hotword()

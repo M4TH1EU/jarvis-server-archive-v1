@@ -174,15 +174,14 @@ def recogniseSentence(sentence):
                 sera = "sera"
                 faire = "fera"
 
-            sentence_meteo = getRandomSentenceFromId('weather') \
-                .replace('&sera', sera) \
-                .replace('&faire', faire) \
-                .replace('%condition', homeassistant.meteo.getCondition(homeassistant_weather_entity_id)) \
-                .replace('%temperature', homeassistant.meteo.getTemperature(homeassistant_weather_entity_id)) \
-                .replace('%lowtemp', homeassistant.meteo.getTemperatureLow(homeassistant_weather_entity_id)) \
-                .replace('%wind_speed', homeassistant.meteo.getWindSpeed(homeassistant_weather_entity_id)) \
-                .replace('%wind_speed_words', "faible")
-
+            sentence_meteo = getRandomSentenceFromId('weatherInfo')
+            sentence_meteo = sentence_meteo.replace('&sera', sera)
+            sentence_meteo = sentence_meteo.replace('&faire', faire)
+            sentence_meteo = sentence_meteo.replace('%condition', homeassistant.meteo.getCondition(homeassistant_weather_entity_id))
+            sentence_meteo = sentence_meteo.replace('%temperature', homeassistant.meteo.getTemperature(homeassistant_weather_entity_id))
+            sentence_meteo = sentence_meteo.replace('%lowtemp', homeassistant.meteo.getTemperatureLow(homeassistant_weather_entity_id))
+            sentence_meteo = sentence_meteo.replace('%wind_speed', homeassistant.meteo.getWindSpeed(homeassistant_weather_entity_id))
+            sentence_meteo = sentence_meteo.replace('%wind_words', "faible")
             print(sentence_meteo)
 
         # joue i'm still standing de elton john

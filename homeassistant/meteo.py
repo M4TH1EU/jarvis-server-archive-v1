@@ -1,25 +1,45 @@
 import json
+from datetime import datetime
 
 from homeassistant.homeassistant import getState
 
+conditions = {"clear-night": "",
+              "cloudy": "",
+              "fog": "",
+              "hail": "",
+              "lightning": "",
+              "lightning-rainy": "",
+              "partlycloudy": "",
+              "pouring": "",
+              "rainy": "",
+              "snowny": "",
+              "snowny-rainy": "",
+              "sunny": "",
+              "windy": "",
+              "exceptional": ""
+              }
+
 
 def getTemperature(entity_id):
-    return getAttribute(entity_id, 'temperature')
+    return str(getAttribute(entity_id, 'temperature')) + "°"
+
 
 def getTemperatureLow(entity_id):
-    return getAttribute(entity_id, 'templow')
+    today_date = datetime.today().date().strftime("%Y-%m-%d")
+    return str(getAttributeForDay(entity_id, 'templow', today_date)) + "°"
 
 
 def getCondition(entity_id):
-    return getAttribute(entity_id, 'condition')
+    today_date = datetime.today().date().strftime("%Y-%m-%d")
+    return getAttributeForDay(entity_id, 'condition', today_date)
 
 
 def getLowTemp(entity_id):
-    return getAttribute(entity_id, 'templow')
+    return getAttribute(entity_id, 'templow') + "°"
 
 
 def getWindSpeed(entity_id):
-    return getAttribute(entity_id, 'wind_speed')
+    return str(getAttribute(entity_id, 'wind_speed')) + " km/h"
 
 
 def getHumidity(entity_id):
@@ -28,10 +48,6 @@ def getHumidity(entity_id):
 
 def getWindBearing(entity_id):
     return getAttribute(entity_id, 'wind_bearing')
-
-
-def getWindSpeed(entity_id):
-    return getAttribute(entity_id, 'wind_speed')
 
 
 def getAttribute(entity_id, name):
@@ -55,7 +71,7 @@ def getAttribute(entity_id, name):
 
 
 def getTemperatureForDay(entity_id, day_date):
-    return getAttributeForDay(entity_id, 'temperature', day_date)
+    return str(getAttributeForDay(entity_id, 'temperature', day_date)), "°"
 
 
 def getConditionForDay(entity_id, day_date):
@@ -63,7 +79,7 @@ def getConditionForDay(entity_id, day_date):
 
 
 def getTemperatureLowForDay(entity_id, day_date):
-    return getAttributeForDay(entity_id, 'templow', day_date)
+    return str(getAttributeForDay(entity_id, 'templow', day_date)) + "°"
 
 
 def getAttributeForDay(entity_id, name, day_date):
