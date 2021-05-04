@@ -177,16 +177,21 @@ def recogniseSentence(sentence):
             sentence_meteo = getRandomSentenceFromId('weatherInfo')
             sentence_meteo = sentence_meteo.replace('&sera', sera)
             sentence_meteo = sentence_meteo.replace('&faire', faire)
-            sentence_meteo = sentence_meteo.replace('%condition', homeassistant.meteo.getCondition(homeassistant_weather_entity_id))
-            sentence_meteo = sentence_meteo.replace('%temperature', homeassistant.meteo.getTemperature(homeassistant_weather_entity_id))
-            sentence_meteo = sentence_meteo.replace('%lowtemp', homeassistant.meteo.getTemperatureLow(homeassistant_weather_entity_id))
-            sentence_meteo = sentence_meteo.replace('%wind_speed', homeassistant.meteo.getWindSpeed(homeassistant_weather_entity_id))
+            sentence_meteo = sentence_meteo.replace('%condition',
+                                                    homeassistant.meteo.getCondition(homeassistant_weather_entity_id))
+            sentence_meteo = sentence_meteo.replace('%temperature',
+                                                    homeassistant.meteo.getTemperature(homeassistant_weather_entity_id))
+            sentence_meteo = sentence_meteo.replace('%lowtemp', homeassistant.meteo.getTemperatureLow(
+                homeassistant_weather_entity_id))
+            sentence_meteo = sentence_meteo.replace('%wind_speed',
+                                                    homeassistant.meteo.getWindSpeed(homeassistant_weather_entity_id))
             sentence_meteo = sentence_meteo.replace('%wind_words', "faible")
-            print(sentence_meteo)
+            speak(sentence_meteo)
 
         # joue i'm still standing de elton john
         elif is_custom_sentence('playSong', sentence):
-            print("custom : " + get_words_out_of_custom_sentence('playSong', sentence))
+            # print("custom : " + get_words_out_of_custom_sentence('playSong', sentence))
+
             words = get_words_out_of_custom_sentence('playSong', sentence).replace("'", '')
             song = words
 

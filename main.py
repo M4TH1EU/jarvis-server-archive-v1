@@ -66,8 +66,9 @@ def recognize_main():  # Main reply call function
         else:
             # now uses Google speech recognition
             data = r.recognize_google(audio, language="fr-FR")
-            # data = input("Entrez phrase : ")
             data = data.lower()  # makes all voice entries show as lower case
+
+        print(data)
 
         # add support for multiples actions in one sentence (two actions here)
         if "et" in data:
@@ -76,6 +77,7 @@ def recognize_main():  # Main reply call function
             sentences.recogniseSentence(phrases[1])
         else:
             sentences.recogniseSentence(data)
+
 
     except sr.UnknownValueError:
         sentences.answer('dontUnderstand')
