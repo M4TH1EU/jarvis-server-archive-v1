@@ -7,6 +7,7 @@ import beepy
 import pyttsx3
 
 import homeassistant.lights
+import homeassistant.meteo
 import homeassistant.spotify
 from plugins import wiki, spotipy
 
@@ -62,6 +63,7 @@ def answer(sentence_id):
 def getSentences():
     return sentences
 
+
 def getLastAnswer():
     return last_answer
 
@@ -71,6 +73,18 @@ def getSentencesById(sentence_id):
 
 
 def getRandomSentenceFromId(sentence_id):
+    """
+    Return a random sentence from the CSV file for a specific sentence (id)
+
+    Parameters
+    ----------
+    sentence_id
+
+    Returns
+    -------
+    str
+
+    """
     return random.choice(getSentencesById(sentence_id))
 
 
@@ -147,6 +161,29 @@ def recogniseSentence(sentence):
         # cherche XYZ sur wikipédia
         if is_custom_sentence('wikiDetection', sentence):
             speak(wiki.getDescription(get_words_out_of_custom_sentence('wikiDetection', sentence)))
+
+        elif sentence in getSentencesById('weatherInfoDetection'):
+            homeassistant_weather_entity_id = 'weather.bussigny_sur_oron'
+            today_date = datetime.date.today().strftime("%Y-%m-%d")
+            today_hour = datetime.datetime.now().hour
+
+            sera = "est"
+            faire = "fait"
+
+            if today_hour <= 10:
+                sera = "sera"
+                faire = "fera"
+
+            sentence_meteo = getRandomSentenceFromId('weather') \
+                .replace('&sera', sera) \
+                .replace('&faire', faire) \
+                .replace('%condition', homeassistant.meteo.getCondition(homeassistant_weather_entity_id)) \
+                .replace('%temperature', homeassistant.meteo.getTemperature(homeassistant_weather_entity_id)) \
+                .replace('%lowtemp', homeassistant.meteo.getTemperatureLow(homeassistant_weather_entity_id)) \
+                .replace('%wind_speed', homeassistant.meteo.getWindSpeed(homeassistant_weather_entity_id)) \
+                .replace('%wind_speed_words', "faible")
+
+            print(sentence_meteo)
 
         # joue i'm still standing de elton john
         elif is_custom_sentence('playSong', sentence):

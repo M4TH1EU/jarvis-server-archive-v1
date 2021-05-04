@@ -80,7 +80,5 @@ def recognize_main():  # Main reply call function
 
 """Main program"""
 while 1:  # This starts a loop so the speech recognition is always listening to you
-    homeassistant.meteo.getTemperature('weather.bussigny_sur_oron')
-
     sentences.registerSentences()
     start_listening_for_hotword()
