@@ -11,6 +11,7 @@ import homeassistant.lights
 import homeassistant.meteo
 import homeassistant.spotify
 import homeassistant.switch
+import plugins.shazam
 from plugins import wiki, spotipy
 
 sentences = {}
@@ -18,40 +19,43 @@ last_answer = ""
 
 
 def registerSentences():
-    # our csv file and a csv reader (encoded in utf8 for special character compatibility)
-    csv_file = open('Sentences.csv', encoding="utf-8")
-    csv_reader = csv.reader(csv_file, delimiter='|')
+    try:
+        # our csv file and a csv reader (encoded in utf8 for special character compatibility)
+        csv_file = open('Sentences.csv', encoding="utf-8")
+        csv_reader = csv.reader(csv_file, delimiter='|')
 
-    # column number and id(s)
-    column = 0
-    sentencesId = csv_file.readline().split("|")
-
-    # for every line in our .csv file
-    for lines in csv_reader:
-
-        # for every hotwords in our .csv file (based on first line)
-        for sentenceId in sentencesId:
-
-            # if there some empty "fake" column then don't try to register them
-            if 'Column' in sentenceId:
-                break
-            else:
-                # fix issue with unicode caracter
-                sentenceId = sentenceId.replace('\ufeff', '').replace('\n', '')
-
-                # creating an entry to be able to use .append afterward
-                if sentenceId not in sentences:
-                    sentences[sentenceId] = []
-
-                # if the entry is not empty then add it to the sentences dict
-                if lines[column] != "":
-                    sentences[sentenceId].append(lines[column].lower())
-
-            # increment column
-            column = column + 1
-
-        # reset column
+        # column number and id(s)
         column = 0
+        sentencesId = csv_file.readline().split("|")
+
+        # for every line in our .csv file
+        for lines in csv_reader:
+
+            # for every hotwords in our .csv file (based on first line)
+            for sentenceId in sentencesId:
+
+                # if there some empty "fake" column then don't try to register them
+                if 'Column' in sentenceId:
+                    break
+                else:
+                    # fix issue with unicode caracter
+                    sentenceId = sentenceId.replace('\ufeff', '').replace('\n', '')
+
+                    # creating an entry to be able to use .append afterward
+                    if sentenceId not in sentences:
+                        sentences[sentenceId] = []
+
+                    # if the entry is not empty then add it to the sentences dict
+                    if lines[column] != "":
+                        sentences[sentenceId].append(lines[column].lower())
+
+                # increment column
+                column = column + 1
+
+            # reset column
+            column = 0
+    except UnicodeDecodeError as e:
+        print("Error loading sentences.csv, check if saved with CSV (| delimited) and encoded in UTF-8 ")
 
 
 def answer(sentence_id):
@@ -187,6 +191,11 @@ def recogniseSentence(sentence):
     elif sentence in getSentencesById('turnOffKioskTabletDetection'):
         answer('turningOffKioskTablet')
         homeassistant.switch.turnOff('light.mi_pad_screen')
+
+    # c'est quoi le titre de cette chanson
+    elif sentence in getSentencesById('whatThatSongDetection'):
+        answer('songRecognition')
+        plugins.shazam.recognise_song()
 
     else:
 

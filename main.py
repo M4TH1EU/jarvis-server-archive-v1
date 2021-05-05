@@ -7,6 +7,7 @@ import pvporcupine
 import pyaudio
 import speech_recognition as sr
 
+import automations
 import sentences
 
 no_voice_mode = False
@@ -39,10 +40,12 @@ def listen():
     except Exception as e:
         print("Oops! Une erreur est survenue/je n'ai pas compris")
         print(e)
+        start_listening_for_hotword()
 
 
 def start_listening_for_hotword():  # initial keyword call
     print("Waiting for a keyword...")  # Prints to screen
+
     listen()
     time.sleep(1000000)  # keeps loop running
 
@@ -51,7 +54,6 @@ def recognize_main():  # Main reply call function
     r = sr.Recognizer()
 
     with sr.Microphone(device_index=0) as source:
-        r.adjust_for_ambient_noise(source, duration=0.2)
         audio = r.listen(source, phrase_time_limit=7)
 
         try:
@@ -86,4 +88,5 @@ while 1:  # This starts a loop so the speech recognition is always listening to 
         no_voice_mode = True
 
     sentences.registerSentences()
+    automations.register()
     start_listening_for_hotword()

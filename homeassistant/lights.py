@@ -1,3 +1,6 @@
+import json
+
+import homeassistant.homeassistant
 from homeassistant.homeassistant import callService
 
 
@@ -22,6 +25,10 @@ def turnOff(entity_id):
     entity_id : str
     """
     callService('{"entity_id": "' + entity_id + '" }', "light/turn_off")
+
+
+def is_on(entity_id):
+    return json.loads(homeassistant.homeassistant.getState(entity_id))['state'] == 'on'
 
 
 def changeColorWithName(entity_id, color):

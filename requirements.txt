@@ -17,5 +17,8 @@ SpeechRecognition==3.8.1
 urllib3==1.26.4
 zope.interface==5.4.0
 wikipedia==1.4.0
-translate
-spotipy
+translate~=3.5.0
+spotipy~=2.18.0
+shazamio~=0.0.2
+langdetect
+PyAudio~=0.2.11

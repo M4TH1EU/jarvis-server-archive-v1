@@ -27,9 +27,9 @@ def callService(data, service):
         url_service = ha_url + "services/" + service
         headers = CaseInsensitiveDict()
         headers["Authorization"] = 'Bearer ' + token
-        headers["Content-Type"] = "application/json"
+        headers["Content-Type"] = "application/json; charset=utf8"
 
-        requests.post(url_service, headers=headers, data=data)
+        requests.post(url_service, headers=headers, data=data.encode("utf8"))
     except:
         print("Error when calling HomeAssistant API")
 
@@ -55,9 +55,37 @@ def getState(entity_id):
         return ""
 
 
-def sendNotification(device, title, message):
-    callService('{"message": "' + message + '", "title": "' + title + '"}', 'notify/' + device)
+def sendNotification(device, title, message, action1=None, action2=None, action3=None):
+    data = {
+        'message': message,
+        'title': title,
+        'data': {
+            'actions': [
+                {}, {}, {}
+            ]
+        }
+    }
+
+    if action1 is not None:
+        data['data']['actions'][0]['action'] = action1[0]
+        data['data']['actions'][0]['title'] = action1[1]
+        if 2 < len(action1):
+            data['data']['actions'][0]['uri'] = action1[2]
+
+    if action2 is not None:
+        data['data']['actions'][1]['action'] = action2[0]
+        data['data']['actions'][1]['title'] = action2[1]
+        if 2 < len(action2):
+            data['data']['actions'][1]['uri'] = action2[2]
+
+    if action3 is not None:
+        data['data']['actions'][2]['action'] = action3[0]
+        data['data']['actions'][2]['title'] = action3[1]
+        if 2 < len(action3):
+            data['data']['actions'][2]['uri'] = action3[2]
+
+    callService(json.dumps(data), 'notify/' + device)
 
 
 def is_home(entity_id):
-    state = json.loads(getState(entity_id))
+    return json.loads(getState(entity_id))['state'] == 'home'
