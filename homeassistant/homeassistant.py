@@ -1,3 +1,4 @@
+import json
 import os
 
 import requests
@@ -56,3 +57,7 @@ def getState(entity_id):
 
 def sendNotification(device, title, message):
     callService('{"message": "' + message + '", "title": "' + title + '"}', 'notify/' + device)
+
+
+def is_home(entity_id):
+    state = json.loads(getState(entity_id))
