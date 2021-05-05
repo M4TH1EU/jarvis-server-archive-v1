@@ -52,3 +52,7 @@ def getState(entity_id):
     except:
         print("Error when calling HomeAssistant API")
         return ""
+
+
+def sendNotification(device, title, message):
+    callService('{"message": "' + message + '", "title": "' + title + '"}', 'notify/' + device)
