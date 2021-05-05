@@ -53,7 +53,6 @@ def recognize_main():  # Main reply call function
     with sr.Microphone(device_index=0) as source:
         r.adjust_for_ambient_noise(source, duration=0.2)
         audio = r.listen(source, phrase_time_limit=7)
-        data = ""
 
         try:
             if no_voice_mode:
