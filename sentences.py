@@ -10,6 +10,7 @@ import pyttsx3
 import homeassistant.lights
 import homeassistant.meteo
 import homeassistant.spotify
+import homeassistant.switch
 from plugins import wiki, spotipy
 
 sentences = {}
@@ -156,6 +157,36 @@ def recogniseSentence(sentence):
     # non rien finalement
     elif sentence in getSentencesById('nothingDetection'):
         beepy.beep(sound='error')
+
+    # allume l'imprimante 3d
+    elif sentence in getSentencesById('turnOn3DPrinterDetection'):
+        homeassistant.switch.turnOn('switch.bfd9b202b8140c15780fpe')
+        answer('turningOn3DPrinter')
+
+    # éteint l'imprimante 3d
+    elif sentence in getSentencesById('turnOff3DPrinterDetection'):
+        homeassistant.switch.turnOff('switch.bfd9b202b8140c15780fpe')
+        answer('turningOff3DPrinter')
+
+    # allume le pc
+    elif sentence in getSentencesById('turnOnPCDetection'):
+        answer('turningOnPC')
+        homeassistant.switch.turnOn('switch.wake_on_lan_pc_tour')
+
+    # éteint le pc
+    elif sentence in getSentencesById('turnOffPCDetection'):
+        answer('turningOffPC')
+        homeassistant.switch.turnOff('switch.wake_on_lan_pc_tour')
+
+    # allume la tablette
+    elif sentence in getSentencesById('turnOnKioskTabletDetection'):
+        answer('turningOnKioskTablet')
+        homeassistant.lights.turnOn('light.mi_pad_screen')
+
+    # éteint la tablette
+    elif sentence in getSentencesById('turnOffKioskTabletDetection'):
+        answer('turningOffKioskTablet')
+        homeassistant.switch.turnOff('light.mi_pad_screen')
 
     else:
 
