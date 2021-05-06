@@ -1,10 +1,14 @@
 import asyncio
 import json
 import os
+import tempfile
 import wave
 
 import pyaudio
 from shazamio import Shazam
+
+filename = tempfile.gettempdir() + '\\recorded_song.wav'
+
 
 def recognise_song():
     record()
@@ -15,7 +19,7 @@ def recognise_song():
 
 async def shazam_song():
     shazam = Shazam()
-    out = await shazam.recognize_song('recorded_song.wav')
+    out = await shazam.recognize_song(filename)
     json_out = json.loads(json.dumps(out))
 
     if len(json_out['matches']) > 0:
@@ -43,7 +47,6 @@ def record():
     # Record at 44400 samples per second
     smpl_rt = 44400
     seconds = 4
-    filename = "recorded_song.wav"
 
     # Delete the existing file
     if os.path.exists(filename):

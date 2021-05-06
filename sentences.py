@@ -218,7 +218,6 @@ def recogniseSentence(sentence):
 
             print(spoke_time)
 
-
         # quel temps fait il
         elif sentence in getSentencesById('weatherInfoDetection'):
             homeassistant_weather_entity_id = 'weather.bussigny_sur_oron'

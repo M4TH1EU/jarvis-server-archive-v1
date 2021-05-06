@@ -22,3 +22,4 @@ spotipy~=2.18.0
 shazamio~=0.0.2
 langdetect
 PyAudio~=0.2.11
+elevate~=0.1.3

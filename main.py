@@ -3,6 +3,8 @@ import struct
 import sys
 import time
 
+from elevate import elevate
+
 import pvporcupine
 import pyaudio
 import speech_recognition as sr
@@ -11,6 +13,9 @@ import automations
 import sentences
 
 no_voice_mode = False
+
+# to avoid permission denied errors
+elevate()
 
 """Functions"""
 
