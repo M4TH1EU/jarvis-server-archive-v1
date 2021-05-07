@@ -14,26 +14,22 @@ def recognise_song():
     record()
 
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(shazam_song())
+    return loop.run_until_complete(get_shazam_song())
 
 
-async def shazam_song():
+async def get_shazam_song():
     shazam = Shazam()
     out = await shazam.recognize_song(filename)
     json_out = json.loads(json.dumps(out))
 
     if len(json_out['matches']) > 0:
-        print("match")
         title = json_out['track']['title']
         singer = json_out['track']['subtitle']
         spotify_track_id = json_out['track']['hub']['providers'][0]['actions'][0]['uri']
 
-        print(title)
-        print(singer)
-        print(spotify_track_id)
-
+        return [title, singer, spotify_track_id]
     else:
-        print("no match")
+        return []
 
 
 def record():

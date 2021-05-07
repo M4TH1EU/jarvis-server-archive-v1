@@ -11,6 +11,7 @@ import homeassistant.lights
 import homeassistant.meteo
 import homeassistant.spotify
 import homeassistant.switch
+import homeassistant.homeassistant
 import plugins.shazam
 from plugins import wiki, spotipy
 
@@ -182,6 +183,11 @@ def recogniseSentence(sentence):
         answer('turningOffPC')
         homeassistant.switch.turnOff('switch.wake_on_lan_pc_tour')
 
+    # mets le pc en veille
+    elif sentence in getSentencesById('putComputerToSleepDetection'):
+        answer('doneSir')
+        homeassistant.homeassistant.callService('', 'shell_command/sleep_tour_mathieu')
+
     # allume la tablette
     elif sentence in getSentencesById('turnOnKioskTabletDetection'):
         answer('turningOnKioskTablet')
@@ -195,7 +201,19 @@ def recogniseSentence(sentence):
     # c'est quoi le titre de cette chanson
     elif sentence in getSentencesById('whatThatSongDetection'):
         answer('songRecognition')
-        plugins.shazam.recognise_song()
+        song = plugins.shazam.recognise_song()
+        if len(song) > 0:
+            title = song[0]
+            singer = song[1]
+            track_id = song[2]
+
+            answer_sentence = getRandomSentenceFromId('songTitle')
+            answer_sentence = answer_sentence.replace("%title", title)
+            answer_sentence = answer_sentence.replace("%singer", singer)
+
+            speak(answer_sentence)
+        else:
+            answer('songNotFound')
 
     else:
 
