@@ -28,3 +28,15 @@ def playSongWithoutArtist(song):
     track_uri = sp.search(q=("track:" + song), limit=3, type='track')['tracks']['items'][0]['uri']
     sp.add_to_queue(uri=track_uri)
     sp.next_track()
+
+
+def is_music_playing():
+    return sp.current_user_playing_track()['is_playing']
+
+
+def get_infos_playing_song():
+    song_info = sp.current_user_playing_track()
+    artist = song_info['item']['artists'][0]['name']
+    song = song_info['item']['name']
+
+    return [song, artist]

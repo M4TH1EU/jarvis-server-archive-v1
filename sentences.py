@@ -7,11 +7,11 @@ import random
 import beepy
 import pyttsx3
 
+import homeassistant.homeassistant
 import homeassistant.lights
 import homeassistant.meteo
 import homeassistant.spotify
 import homeassistant.switch
-import homeassistant.homeassistant
 import plugins.shazam
 from plugins import wiki, spotipy
 
@@ -200,20 +200,30 @@ def recogniseSentence(sentence):
 
     # c'est quoi le titre de cette chanson
     elif sentence in getSentencesById('whatThatSongDetection'):
-        answer('songRecognition')
-        song = plugins.shazam.recognise_song()
-        if len(song) > 0:
-            title = song[0]
-            singer = song[1]
-            track_id = song[2]
 
-            answer_sentence = getRandomSentenceFromId('songTitle')
-            answer_sentence = answer_sentence.replace("%title", title)
-            answer_sentence = answer_sentence.replace("%singer", singer)
+        title = ""
+        singer = ""
 
-            speak(answer_sentence)
+        answer_sentence = getRandomSentenceFromId('songTitle')
+
+        if plugins.spotipy.is_music_playing():
+            song_info = plugins.spotipy.get_infos_playing_song()
+
+            title = song_info[0]
+            singer = song_info[1]
         else:
-            answer('songNotFound')
+            answer('songRecognition')
+            song = plugins.shazam.recognise_song()
+            if len(song) > 0:
+                title = song[0]
+                singer = song[1]
+                # track_id = song[2]
+            else:
+                answer('songNotFound')
+
+        answer_sentence = answer_sentence.replace("%title", title)
+        answer_sentence = answer_sentence.replace("%singer", singer)
+        speak(answer_sentence)
 
     else:
 
