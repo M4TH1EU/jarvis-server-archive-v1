@@ -3,8 +3,6 @@ import struct
 import sys
 import time
 
-from elevate import elevate
-
 import pvporcupine
 import pyaudio
 import speech_recognition as sr
@@ -14,43 +12,46 @@ import sentences
 
 no_voice_mode = False
 
-# to avoid permission denied errors
-elevate()
+# to avoid permission denied errors (enable when non developping)
+# elevate()
 
 """Functions"""
 
 
 def listen():
-    try:
-        porcupine = pvporcupine.create(keywords=['jarvis'])
-        pa = pyaudio.PyAudio()
+    if no_voice_mode:
+        recognize_main()  # starts listening for your sentence
+    else:
+        try:
+            porcupine = pvporcupine.create(keywords=['jarvis'])
+            pa = pyaudio.PyAudio()
 
-        audio_stream = pa.open(
-            rate=porcupine.sample_rate,
-            channels=1,
-            format=pyaudio.paInt16,
-            input=True,
-            frames_per_buffer=porcupine.frame_length
-        )
+            audio_stream = pa.open(
+                rate=porcupine.sample_rate,
+                channels=1,
+                format=pyaudio.paInt16,
+                input=True,
+                frames_per_buffer=porcupine.frame_length
+            )
 
-        while True:
-            pcm = audio_stream.read(porcupine.frame_length)
-            pcm = struct.unpack_from("h" * porcupine.frame_length, pcm)
+            while True:
+                pcm = audio_stream.read(porcupine.frame_length)
+                pcm = struct.unpack_from("h" * porcupine.frame_length, pcm)
 
-            keyword_index = porcupine.process(pcm)
+                keyword_index = porcupine.process(pcm)
 
-            if keyword_index >= 0 or no_voice_mode:
-                sentences.answer('yesSir')  # answer with something like "yes sir ?"
-                recognize_main()  # starts listening for your sentence
-    except Exception as e:
-        print("Oops! Une erreur est survenue/je n'ai pas compris")
-        print(e)
-        start_listening_for_hotword()
+                if keyword_index >= 0:
+                    sentences.answer('yesSir')  # answer with something like "yes sir ?"
+                    recognize_main()  # starts listening for your sentence
+
+        except Exception as e:
+            print("Oops! Une erreur est survenue/je n'ai pas compris")
+            print(e)
+            # start_listening_for_hotword()
 
 
 def start_listening_for_hotword():  # initial keyword call
     print("Waiting for a keyword...")  # Prints to screen
-
     listen()
     time.sleep(1000000)  # keeps loop running
 
@@ -59,12 +60,12 @@ def recognize_main():  # Main reply call function
     r = sr.Recognizer()
 
     with sr.Microphone(device_index=0) as source:
-        audio = r.listen(source, phrase_time_limit=7)
-
         try:
             if no_voice_mode:
                 data = input("Entrez phrase : ").lower()
             else:
+                audio = r.listen(source, timeout=3, phrase_time_limit=(7 if not no_voice_mode else 1))
+
                 # now uses Google speech recognition
                 data = r.recognize_google(audio, language="fr-FR")
                 data = data.lower()  # makes all voice entries show as lower case
@@ -84,6 +85,8 @@ def recognize_main():  # Main reply call function
         except sr.RequestError as e:  # if you get a request error from Google speech engine
             print(
                 "Erreur du service Google Speech Recognition ; {0}".format(e))
+
+    listen()
 
 
 """Main program"""

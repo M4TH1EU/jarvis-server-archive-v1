@@ -1,7 +1,6 @@
 import csv
 # from main import speak
 import datetime as datetime
-import json
 import random
 
 import beepy
@@ -12,6 +11,7 @@ import homeassistant.lights
 import homeassistant.meteo
 import homeassistant.spotify
 import homeassistant.switch
+import plugins.alarms
 import plugins.shazam
 from plugins import wiki, spotipy
 
@@ -55,6 +55,8 @@ def registerSentences():
 
             # reset column
             column = 0
+
+        csv_file.close()
     except UnicodeDecodeError as e:
         print("Error loading sentences.csv, check if saved with CSV (| delimited) and encoded in UTF-8 ")
 
@@ -240,11 +242,8 @@ def recogniseSentence(sentence):
             minutes = spoke_time.split("h")[1]
 
             spoke_time = datetime.time(hour=int(hours), minute=int(minutes))
+            plugins.alarms.addAlarm(spoke_time)
 
-            with open('alarms.json', 'w') as alarms_file:
-                json.dump(spoke_time, alarms_file)
-
-            print(spoke_time)
 
         # quel temps fait il
         elif sentence in getSentencesById('weatherInfoDetection'):
