@@ -2,6 +2,7 @@ import threading
 
 import homeassistant.homeassistant
 import homeassistant.lights
+import plugins.alarms
 
 
 def check_if_lights_are_on_but_not_home(minutes):
@@ -16,5 +17,15 @@ def check_if_lights_are_on_but_not_home(minutes):
     timer.start()
 
 
+def check_if_there_is_an_alarm(minutes):
+    if homeassistant.homeassistant.is_home('person.mathieu'):
+        if plugins.alarms.check():
+            # play song
+            print("MUSIC MAESTRO")
+    timer = threading.Timer(minutes * 60, check_if_there_is_an_alarm, [minutes])
+    timer.start()
+
+
 def register():
     check_if_lights_are_on_but_not_home(60)
+    check_if_there_is_an_alarm(1)

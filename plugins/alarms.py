@@ -1,26 +1,31 @@
 import os
 import pickle
+from datetime import datetime
 
 alarms_file = (os.path.dirname(__file__).replace("\\plugins", "") + '\\config\\alarms')
 
 
-def getAlarms():
-    return readAlarms()
+def check():
+    current_time = datetime.now().strftime("%H:%M")
+    if current_time in get_alarms():
+        return True
+    else:
+        return False
 
 
-def addAlarm(time):
-    alarms = getAlarms()
-    print(alarms)
-    alarms.append(str(time))
-    print(alarms)
-
-    writeAlarms(alarms)
-    # set
+def get_alarms():
+    return read_alarms()
 
 
-def readAlarms():
+def add_alarm(time):
+    alarms = get_alarms()
+    alarms.append(time)
+    write_alarms(alarms)
+
+
+def read_alarms():
     if not os.path.exists(alarms_file):
-        writeAlarms([])
+        write_alarms([])
 
     infile = open(alarms_file, 'rb')
     alarms = pickle.load(infile)
@@ -28,7 +33,7 @@ def readAlarms():
     return alarms
 
 
-def writeAlarms(alarms):
+def write_alarms(alarms):
     outfile = open(alarms_file, 'wb')
     pickle.dump(alarms, outfile)
     outfile.close()

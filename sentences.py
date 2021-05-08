@@ -242,8 +242,7 @@ def recogniseSentence(sentence):
             minutes = spoke_time.split("h")[1]
 
             spoke_time = datetime.time(hour=int(hours), minute=int(minutes))
-            plugins.alarms.addAlarm(spoke_time)
-
+            plugins.alarms.add_alarm(spoke_time.strftime("%H:%M"))
 
         # quel temps fait il
         elif sentence in getSentencesById('weatherInfoDetection'):
