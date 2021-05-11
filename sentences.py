@@ -170,7 +170,7 @@ def recogniseSentence(sentence):
     # non rien finalement
     elif sentence in getSentencesById('nothingDetection'):
         # TODO: find a way to replace the beepy sound
-        return "Ok"
+        return "Okay"
 
     # allume l'imprimante 3d
     elif sentence in getSentencesById('turnOn3DPrinterDetection'):
