@@ -3,7 +3,7 @@ import json
 import flask
 from flask import Flask, jsonify, request
 
-import sentences_server
+import sentences
 
 app = Flask(__name__)
 hotword = 'jarvis'
@@ -38,13 +38,13 @@ def send():
     if " et " in data:
         phrases = data.split(" et ")
 
-        response = sentences_server.recogniseSentence(phrases[0]) + "et" + sentences_server.recogniseSentence(
+        response = sentences.recogniseSentence(phrases[0]) + "et" + sentences.recogniseSentence(
             phrases[1])
         return jsonify(response)
     else:
-        return jsonify(sentences_server.recogniseSentence(data))
+        return jsonify(sentences.recogniseSentence(data))
 
 
 if __name__ == '__main__':
-    sentences_server.registerSentences()
+    sentences.registerSentences()
     app.run(port=5000, debug=Flask, threaded=True)

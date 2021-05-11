@@ -2,8 +2,6 @@ import csv
 import datetime as datetime
 import random
 
-import beepy
-
 import homeassistant.homeassistant
 import homeassistant.lights
 import homeassistant.meteo
@@ -164,7 +162,8 @@ def recogniseSentence(sentence):
 
     # non rien finalement
     elif sentence in getSentencesById('nothingDetection'):
-        beepy.beep(sound='error')
+        # TODO: find a way to replace the beepy sound
+        return "Ok"
 
     # allume l'imprimante 3d
     elif sentence in getSentencesById('turnOn3DPrinterDetection'):
