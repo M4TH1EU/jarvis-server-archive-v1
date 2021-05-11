@@ -55,7 +55,6 @@ def registerSentences():
             column = 0
 
         csv_file.close()
-        print(sentences)
     except UnicodeDecodeError as e:
         print("Error loading sentences.csv, check if saved with CSV (| delimited) and encoded in UTF-8 ")
 
