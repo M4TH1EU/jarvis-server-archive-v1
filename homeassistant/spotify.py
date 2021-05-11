@@ -1,4 +1,6 @@
-from homeassistant.homeassistant import callService
+import json
+
+from homeassistant.homeassistant import callService, getState
 
 
 def nextTrack(entity_id):
@@ -75,3 +77,38 @@ def turnDownVolume(entity_id):
     # calling it twice to really see a volume difference
     callService('{"entity_id": "' + entity_id + '" }', "media_player/volume_down")
     callService('{"entity_id": "' + entity_id + '" }', "media_player/volume_down")
+
+
+def is_music_playing(entity_id):
+    """
+    Return true if spotify is playing a song
+
+    Parameters
+    ----------
+    entity_id : str
+
+    Returns
+    ----------
+    bool
+    """
+    return json.loads(getState(entity_id))['state'] == 'playing'
+
+
+def get_infos_playing_song(entity_id):
+    """
+    Return the song name and artist when spotify is playing
+
+    Parameters
+    ----------
+    entity_id : str
+
+    Returns
+    ----------
+    dict
+    """
+
+    song_info = json.loads(getState(entity_id))['attributes']
+    artist = song_info['media_artist']
+    song = song_info['media_title']
+
+    return [song, artist]
