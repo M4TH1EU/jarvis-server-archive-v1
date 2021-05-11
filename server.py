@@ -1,10 +1,13 @@
 import json
 
+import elevate
 import flask
 from flask import Flask, jsonify, request
 
 import automations
 import sentences
+
+elevate.elevate()
 
 app = Flask(__name__)
 hotword = 'jarvis'

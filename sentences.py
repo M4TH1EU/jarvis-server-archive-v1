@@ -287,14 +287,12 @@ def recogniseSentence(sentence):
             if " de " in words:
                 song = words.split(" de ")[0]
                 artist = words.split(" de ")[1]
-                spotipy.playSong(artist, song)
+                return spotipy.playSong(artist, song)
             else:
                 if " de " in sentence:
-                    spotipy.playArtist(song)
+                    return spotipy.playArtist(song)
                 else:
-                    spotipy.playSongWithoutArtist(song)
-
-            return get_answer('doneSir')
+                    return spotipy.playSongWithoutArtist(song)
 
         else:
             return get_answer('dontUnderstand')

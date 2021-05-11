@@ -4,6 +4,8 @@ import random
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
+import sentences
+
 scope = "user-read-playback-state, user-modify-playback-state, user-read-currently-playing"
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope,
                                                client_id=os.getenv('SPOTIFY_CLIENT_ID'),
@@ -12,22 +14,37 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope,
 
 
 def playSong(artist, song):
-    track_uri = sp.search(q=("artist:" + artist + " track:" + song), limit=3, type='track')['tracks']['items'][0]['uri']
-    sp.add_to_queue(uri=track_uri)
-    sp.next_track()
+    songs_found = sp.search(q=("artist:" + artist + " track:" + song), limit=3, type='track')['tracks']['items']
+    if len(songs_found) > 0:
+        track_uri = songs_found[0]['uri']
+        sp.add_to_queue(uri=track_uri)
+        sp.next_track()
+        return sentences.getRandomSentenceFromId('doneSir')
+    else:
+        return sentences.getRandomSentenceFromId('songNotFound')
 
 
 def playArtist(artist):
-    track_uri = sp.search(q=("artist:" + artist), limit=10, type='track')['tracks']['items'][random.randint(0, 9)][
-        'uri']
-    sp.add_to_queue(uri=track_uri)
-    sp.next_track()
+    songs_found = sp.search(q=("artist:" + artist), limit=10, type='track')['tracks']['items']
+    if len(songs_found) > 0:
+        track_uri = songs_found[random.randint(0, len(songs_found))][
+            'uri']
+        sp.add_to_queue(uri=track_uri)
+        sp.next_track()
+        return sentences.getRandomSentenceFromId('doneSir')
+    else:
+        return sentences.getRandomSentenceFromId('songNotFound')
 
 
 def playSongWithoutArtist(song):
-    track_uri = sp.search(q=("track:" + song), limit=3, type='track')['tracks']['items'][0]['uri']
-    sp.add_to_queue(uri=track_uri)
-    sp.next_track()
+    songs_found = sp.search(q=("track:" + song), limit=3, type='track')['tracks']['items']
+    if len(songs_found) > 0:
+        track_uri = songs_found[0]['uri']
+        sp.add_to_queue(uri=track_uri)
+        sp.next_track()
+        return sentences.getRandomSentenceFromId('doneSir')
+    else:
+        return sentences.getRandomSentenceFromId('songNotFound')
 
 
 def is_music_playing():
