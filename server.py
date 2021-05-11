@@ -3,6 +3,7 @@ import json
 import flask
 from flask import Flask, jsonify, request
 
+import automations
 import sentences
 
 app = Flask(__name__)
@@ -65,4 +66,5 @@ def send():
 
 if __name__ == '__main__':
     sentences.registerSentences()
+    automations.register()
     app.run(port=5000, debug=Flask, threaded=True)
