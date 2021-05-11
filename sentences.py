@@ -215,20 +215,19 @@ def recogniseSentence(sentence):
 
         answer_sentence = getRandomSentenceFromId('songTitle')
 
-        if plugins.spotipy.is_music_playing():
-            song_info = plugins.spotipy.get_infos_playing_song()
-
+        if homeassistant.spotify.is_music_playing('media_player.spotify_mathieu_broillet'):
+            song_info = homeassistant.spotify.get_infos_playing_song('media_player.spotify_mathieu_broillet')
             title = song_info[0]
             singer = song_info[1]
         else:
-            get_answer('songRecognition')
+            # get_answer('songRecognition')
             song = plugins.shazam.recognise_song()
             if len(song) > 0:
                 title = song[0]
                 singer = song[1]
                 # track_id = song[2]
             else:
-                get_answer('songNotFound')
+                return get_answer('songNotFound')
 
         answer_sentence = answer_sentence.replace("%title", title)
         answer_sentence = answer_sentence.replace("%singer", singer)
