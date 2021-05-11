@@ -18,7 +18,7 @@ def check_api_key(request):
 
 
 def get_sentence(request):
-    data = json.loads(request.data.decode('utf8').replace("'", '"'))
+    data = json.loads(str(request.data.decode('utf8')).replace('"', '\"').replace("\'", "'"))
     data = str(data['sentence']).lower()
     return data
 
