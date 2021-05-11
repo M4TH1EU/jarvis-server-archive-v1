@@ -57,7 +57,7 @@ def send():
     if " et " in data:
         phrases = data.split(" et ")
 
-        response = sentences.recogniseSentence(phrases[0]) + "et" + sentences.recogniseSentence(
+        response = sentences.recogniseSentence(phrases[0]) + " et " + sentences.recogniseSentence(
             phrases[1])
         return jsonify(response)
     else:
