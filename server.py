@@ -67,4 +67,4 @@ def send():
 if __name__ == '__main__':
     sentences.registerSentences()
     automations.register()
-    app.run(port=5000, debug=Flask, threaded=True)
+    app.run(port=5000, debug=False, host='0.0.0.0', threaded=True)
