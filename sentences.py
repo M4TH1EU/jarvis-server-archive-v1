@@ -18,7 +18,7 @@ last_answer = ""
 def registerSentences():
     try:
         # our csv file and a csv reader (encoded in utf8 for special character compatibility)
-        csv_file = open('Sentences.csv', encoding="utf-8")
+        csv_file = open('D:\PYTHON\jarvis-server\Sentences.csv', encoding="utf-8")
         csv_reader = csv.reader(csv_file, delimiter='|')
 
         # column number and id(s)
@@ -62,6 +62,13 @@ def get_answer(sentence_id):
         return random.choice(getSentencesById(sentence_id))
     else:
         return random.choice(getSentencesById("dontUnderstand"))
+
+
+def contains_sentence(sentence):
+    for key, value in sentences.items():
+        if sentence in value:
+            return True
+    return False
 
 
 def get_custom_answer(text):

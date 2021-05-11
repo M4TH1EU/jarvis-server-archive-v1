@@ -1,1 +1,2 @@
 android app
+notify when worked (eth) is down

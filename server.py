@@ -22,10 +22,28 @@ def get_sentence(request):
     return data
 
 
+def get_body(request, name):
+    data = json.loads(request.data.decode('utf8').replace("'", '"'))
+    data = str(data[name])
+    return data
+
+
 @app.route("/hotword", methods=['GET'])
 def get_hotword():
     check_api_key(request)
     return jsonify(hotword)
+
+
+@app.route("/sentence/contains", methods=['POST'])
+def contains_sentence():
+    sentence = get_body(request, "sentence")
+    return jsonify(sentences.contains_sentence(sentence))
+
+
+@app.route("/sentence/get_by_id", methods=['POST'])
+def get_by_id():
+    sentence_id = get_body(request, "sentenceId")
+    return jsonify(sentences.getRandomSentenceFromId(sentence_id))
 
 
 @app.route("/send", methods=['POST'])
