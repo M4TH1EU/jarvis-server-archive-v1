@@ -7,7 +7,7 @@ from flask import Flask, jsonify, request
 import automations
 import sentences
 
-elevate.elevate()
+# elevate.elevate()
 
 app = Flask(__name__)
 hotword = 'jarvis'
