@@ -220,7 +220,7 @@ def recogniseSentence(sentence):
             title = song_info[0]
             singer = song_info[1]
         else:
-            # get_answer('songRecognition')
+            # return get_answer('songRecognition')
             song = plugins.shazam.recognise_song()
             if len(song) > 0:
                 title = song[0]

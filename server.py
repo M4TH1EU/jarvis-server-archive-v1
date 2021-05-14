@@ -1,10 +1,11 @@
 import json
+import tempfile
 
-import elevate
 import flask
 from flask import Flask, jsonify, request
 
 import automations
+import clientUtils
 import sentences
 
 # elevate.elevate()
@@ -20,14 +21,20 @@ def check_api_key(request):
         flask.abort(401)
 
 
-def get_sentence(request):
+def get_sentence_in_body(name):
     data = json.loads(str(request.data.decode('utf8')).replace('"', '\"').replace("\'", "'"))
-    data = str(data['sentence']).lower()
+    if not isinstance(data, dict):
+        data = json.loads(data)
+
+    data = str(data[name]).lower()
     return data
 
 
-def get_body(request, name):
-    data = json.loads(request.data.decode('utf8').replace("'", '"'))
+def get_body(name):
+    data = json.loads(request.data.decode('utf8'))
+    if not isinstance(data, dict):
+        data = json.loads(data)
+
     data = str(data[name])
     return data
 
@@ -38,22 +45,42 @@ def get_hotword():
     return jsonify(hotword)
 
 
+@app.route("/send_record", methods=['POST'])
+def get_recorded_song():
+    check_api_key(request)
+
+    filename = tempfile.gettempdir() + '\\recorded_song.wav'
+
+    received_bytes = request.data
+
+    # Open file in binary write mode
+    binary_file = open(filename, 'wb+')
+
+    # Write bytes to file
+    binary_file.write(received_bytes)
+
+    # Close file
+    binary_file.close()
+    print("Created file")
+    return jsonify("OK")
+
+
 @app.route("/sentence/contains", methods=['POST'])
 def contains_sentence():
-    sentence = get_body(request, "sentence")
+    sentence = get_body("sentence")
     return jsonify(sentences.contains_sentence(sentence))
 
 
 @app.route("/sentence/get_by_id", methods=['POST'])
 def get_by_id():
-    sentence_id = get_body(request, "sentenceId")
+    sentence_id = get_body("sentenceId")
     return jsonify(sentences.getRandomSentenceFromId(sentence_id))
 
 
 @app.route("/send", methods=['POST'])
 def send():
     check_api_key(request)
-    data = get_sentence(request)
+    data = get_sentence_in_body('sentence')
     print(data)
 
     # add support for multiples actions in one sentence (two actions here)
@@ -70,4 +97,5 @@ def send():
 if __name__ == '__main__':
     sentences.registerSentences()
     automations.register()
+
     app.run(port=5000, debug=False, host='0.0.0.0', threaded=True)
