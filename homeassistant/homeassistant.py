@@ -8,7 +8,7 @@ token = os.getenv('HOMEASSISTANT_API_TOKEN')  # long-term token
 ha_url = os.getenv('HOMEASSISTANT_API_URL')  # https://my.homeassistant.com/api/
 
 
-def callService(data, service):
+def call_service(data, service):
     """
     Call a specific service (POST) on the HA API with a given payload
 
@@ -34,7 +34,7 @@ def callService(data, service):
         print("Error when calling HomeAssistant API")
 
 
-def getState(entity_id):
+def get_state(entity_id):
     """
         Retrieve the state of an entity (GET) on the HA API with a given payload
 
@@ -55,7 +55,7 @@ def getState(entity_id):
         return ""
 
 
-def sendNotification(device, title, message, action1=None, action2=None, action3=None):
+def send_notification(device, title, message, action1=None, action2=None, action3=None):
     data = {
         'message': message,
         'title': title,
@@ -84,8 +84,8 @@ def sendNotification(device, title, message, action1=None, action2=None, action3
         if 2 < len(action3):
             data['data']['actions'][2]['uri'] = action3[2]
 
-    callService(json.dumps(data), 'notify/' + device)
+    call_service(json.dumps(data), 'notify/' + device)
 
 
 def is_home(entity_id):
-    return json.loads(getState(entity_id))['state'] == 'home'
+    return json.loads(get_state(entity_id))['state'] == 'home'

@@ -1,7 +1,7 @@
-from homeassistant.homeassistant import callService
+from homeassistant.homeassistant import call_service
 
 
-def turnOn(entity_id):
+def turn_on(entity_id):
     """
     Turn on a switch
 
@@ -10,10 +10,10 @@ def turnOn(entity_id):
     entity_id : str
     """
 
-    callService('{"entity_id": "' + entity_id + '" }', "switch/turn_on")
+    call_service('{"entity_id": "' + entity_id + '" }', "switch/turn_on")
 
 
-def turnOff(entity_id):
+def turn_off(entity_id):
     """
     Turn off a switch
 
@@ -21,7 +21,7 @@ def turnOff(entity_id):
     ----------
     entity_id : str
     """
-    callService('{"entity_id": "' + entity_id + '" }', "switch/turn_off")
+    call_service('{"entity_id": "' + entity_id + '" }', "switch/turn_off")
 
 
 def toggle(entity_id):
@@ -32,5 +32,5 @@ def toggle(entity_id):
     ----------
     entity_id : str
     """
-    callService('{"entity_id": "' + entity_id + '" }', "switch/toggle")
+    call_service('{"entity_id": "' + entity_id + '" }', "switch/toggle")
 

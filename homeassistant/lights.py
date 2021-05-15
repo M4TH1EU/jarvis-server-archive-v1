@@ -1,10 +1,10 @@
 import json
 
 import homeassistant.homeassistant
-from homeassistant.homeassistant import callService
+from homeassistant.homeassistant import call_service
 
 
-def turnOn(entity_id):
+def turn_on(entity_id):
     """
     Turn on a light
 
@@ -13,10 +13,10 @@ def turnOn(entity_id):
     entity_id : str
     """
 
-    callService('{"entity_id": "' + entity_id + '" }', "light/turn_on")
+    call_service('{"entity_id": "' + entity_id + '" }', "light/turn_on")
 
 
-def turnOff(entity_id):
+def turn_off(entity_id):
     """
     Turn off a light
 
@@ -24,14 +24,14 @@ def turnOff(entity_id):
     ----------
     entity_id : str
     """
-    callService('{"entity_id": "' + entity_id + '" }', "light/turn_off")
+    call_service('{"entity_id": "' + entity_id + '" }', "light/turn_off")
 
 
 def is_on(entity_id):
-    return json.loads(homeassistant.homeassistant.getState(entity_id))['state'] == 'on'
+    return json.loads(homeassistant.homeassistant.get_state(entity_id))['state'] == 'on'
 
 
-def changeColorWithName(entity_id, color):
+def change_color_with_name(entity_id, color):
     """
     Change the color of a specified light with human readable color
 
@@ -40,11 +40,11 @@ def changeColorWithName(entity_id, color):
     entity_id : str
     color : str
     """
-    callService('{"entity_id": "' + entity_id +
+    call_service('{"entity_id": "' + entity_id +
                 '", "color_name": "' + color + '" }', "light/turn_on")
 
 
-def changeColorWithRGB(entity_id, r, g, b):
+def change_color_with_rgb(entity_id, r, g, b):
     """
     Change the color of a specified light with RGB code
 
@@ -56,11 +56,11 @@ def changeColorWithRGB(entity_id, r, g, b):
     b : int
 
     """
-    callService('{"entity_id": "' + entity_id +
+    call_service('{"entity_id": "' + entity_id +
                 '", "rgb_color": "[' + r + ',' + g + ',' + b + ']" }', "light/turn_on")
 
 
-def changeBrightness(entity_id, brightness):
+def change_brightness(entity_id, brightness):
     """
     Change the brightness of a specified light
 
@@ -70,5 +70,5 @@ def changeBrightness(entity_id, brightness):
     brightness : int
 
     """
-    callService('{"entity_id": "' + entity_id +
+    call_service('{"entity_id": "' + entity_id +
                 '", "brightness": "' + brightness + '" }', "light/turn_on")

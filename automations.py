@@ -11,10 +11,10 @@ import plugins.alarms
 def check_if_lights_are_on_but_not_home(minutes):
     if not homeassistant.homeassistant.is_home('person.mathieu'):
         if homeassistant.lights.is_on('light.lumieres_chambre'):
-            homeassistant.homeassistant.sendNotification('mobile_app_oneplus_8t',
+            homeassistant.homeassistant.send_notification('mobile_app_oneplus_8t',
                                                          'Les lumières sont allumées.',
                                                          'Une ou plusieurs lampes sont toujours allumées alors que vous n\'êtes pas à la maison...',
-                                                         action1=['TURNOFFLIGHTS', 'Éteindre'])
+                                                          action1=['TURNOFFLIGHTS', 'Éteindre'])
 
     timer = threading.Timer(minutes * 60, check_if_lights_are_on_but_not_home, [minutes])
     timer.start()
@@ -30,14 +30,14 @@ def check_if_there_is_an_alarm(minutes):
 
 
 def check_temperature(minutes, entity_id):
-    entity_state = json.loads(homeassistant.homeassistant.getState(entity_id))
+    entity_state = json.loads(homeassistant.homeassistant.get_state(entity_id))
     temperature = int(float(entity_state['state']))
     if temperature >= 85:
         friendly_name = entity_state['attributes']['friendly_name']
-        homeassistant.homeassistant.sendNotification('mobile_app_oneplus_8t',
+        homeassistant.homeassistant.send_notification('mobile_app_oneplus_8t',
                                                      'La température est trop haute',
                                                      'La température de ' + friendly_name + ' est trop haute (' +
-                                                     str(temperature) + '°C)!')
+                                                      str(temperature) + '°C)!')
     timer = threading.Timer(minutes * 60, check_temperature, [minutes, entity_id])
     timer.start()
 
@@ -47,11 +47,11 @@ def check_if_eth_miner_is_offline(minutes):
         requests.get("https://api.ethermine.org/miner/1C169a48601EC3D342Be36A26F5B387DC8d2155C/dashboard").text)
     active_workers = json_data['data']['currentStatistics']['activeWorkers']
     if active_workers == 1:
-        homeassistant.homeassistant.sendNotification('mobile_app_oneplus_8t',
+        homeassistant.homeassistant.send_notification('mobile_app_oneplus_8t',
                                                      'Un PC de minage est éteint.',
                                                      'Un PC ne mine plus d\'ETH, à controller au plus vite.')
     elif active_workers == 0:
-        homeassistant.homeassistant.sendNotification('mobile_app_oneplus_8t',
+        homeassistant.homeassistant.send_notification('mobile_app_oneplus_8t',
                                                      'Les PC de minage sont éteint.',
                                                      'Les PC ne minent plus d\'ETH, à controller immédiatement!')
 

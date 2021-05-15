@@ -13,7 +13,7 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope,
                                                redirect_uri='http://localhost:8888/callback/'))
 
 
-def playSong(artist, song):
+def play_song(artist, song):
     songs_found = sp.search(q=("artist:" + artist + " track:" + song), limit=3, type='track')['tracks']['items']
     if len(songs_found) > 0:
         track_uri = songs_found[0]['uri']
@@ -24,7 +24,7 @@ def playSong(artist, song):
         return sentences.getRandomSentenceFromId('songNotFound')
 
 
-def playArtist(artist):
+def play_artist(artist):
     songs_found = sp.search(q=("artist:" + artist), limit=10, type='track')['tracks']['items']
     if len(songs_found) > 0:
         track_uri = songs_found[random.randint(0, len(songs_found))][
@@ -36,7 +36,7 @@ def playArtist(artist):
         return sentences.getRandomSentenceFromId('songNotFound')
 
 
-def playSongWithoutArtist(song):
+def play_song_without_artist(song):
     songs_found = sp.search(q=("track:" + song), limit=3, type='track')['tracks']['items']
     if len(songs_found) > 0:
         track_uri = songs_found[0]['uri']

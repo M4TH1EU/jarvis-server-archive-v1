@@ -1,9 +1,9 @@
 import json
 
-from homeassistant.homeassistant import callService, getState
+from homeassistant.homeassistant import call_service, get_state
 
 
-def nextTrack(entity_id):
+def next_track(entity_id):
     """
     Play the next track
 
@@ -12,10 +12,10 @@ def nextTrack(entity_id):
     entity_id : str
     """
 
-    callService('{"entity_id": "' + entity_id + '" }', "media_player/media_next_track")
+    call_service('{"entity_id": "' + entity_id + '" }', "media_player/media_next_track")
 
 
-def previousTrack(entity_id):
+def previous_track(entity_id):
     """
     Play the next track
 
@@ -24,7 +24,7 @@ def previousTrack(entity_id):
     entity_id : str
     """
 
-    callService('{"entity_id": "' + entity_id + '" }', "media_player/media_previous_track")
+    call_service('{"entity_id": "' + entity_id + '" }', "media_player/media_previous_track")
 
 
 def pause(entity_id):
@@ -36,7 +36,7 @@ def pause(entity_id):
     entity_id : str
     """
 
-    callService('{"entity_id": "' + entity_id + '" }', "media_player/media_pause")
+    call_service('{"entity_id": "' + entity_id + '" }', "media_player/media_pause")
 
 
 def play(entity_id):
@@ -48,10 +48,10 @@ def play(entity_id):
     entity_id : str
     """
 
-    callService('{"entity_id": "' + entity_id + '" }', "media_player/media_play")
+    call_service('{"entity_id": "' + entity_id + '" }', "media_player/media_play")
 
 
-def turnUpVolume(entity_id):
+def turn_up_volume(entity_id):
     """
     Turn the volume up
 
@@ -61,11 +61,11 @@ def turnUpVolume(entity_id):
     """
 
     # calling it twice to really see a volume difference
-    callService('{"entity_id": "' + entity_id + '" }', "media_player/volume_up")
-    callService('{"entity_id": "' + entity_id + '" }', "media_player/volume_up")
+    call_service('{"entity_id": "' + entity_id + '" }', "media_player/volume_up")
+    call_service('{"entity_id": "' + entity_id + '" }', "media_player/volume_up")
 
 
-def turnDownVolume(entity_id):
+def turn_down_volume(entity_id):
     """
     Turn the volume down
 
@@ -75,8 +75,8 @@ def turnDownVolume(entity_id):
     """
 
     # calling it twice to really see a volume difference
-    callService('{"entity_id": "' + entity_id + '" }', "media_player/volume_down")
-    callService('{"entity_id": "' + entity_id + '" }', "media_player/volume_down")
+    call_service('{"entity_id": "' + entity_id + '" }', "media_player/volume_down")
+    call_service('{"entity_id": "' + entity_id + '" }', "media_player/volume_down")
 
 
 def is_music_playing(entity_id):
@@ -91,7 +91,7 @@ def is_music_playing(entity_id):
     ----------
     bool
     """
-    return json.loads(getState(entity_id))['state'] == 'playing'
+    return json.loads(get_state(entity_id))['state'] == 'playing'
 
 
 def get_infos_playing_song(entity_id):
@@ -107,7 +107,7 @@ def get_infos_playing_song(entity_id):
     dict
     """
 
-    song_info = json.loads(getState(entity_id))['attributes']
+    song_info = json.loads(get_state(entity_id))['attributes']
     artist = song_info['media_artist']
     song = song_info['media_title']
 

@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 
-from homeassistant.homeassistant import getState
+from homeassistant.homeassistant import get_state
 
 conditions = {"clear-night": "étoillé",
               "cloudy": "nuageux",
@@ -20,36 +20,36 @@ conditions = {"clear-night": "étoillé",
               }
 
 
-def getTemperature(entity_id):
-    return str(int(getAttribute(entity_id, 'temperature'))) + "°"
+def get_temperature(entity_id):
+    return str(int(get_attribute(entity_id, 'temperature'))) + "°"
 
 
-def getTemperatureLow(entity_id):
+def get_temperature_low(entity_id):
     today_date = datetime.today().date().strftime("%Y-%m-%d")
-    return str(int(getAttributeForDay(entity_id, 'templow', today_date))) + "°"
+    return str(int(get_attribute_for_day(entity_id, 'templow', today_date))) + "°"
 
 
-def getCondition(entity_id):
-    return conditions.get(json.loads(getState(entity_id))['state'])
+def get_condition(entity_id):
+    return conditions.get(json.loads(get_state(entity_id))['state'])
 
 
-def getLowTemp(entity_id):
-    return str(int(getAttribute(entity_id, 'templow'))) + "°"
+def get_low_temp(entity_id):
+    return str(int(get_attribute(entity_id, 'templow'))) + "°"
 
 
-def getWindSpeed(entity_id):
-    return str(int(getAttribute(entity_id, 'wind_speed'))) + " kilomètres heures"
+def get_wind_speed(entity_id):
+    return str(int(get_attribute(entity_id, 'wind_speed'))) + " kilomètres heures"
 
 
-def getHumidity(entity_id):
-    return getAttribute(entity_id, 'humidity')
+def get_humidity(entity_id):
+    return get_attribute(entity_id, 'humidity')
 
 
-def getWindBearing(entity_id):
-    return getAttribute(entity_id, 'wind_bearing')
+def get_wind_bearing(entity_id):
+    return get_attribute(entity_id, 'wind_bearing')
 
 
-def getAttribute(entity_id, name):
+def get_attribute(entity_id, name):
     """
 
     Parameters
@@ -63,25 +63,24 @@ def getAttribute(entity_id, name):
     The value of the given attribute
 
     """
-    state = getState(entity_id)
-    # state = '{    "entity_id": "weather.bussigny_sur_oron",    "state": "sunny",    "attributes": {        "temperature": 8.9,        "humidity": 58,        "pressure": 925.6,        "wind_bearing": "WSW",        "wind_speed": 8.6,        "attribution": "Weather forecast from MeteoSwiss (https://www.meteoswiss.admin.ch/)",        "forecast": [            {                "datetime": "2021-05-04",                "templow": 4,                "temperature": 15,                "condition": "rainy"            },            {                "datetime": "2021-05-05",                "templow": 6,                "temperature": 11,                "condition": "rainy"            },            {                "datetime": "2021-05-06",                "templow": 4,                "temperature": 11,                "condition": "rainy"            },            {                "datetime": "2021-05-07",                "templow": 6,                "temperature": 11,                "condition": "rainy"            },            {                "datetime": "2021-05-08",                "templow": 5,                "temperature": 18,                "condition": "sunny"            }        ],        "friendly_name": "Bussigny-sur-Oron"    },    "last_changed": "2021-05-03T07:57:13.828170+00:00",    "last_updated": "2021-05-03T12:00:13.531977+00:00",    "context": {        "id": "f76ffaab25fc0e7d2581aefad64ef866",        "parent_id": null,        "user_id": null    }}'
+    state = get_state(entity_id)
     json_state = json.loads(state)
     return json_state['attributes'][name]
 
 
-def getTemperatureForDay(entity_id, day_date):
-    return str(int(getAttributeForDay(entity_id, 'temperature', day_date))), "°"
+def get_temperature_for_day(entity_id, day_date):
+    return str(int(get_attribute_for_day(entity_id, 'temperature', day_date))), "°"
 
 
-def getConditionForDay(entity_id, day_date):
-    return conditions.get(getAttributeForDay(entity_id, 'condition', day_date))
+def get_condition_for_day(entity_id, day_date):
+    return conditions.get(get_attribute_for_day(entity_id, 'condition', day_date))
 
 
-def getTemperatureLowForDay(entity_id, day_date):
-    return str(int(getAttributeForDay(entity_id, 'templow', day_date))) + "°"
+def get_temperature_low_for_day(entity_id, day_date):
+    return str(int(get_attribute_for_day(entity_id, 'templow', day_date))) + "°"
 
 
-def getAttributeForDay(entity_id, name, day_date):
+def get_attribute_for_day(entity_id, name, day_date):
     """
 
     Parameters
@@ -94,8 +93,7 @@ def getAttributeForDay(entity_id, name, day_date):
     -------
 
     """
-    state = getState(entity_id)
-    # state = '{    "entity_id": "weather.bussigny_sur_oron",    "state": "sunny",    "attributes": {        "temperature": 8.9,        "humidity": 58,        "pressure": 925.6,        "wind_bearing": "WSW",        "wind_speed": 8.6,        "attribution": "Weather forecast from MeteoSwiss (https://www.meteoswiss.admin.ch/)",        "forecast": [            {                "datetime": "2021-05-04",                "templow": 4,                "temperature": 15,                "condition": "rainy"            },            {                "datetime": "2021-05-05",                "templow": 6,                "temperature": 11,                "condition": "rainy"            },            {                "datetime": "2021-05-06",                "templow": 4,                "temperature": 11,                "condition": "rainy"            },            {                "datetime": "2021-05-07",                "templow": 6,                "temperature": 11,                "condition": "rainy"            },            {                "datetime": "2021-05-08",                "templow": 5,                "temperature": 18,                "condition": "sunny"            }        ],        "friendly_name": "Bussigny-sur-Oron"    },    "last_changed": "2021-05-03T07:57:13.828170+00:00",    "last_updated": "2021-05-03T12:00:13.531977+00:00",    "context": {        "id": "f76ffaab25fc0e7d2581aefad64ef866",        "parent_id": null,        "user_id": null    }}'
+    state = get_state(entity_id)
     forecast_array = json.loads(state)['attributes']['forecast']
 
     for forecast in forecast_array:

@@ -6,7 +6,7 @@ from translate import Translator
 import sentences
 
 
-def getDescription(name):
+def get_description(name):
     wikipedia.set_lang("fr")
 
     try:

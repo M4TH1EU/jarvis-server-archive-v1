@@ -114,32 +114,32 @@ def recogniseSentence(sentence):
 
     # allume la lumière
     elif sentence in getSentencesById('turnOnLightsDetection'):
-        homeassistant.lights.turnOn("light.lumieres_chambre")
+        homeassistant.lights.turn_on("light.lumieres_chambre")
         return get_answer('turningOnLights')
 
     # éteint la lumière
     elif sentence in getSentencesById('turnOffLightsDetection'):
-        homeassistant.lights.turnOff("light.lumieres_chambre")
+        homeassistant.lights.turn_off("light.lumieres_chambre")
         return get_answer('turningOffLights')
 
     # allume les leds
     elif sentence in getSentencesById('turnOnLedsDetection'):
-        homeassistant.lights.turnOn("light.leds_chambre")
+        homeassistant.lights.turn_on("light.leds_chambre")
         return get_answer('turningOnLights')
 
     # éteint les leds
     elif sentence in getSentencesById('turnOffLedsDetection'):
-        homeassistant.lights.turnOff("light.leds_chambre")
+        homeassistant.lights.turn_off("light.leds_chambre")
         return get_answer('turningOffLights')
 
     # mets le morceau suivant
     elif sentence in getSentencesById('nextTrackDetection'):
-        homeassistant.spotify.nextTrack("media_player.spotify_mathieu_broillet")
+        homeassistant.spotify.next_track("media_player.spotify_mathieu_broillet")
         return get_answer('nextTrack')
 
     # mets le morceau précédent
     elif sentence in getSentencesById('previousTrackDetection'):
-        homeassistant.spotify.previousTrack("media_player.spotify_mathieu_broillet")
+        homeassistant.spotify.previous_track("media_player.spotify_mathieu_broillet")
         return get_answer('previousTrack')
 
     # relance la musique
@@ -154,12 +154,12 @@ def recogniseSentence(sentence):
 
     # monte le son
     elif sentence in getSentencesById('turnUpVolumeDetection'):
-        homeassistant.spotify.turnUpVolume("media_player.spotify_mathieu_broillet")
+        homeassistant.spotify.turn_up_volume("media_player.spotify_mathieu_broillet")
         return get_answer('turningUpVolume')
 
     # baisse le son
     elif sentence in getSentencesById('turnDownVolumeDetection'):
-        homeassistant.spotify.turnDownVolume("media_player.spotify_mathieu_broillet")
+        homeassistant.spotify.turn_down_volume("media_player.spotify_mathieu_broillet")
         return get_answer('turningDownVolume')
 
     # il est quelle heure
@@ -174,37 +174,37 @@ def recogniseSentence(sentence):
 
     # allume l'imprimante 3d
     elif sentence in getSentencesById('turnOn3DPrinterDetection'):
-        homeassistant.switch.turnOn('switch.bfd9b202b8140c15780fpe')
+        homeassistant.switch.turn_on('switch.bfd9b202b8140c15780fpe')
         return get_answer('turningOn3DPrinter')
 
     # éteint l'imprimante 3d
     elif sentence in getSentencesById('turnOff3DPrinterDetection'):
-        homeassistant.switch.turnOff('switch.bfd9b202b8140c15780fpe')
+        homeassistant.switch.turn_off('switch.bfd9b202b8140c15780fpe')
         return get_answer('turningOff3DPrinter')
 
     # allume le pc
     elif sentence in getSentencesById('turnOnPCDetection'):
-        homeassistant.switch.turnOn('switch.wake_on_lan_pc_tour')
+        homeassistant.switch.turn_on('switch.wake_on_lan_pc_tour')
         return get_answer('turningOnPC')
 
     # éteint le pc
     elif sentence in getSentencesById('turnOffPCDetection'):
-        homeassistant.switch.turnOff('switch.wake_on_lan_pc_tour')
+        homeassistant.switch.turn_off('switch.wake_on_lan_pc_tour')
         return get_answer('turningOffPC')
 
     # mets le pc en veille
     elif sentence in getSentencesById('putComputerToSleepDetection'):
-        homeassistant.homeassistant.callService('', 'shell_command/sleep_tour_mathieu')
+        homeassistant.homeassistant.call_service('', 'shell_command/sleep_tour_mathieu')
         return get_answer('doneSir')
 
     # allume la tablette
     elif sentence in getSentencesById('turnOnKioskTabletDetection'):
-        homeassistant.lights.turnOn('light.mi_pad_screen')
+        homeassistant.lights.turn_on('light.mi_pad_screen')
         return get_answer('turningOnKioskTablet')
 
     # éteint la tablette
     elif sentence in getSentencesById('turnOffKioskTabletDetection'):
-        homeassistant.switch.turnOff('light.mi_pad_screen')
+        homeassistant.switch.turn_off('light.mi_pad_screen')
         return get_answer('turningOffKioskTablet')
 
     # c'est quoi le titre de cette chanson
@@ -236,7 +236,7 @@ def recogniseSentence(sentence):
 
         # cherche XYZ sur wikipédia
         if is_custom_sentence('wikiDetection', sentence):
-            get_custom_answer(wiki.getDescription(get_words_out_of_custom_sentence('wikiDetection', sentence)))
+            get_custom_answer(wiki.get_description(get_words_out_of_custom_sentence('wikiDetection', sentence)))
 
         # mets le réveil à 6h45
         elif is_custom_sentence('alarmClockDetection', sentence):
@@ -266,13 +266,13 @@ def recogniseSentence(sentence):
             sentence_meteo = sentence_meteo.replace('&sera', sera)
             sentence_meteo = sentence_meteo.replace('&faire', faire)
             sentence_meteo = sentence_meteo.replace('%condition',
-                                                    homeassistant.meteo.getCondition(homeassistant_weather_entity_id))
+                                                    homeassistant.meteo.get_condition(homeassistant_weather_entity_id))
             sentence_meteo = sentence_meteo.replace('%temperature',
-                                                    homeassistant.meteo.getTemperature(homeassistant_weather_entity_id))
-            sentence_meteo = sentence_meteo.replace('%lowtemp', homeassistant.meteo.getTemperatureLow(
+                                                    homeassistant.meteo.get_temperature(homeassistant_weather_entity_id))
+            sentence_meteo = sentence_meteo.replace('%lowtemp', homeassistant.meteo.get_temperature_low(
                 homeassistant_weather_entity_id))
             sentence_meteo = sentence_meteo.replace('%wind_speed',
-                                                    homeassistant.meteo.getWindSpeed(homeassistant_weather_entity_id))
+                                                    homeassistant.meteo.get_wind_speed(homeassistant_weather_entity_id))
             sentence_meteo = sentence_meteo.replace('%wind_words', "faible")
             return get_custom_answer(sentence_meteo)
 
@@ -286,12 +286,12 @@ def recogniseSentence(sentence):
             if " de " in words:
                 song = words.split(" de ")[0]
                 artist = words.split(" de ")[1]
-                return spotipy.playSong(artist, song)
+                return spotipy.play_song(artist, song)
             else:
                 if " de " in sentence:
-                    return spotipy.playArtist(song)
+                    return spotipy.play_artist(song)
                 else:
-                    return spotipy.playSongWithoutArtist(song)
+                    return spotipy.play_song_without_artist(song)
 
         else:
             return get_answer('dontUnderstand')
