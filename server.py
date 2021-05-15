@@ -1,14 +1,14 @@
 import json
 import tempfile
 
+import elevate
 import flask
 from flask import Flask, jsonify, request
 
 import automations
-import clientUtils
 import sentences
 
-# elevate.elevate()
+elevate.elevate()
 
 app = Flask(__name__)
 hotword = 'jarvis'
@@ -49,7 +49,7 @@ def get_hotword():
 def get_recorded_song():
     check_api_key(request)
 
-    filename = tempfile.gettempdir() + '\\recorded_song.wav'
+    filename = tempfile.gettempdir() + '\\received_song.wav'
 
     received_bytes = request.data
 

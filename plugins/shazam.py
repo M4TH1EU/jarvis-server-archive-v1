@@ -7,13 +7,13 @@ from shazamio import Shazam
 import clientUtils
 import sentences
 
-filename = tempfile.gettempdir() + '\\recorded_song.wav'
+filename = tempfile.gettempdir() + '\\received_song.wav'
 
 
 def recognise_song():
     clientUtils.ask_for_microphone_output(3, sentences.getRandomSentenceFromId('songRecognition'))
 
-    loop = asyncio.get_event_loop()
+    loop = asyncio.new_event_loop()
     return loop.run_until_complete(get_shazam_song())
 
 
