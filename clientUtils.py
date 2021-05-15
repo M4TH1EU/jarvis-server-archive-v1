@@ -1,10 +1,11 @@
 import json
+import os
 
 import requests
 from requests.structures import CaseInsensitiveDict
 
 client_url = "http://127.0.0.1:5001"
-token = 'B*TyX&y7bDd5xLXYNw5iaN6X7%QAiqTQ#9nvtgMX3X2risrD64ew!*Q9*ky3PRvrSWYE6euykHycNzQqmViKo%XfoyTCSrJTFSUK*ycP2P$!Psn55iJT4@b4tdxw*XA!'  # test token (nothing private)
+token = os.getenv('JARVIS_API_KEY')
 
 
 def ask_for_microphone_output(record_for_seconds, speech_before_input):

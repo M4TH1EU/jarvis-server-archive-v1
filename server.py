@@ -1,4 +1,5 @@
 import json
+import os
 import tempfile
 
 import elevate
@@ -12,7 +13,7 @@ elevate.elevate()
 
 app = Flask(__name__)
 hotword = 'jarvis'
-token = 'B*TyX&y7bDd5xLXYNw5iaN6X7%QAiqTQ#9nvtgMX3X2risrD64ew!*Q9*ky3PRvrSWYE6euykHycNzQqmViKo%XfoyTCSrJTFSUK*ycP2P$!Psn55iJT4@b4tdxw*XA!'  # test token (nothing private)
+token = os.getenv('JARVIS_API_KEY')
 
 
 def check_api_key(request):
