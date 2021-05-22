@@ -2,19 +2,17 @@ import json
 import random
 
 import torch
-import unicodedata
-
 from unidecode import unidecode
 
-from model import NeuralNet
-from nltk_utils import bag_of_words, tokenize
+from chatbot.model import NeuralNet
+from chatbot.nltk_utils import bag_of_words, tokenize
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-with open('intents.json', 'r') as json_data:
+with open('chatbot/intents.json', encoding='utf-8', mode='r') as json_data:
     intents = json.load(json_data)
 
-FILE = "data.pth"
+FILE = "chatbot/data.pth"
 data = torch.load(FILE)
 
 input_size = data["input_size"]
@@ -29,28 +27,8 @@ model.load_state_dict(model_state)
 model.eval()
 
 
-def strip_accents(text):
-    try:
-        text = unicode(text, 'utf-8')
-    except NameError:  # unicode is a default on python 3
-        pass
-
-    text = unicodedata.normalize('NFD', text) \
-        .encode('ascii', 'ignore') \
-        .decode("utf-8")
-
-    return str(text)
-
-
-bot_name = "Jarvis"
-print("Let's chat! (type 'quit' to exit)")
-while True:
-    # sentence = "do you use credit cards?"
-    sentence = input("You: ")
+def get_tag_for_sentence(sentence):
     sentence = unidecode(sentence)  # convert accent to better recognition
-
-    if sentence == "quit":
-        break
 
     sentence = tokenize(sentence)
     X = bag_of_words(sentence, all_words)
@@ -67,6 +45,19 @@ while True:
     if prob.item() > 0.75:
         for intent in intents['intents']:
             if tag == intent["tag"]:
-                print(f"{bot_name}: {random.choice(intent['responses'])}")
+                # return random.choice(intent['responses'])
+                return tag
     else:
-        print(f"{bot_name}: Je n'ai pas compris...")
+        return get_response_for_tag_custom('dont_understand')
+
+
+def get_response_for_tag(tag):
+    for intent in intents['intents']:
+        if intent['tag'] == tag:
+            return random.choice(intent['responses'])
+
+
+def get_response_for_tag_custom(tag):
+    for intent in intents['custom']:
+        if intent['tag'] == tag:
+            return random.choice(intent['responses'])

@@ -1,5 +1,28 @@
 {
+  "custom": [
+    {
+      "tag": "dont_understand",
+      "responses": [
+        "Je n'ai pas compris",
+        "J'ai pas compris"
+      ]
+    }
+  ],
   "intents": [
+    {
+      "tag": "jarvis",
+      "patterns": [
+        "hey jarvis"
+      ],
+      "responses": [
+        "Oui monsieur ?",
+        "Oui ? ",
+        "Que puis-je faire pour vous?",
+        "Que puis-je faire pour vous monsieur ?",
+        "Je vous écoute"
+      ],
+      "context_set": ""
+    },
     {
       "tag": "greeting",
       "patterns": [
@@ -21,11 +44,11 @@
     {
       "tag": "lights_on",
       "patterns": [
-        "allume la lumière",
-        "allume les lumières",
+        "allume la lumiere",
+        "allume les lumieres",
         "allume les lampes",
-        "allumer lumière",
-        "tu peux m'allumer la lumière"
+        "allumer lumiere",
+        "tu peux m'allumer la lumiere"
       ],
       "responses": [
         "J'allume les lumières",
@@ -37,17 +60,17 @@
     {
       "tag": "lights_off",
       "patterns": [
-        "eteint la lumière",
-        "eteint voir la lumière",
-        "eteint les lumières",
+        "eteint la lumiere",
+        "eteint voir la lumiere",
+        "eteint les lumieres",
         "eteint les lampes",
-        "eteindre lumière",
-        "tu peux m'eteindre les lumières"
+        "eteindre lumiere",
+        "tu peux m'eteindre les lumieres"
       ],
       "responses": [
-        "J'eteinds les lumières",
-        "J'eteinds la lumière",
-        "Les lumières s'eteignent monsieur"
+        "J'éteinds les lumières",
+        "J'éteinds la lumière",
+        "Les lumières s'éteignent monsieur"
       ],
       "context_set": ""
     },
@@ -80,9 +103,9 @@
         "eteindre les leds"
       ],
       "responses": [
-        "J'eteinds les leds",
-        "J'eteinds la guirlande led",
-        "Les leds s'eteignent monsieur"
+        "J'éteinds les leds",
+        "J'éteinds la guirlande led",
+        "Les leds s'éteignent monsieur"
       ],
       "context_set": ""
     },
@@ -118,11 +141,11 @@
         "mets le morceau precedent"
       ],
       "responses": [
-        "Voici le morceau precedent monsieur",
-        "Voici le morceau precedent",
+        "Voici le morceau précédente monsieur",
+        "Voici le morceau précédente",
         "Je remets la chanson d'avant",
-        "Chanson precedente",
-        "Morceau precedent"
+        "Chanson précédente",
+        "Morceau précédente"
       ],
       "context_set": ""
     },
@@ -154,7 +177,7 @@
         "Mets en pause la musique"
       ],
       "responses": [
-        "La musique s'arrete",
+        "La musique s'arrête",
         "Je mets sur pause ",
         "Le musique est sur pause",
         "Je mets la musique sur pause"
@@ -214,7 +237,7 @@
         "Renseigne toi sur wikipedia"
       ],
       "responses": [
-        "Je n'ai malheureusement rien trouve",
+        "Je n'ai malheureusement rien trouvé",
         "Je ne trouve rien à ce propos sur Wikipedia"
       ],
       "context_set": ""
@@ -225,24 +248,24 @@
         "Il fait combien",
         "Il fait quel temps",
         "Il fait quel temperature la",
-        "Il fait combien de degrès"
+        "Il fait combien de degres"
       ],
       "responses": [
-        "La journee &sera %condition, avec des temperatures entre %lowtemp et %temperature avec un vent atteignant les %wind_speed",
-        "Cette journee &sera %condition avec une temperature moyenne de %temperature avec une temperature minimal de %lowtemp et un vent de %wind_speed",
+        "La journée &sera %condition, avec des températures entre %lowtemp et %temperature avec un vent atteignant les %wind_speed",
+        "Cette journée &sera %condition avec une température moyenne de %temperature avec une température minimal de %lowtemp et un vent de %wind_speed",
         "Aujourd'hui &sera %condition, il &faire en moyenne %temperature avec un minimum de %lowtemp, le vent sera %wind_speed_words",
-        "Le temps &sera %condition avec une temperature moyenne de %temperature avec une temperature minimal de %lowtemp et un vent de %wind_speed"
+        "Le temps &sera %condition avec une température moyenne de %temperature avec une température minimal de %lowtemp et un vent de %wind_speed"
       ],
       "context_set": ""
     },
     {
       "tag": "alarm",
       "patterns": [
-        "mets le reveil à",
-        "defini le reveil à",
-        "reveille moi à",
-        "mets une alarme à",
-        "mets l'alarme à"
+        "mets le reveil a",
+        "defini le reveil a",
+        "reveille moi a",
+        "mets une alarme a",
+        "mets l'alarme a"
       ],
       "responses": [
         "Je mets l'alarme pour %time"
@@ -250,7 +273,7 @@
       "context_set": ""
     },
     {
-      "tag": "turn_on_printer",
+      "tag": "turn_on_3d_printer",
       "patterns": [
         "allume l'imprimante 3d",
         "allume voir l'imprimante 3d",
@@ -259,23 +282,23 @@
       ],
       "responses": [
         "J'allume l'imprimante 3D",
-        "L'imprimante 3D demarre",
-        "Je demarre l'imprimante 3D"
+        "L'imprimante 3D démarre",
+        "Je démarre l'imprimante 3D"
       ],
       "context_set": ""
     },
     {
-      "tag": "turn_off_printer",
+      "tag": "turn_off_3d_printer",
       "patterns": [
         "eteint l'imprimante 3D",
         "eteint voir l'imprimante 3d",
         "arrete l'imprimante 3d"
       ],
       "responses": [
-        "J'eteint l'imprimante",
-        "J'eteint l'imprimante 3D",
-        "L'imprimante s'eteint",
-        "L'imprimante 3D s'eteint"
+        "J'éteint l'imprimante",
+        "J'éteint l'imprimante 3D",
+        "L'imprimante s'éteint",
+        "L'imprimante 3D s'éteint"
       ],
       "context_set": ""
     },
@@ -290,9 +313,9 @@
       "responses": [
         "J'allume le pc",
         "J'allume l'ordinateur",
-        "Je demarre le PC",
-        "Je demarre l'ordinateur",
-        "L'ordinateur demarre",
+        "Je démarre le PC",
+        "Je démarre l'ordinateur",
+        "L'ordinateur démarre",
         "Le PC demarre",
         "Le PC s'allume",
         "L'ordinateur s'allume"
@@ -308,12 +331,12 @@
         "arrete l'ordinateur"
       ],
       "responses": [
-        "J'eteins le pc",
-        "J'eteins l'ordinateur",
-        "J'arrete le PC",
-        "J'arrete l'ordinateur",
-        "L'ordinateur s'arrete",
-        "Le PC s'arrete"
+        "J'éteins le pc",
+        "J'éteins l'ordinateur",
+        "J'arrête le PC",
+        "J'arrête l'ordinateur",
+        "L'ordinateur s'arrête",
+        "Le PC s'arrête"
       ],
       "context_set": ""
     },
@@ -340,7 +363,7 @@
       "responses": [
         "J'allume la tablette murale",
         "La tablette s'allume",
-        "L'ecran de la tablette s'allume",
+        "L'écran de la tablette s'allume",
         "J'allume la tablette"
       ],
       "context_set": ""
@@ -354,10 +377,10 @@
         "eteint l'ecran de la tablette murale"
       ],
       "responses": [
-        "J'eteint la tablette murale",
-        "La tablette s'eteint",
-        "L'ecran de la tablette s'eteint",
-        "J'eteint la tablette"
+        "J'éteint la tablette murale",
+        "La tablette s'éteint",
+        "L'écran de la tablette s'éteint",
+        "J'éteint la tablette"
       ],
       "context_set": ""
     },
@@ -370,21 +393,21 @@
       ],
       "infoResponses": [
         "Donnez-moi quelques secondes",
-        "J'ecoute, un instant",
-        "Un instant, j'ecoute",
-        "Une petite seconde, j'ecoute"
+        "J'écoute, un instant",
+        "Un instant, j'écoute",
+        "Une petite seconde, j'écoute"
       ],
       "responses": [
         "Le titre de cette chanson est %title de %singer",
-        "Cette chanson s'appelle %title et elle est chantee par %singer",
-        "Le nom de cette chanson est %title, elle est chantee par %singer",
+        "Cette chanson s'appelle %title et elle est chantée par %singer",
+        "Le nom de cette chanson est %title, elle est chantée par %singer",
         "%title de %singer"
       ],
       "responsesFail": [
         "Je n'ai pas trouve le nom de cette chanson",
-        "Je suis desole mais je n'ai pas trouve cette chanson",
-        "Je ne saurais pas vous le dire, desole",
-        "Je n'ai malheureusement rien trouve"
+        "Je suis désolé mais je n'ai pas trouve cette chanson",
+        "Je ne saurais pas vous le dire, désolé",
+        "Je n'ai malheureusement rien trouvé"
       ],
       "context_set": ""
     }

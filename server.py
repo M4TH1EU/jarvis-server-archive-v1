@@ -9,7 +9,7 @@ from flask import Flask, jsonify, request
 import automations
 import sentences
 
-elevate.elevate()
+# elevate.elevate()
 
 app = Flask(__name__)
 hotword = 'jarvis'
@@ -66,18 +66,6 @@ def get_recorded_song():
     return jsonify("OK")
 
 
-@app.route("/sentence/contains", methods=['POST'])
-def contains_sentence():
-    sentence = get_body("sentence")
-    return jsonify(sentences.contains_sentence(sentence))
-
-
-@app.route("/sentence/get_by_id", methods=['POST'])
-def get_by_id():
-    sentence_id = get_body("sentenceId")
-    return jsonify(sentences.getRandomSentenceFromId(sentence_id))
-
-
 @app.route("/send", methods=['POST'])
 def send():
     check_api_key(request)
@@ -96,7 +84,8 @@ def send():
 
 
 if __name__ == '__main__':
-    sentences.registerSentences()
+    # sentences.registerSentences()
     automations.register()
-
+    
+    app.config['JSON_AS_ASCII'] = False
     app.run(port=5000, debug=False, host='0.0.0.0', threaded=True)

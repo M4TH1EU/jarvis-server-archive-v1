@@ -1,7 +1,6 @@
-import csv
 import datetime as datetime
-import random
 
+import chatbot.chat
 import homeassistant.homeassistant
 import homeassistant.lights
 import homeassistant.meteo
@@ -15,205 +14,130 @@ sentences = {}
 last_answer = ""
 
 
-def registerSentences():
-    try:
-        # our csv file and a csv reader (encoded in utf8 for special character compatibility)
-        csv_file = open('D:\PYTHON\jarvis-server\Sentences.csv', encoding="utf-8")
-        csv_reader = csv.reader(csv_file, delimiter='|')
-
-        # column number and id(s)
-        column = 0
-        sentencesId = csv_file.readline().split("|")
-
-        # for every line in our .csv file
-        for lines in csv_reader:
-
-            # for every hotwords in our .csv file (based on first line)
-            for sentenceId in sentencesId:
-
-                # if there some empty "fake" column then don't try to register them
-                if 'Column' in sentenceId:
-                    break
-                else:
-                    # fix issue with unicode caracter
-                    sentenceId = sentenceId.replace('\ufeff', '').replace('\n', '')
-
-                    # creating an entry to be able to use .append afterward
-                    if sentenceId not in sentences:
-                        sentences[sentenceId] = []
-
-                    # if the entry is not empty then add it to the sentences dict
-                    if lines[column] != "":
-                        sentences[sentenceId].append(lines[column].lower())
-
-                # increment column
-                column = column + 1
-
-            # reset column
-            column = 0
-
-        csv_file.close()
-    except UnicodeDecodeError as e:
-        print("Error loading sentences.csv, check if saved with CSV (| delimited) and encoded in UTF-8 ")
-
-
-def get_answer(sentence_id):
-    if getSentencesById(sentence_id):
-        return random.choice(getSentencesById(sentence_id))
-    else:
-        return random.choice(getSentencesById("dontUnderstand"))
-
-
-def contains_sentence(sentence):
-    for key, value in sentences.items():
-        if sentence in value:
-            return True
-    return False
-
-
 def get_custom_answer(text):
     return text
-
-
-def getSentences():
-    return sentences
-
-
-def getLastAnswer():
-    return last_answer
 
 
 def getSentencesById(sentence_id):
     return sentences[sentence_id]
 
 
-def getRandomSentenceFromId(sentence_id):
-    """
-    Return a random sentence from the CSV file for a specific sentence (id)
-
-    Parameters
-    ----------
-    sentence_id
-
-    Returns
-    -------
-    str
-
-    """
-    return random.choice(getSentencesById(sentence_id))
-
-
 def recogniseSentence(sentence):
+    tag = chatbot.chat.get_tag_for_sentence(sentence)
+
     # hey jarvis
-    if sentence in getSentencesById('hotwordDetection'):
-        return get_answer('yesSir')
+    if tag == 'jarvis':
+        return chatbot.chat.get_response_for_tag('yesSir')
 
     # comment ça va
-    elif sentence in getSentencesById('howAreYouDetection'):
-        return get_answer('allGoodSir')
+    elif tag == 'greeting':
+        return chatbot.chat.get_response_for_tag('greeting')
 
     # allume la lumière
-    elif sentence in getSentencesById('turnOnLightsDetection'):
+    elif tag == 'lights_on':
         homeassistant.lights.turn_on("light.lumieres_chambre")
-        return get_answer('turningOnLights')
+        return chatbot.chat.get_response_for_tag('lights_on')
 
     # éteint la lumière
-    elif sentence in getSentencesById('turnOffLightsDetection'):
+    elif tag == 'lights_off':
         homeassistant.lights.turn_off("light.lumieres_chambre")
-        return get_answer('turningOffLights')
+        return chatbot.chat.get_response_for_tag('lights_off')
 
     # allume les leds
-    elif sentence in getSentencesById('turnOnLedsDetection'):
+    elif tag == 'leds_on':
         homeassistant.lights.turn_on("light.leds_chambre")
-        return get_answer('turningOnLights')
+        return chatbot.chat.get_response_for_tag('leds_on')
 
     # éteint les leds
-    elif sentence in getSentencesById('turnOffLedsDetection'):
+    elif tag == 'leds_off':
         homeassistant.lights.turn_off("light.leds_chambre")
-        return get_answer('turningOffLights')
+        return chatbot.chat.get_response_for_tag('leds_off')
 
     # mets le morceau suivant
-    elif sentence in getSentencesById('nextTrackDetection'):
+    elif tag == 'next_track':
         homeassistant.spotify.next_track("media_player.spotify_mathieu_broillet")
-        return get_answer('nextTrack')
+        return chatbot.chat.get_response_for_tag('next_track')
 
     # mets le morceau précédent
-    elif sentence in getSentencesById('previousTrackDetection'):
+    elif tag == 'previous_track':
         homeassistant.spotify.previous_track("media_player.spotify_mathieu_broillet")
-        return get_answer('previousTrack')
+        return chatbot.chat.get_response_for_tag('previous_track')
 
     # relance la musique
-    elif sentence in getSentencesById('resumeMusicDetection'):
+    elif tag == 'resume_music':
         homeassistant.spotify.play("media_player.spotify_mathieu_broillet")
-        return get_answer('resumeMusic')
+        return chatbot.chat.get_response_for_tag('resume_music')
 
     # mets la musique sur pause
-    elif sentence in getSentencesById('pauseMusicDetection'):
+    elif tag == 'pause_music':
         homeassistant.spotify.pause("media_player.spotify_mathieu_broillet")
-        return get_answer('pauseMusic')
+        return chatbot.chat.get_response_for_tag('pause_music')
 
     # monte le son
-    elif sentence in getSentencesById('turnUpVolumeDetection'):
+    elif tag == 'turn_up_volume':
         homeassistant.spotify.turn_up_volume("media_player.spotify_mathieu_broillet")
-        return get_answer('turningUpVolume')
+        return chatbot.chat.get_response_for_tag('turn_up_volume')
 
     # baisse le son
-    elif sentence in getSentencesById('turnDownVolumeDetection'):
+    elif tag == 'turn_down_volume':
         homeassistant.spotify.turn_down_volume("media_player.spotify_mathieu_broillet")
-        return get_answer('turningDownVolume')
+        return chatbot.chat.get_response_for_tag('turn_down_volume')
 
     # il est quelle heure
-    elif sentence in getSentencesById('whatTimeIsIt'):
+    elif tag == 'what_time_is_it':
         current_time = datetime.datetime.now().strftime("%H:%M")
-        return get_custom_answer(getRandomSentenceFromId('itIsTime') + " " + current_time)
+        current_time = current_time.replace('00:', 'minuit ')
+        current_time = current_time.replace('12:', 'midi ')
+
+        return get_custom_answer(chatbot.chat.get_response_for_tag('what_time_is_it') + " " + current_time)
 
     # non rien finalement
-    elif sentence in getSentencesById('nothingDetection'):
+    elif tag == 'nothingDetection':
         # TODO: find a way to replace the beepy sound
         return "Okay"
 
     # allume l'imprimante 3d
-    elif sentence in getSentencesById('turnOn3DPrinterDetection'):
+    elif tag == 'turn_on_3d_printer':
         homeassistant.switch.turn_on('switch.bfd9b202b8140c15780fpe')
-        return get_answer('turningOn3DPrinter')
+        return chatbot.chat.get_response_for_tag('turn_on_3d_printer')
 
     # éteint l'imprimante 3d
-    elif sentence in getSentencesById('turnOff3DPrinterDetection'):
+    elif tag == 'turn_off_3d_printer':
         homeassistant.switch.turn_off('switch.bfd9b202b8140c15780fpe')
-        return get_answer('turningOff3DPrinter')
+        return chatbot.chat.get_response_for_tag('turn_off_3d_printer')
 
     # allume le pc
-    elif sentence in getSentencesById('turnOnPCDetection'):
+    elif tag == 'turn_on_pc':
         homeassistant.switch.turn_on('switch.wake_on_lan_pc_tour')
-        return get_answer('turningOnPC')
+        return chatbot.chat.get_response_for_tag('turn_on_pc')
 
     # éteint le pc
-    elif sentence in getSentencesById('turnOffPCDetection'):
+    elif tag == 'turn_off_pc':
         homeassistant.switch.turn_off('switch.wake_on_lan_pc_tour')
-        return get_answer('turningOffPC')
+        return chatbot.chat.get_response_for_tag('turn_off_pc')
 
     # mets le pc en veille
-    elif sentence in getSentencesById('putComputerToSleepDetection'):
+    elif tag == 'sleep_pc':
         homeassistant.homeassistant.call_service('', 'shell_command/sleep_tour_mathieu')
-        return get_answer('doneSir')
+        return chatbot.chat.get_response_for_tag('sleep_pc')
 
     # allume la tablette
-    elif sentence in getSentencesById('turnOnKioskTabletDetection'):
+    elif tag == 'turn_on_wall_tablet':
         homeassistant.lights.turn_on('light.mi_pad_screen')
-        return get_answer('turningOnKioskTablet')
+        return chatbot.chat.get_response_for_tag('turn_on_wall_tablet')
 
     # éteint la tablette
-    elif sentence in getSentencesById('turnOffKioskTabletDetection'):
-        homeassistant.switch.turn_off('light.mi_pad_screen')
-        return get_answer('turningOffKioskTablet')
+    elif tag == 'turn_off_wall_tablet':
+        homeassistant.lights.turn_off('light.mi_pad_screen')
+        return chatbot.chat.get_response_for_tag('turn_off_wall_tablet')
 
     # c'est quoi le titre de cette chanson
-    elif sentence in getSentencesById('whatThatSongDetection'):
+    elif tag == 'song_detection':
 
         title = ""
         singer = ""
 
-        answer_sentence = getRandomSentenceFromId('songTitle')
+        answer_sentence = chatbot.chat.get_response_for_tag('song_detection')
 
         if homeassistant.spotify.is_music_playing('media_player.spotify_mathieu_broillet'):
             song_info = homeassistant.spotify.get_infos_playing_song('media_player.spotify_mathieu_broillet')
@@ -226,7 +150,7 @@ def recogniseSentence(sentence):
                 singer = song[1]
                 # track_id = song[2]
             else:
-                return get_answer('songNotFound')
+                return chatbot.chat.get_response_for_tag('songNotFound')
 
         answer_sentence = answer_sentence.replace("%title", title)
         answer_sentence = answer_sentence.replace("%singer", singer)
@@ -235,12 +159,12 @@ def recogniseSentence(sentence):
     else:
 
         # cherche XYZ sur wikipédia
-        if is_custom_sentence('wikiDetection', sentence):
-            get_custom_answer(wiki.get_description(get_words_out_of_custom_sentence('wikiDetection', sentence)))
+        if is_custom_sentence('wikipedia_search', sentence):
+            get_custom_answer(wiki.get_description(get_words_out_of_custom_sentence('wikipedia_search', sentence)))
 
         # mets le réveil à 6h45
-        elif is_custom_sentence('alarmClockDetection', sentence):
-            spoke_time = get_words_out_of_custom_sentence('alarmClockDetection', sentence)
+        elif is_custom_sentence('alarm', sentence):
+            spoke_time = get_words_out_of_custom_sentence('alarm', sentence)
             spoke_time = spoke_time.replace("demain", "").replace("matin", "").replace(" ", "")
 
             hours = spoke_time.split("h")[0]
@@ -250,7 +174,7 @@ def recogniseSentence(sentence):
             plugins.alarms.add_alarm(spoke_time.strftime("%H:%M"))
 
         # quel temps fait il
-        elif sentence in getSentencesById('weatherInfoDetection'):
+        elif tag == 'weather':
             homeassistant_weather_entity_id = 'weather.bussigny_sur_oron'
             today_date = datetime.date.today().strftime("%Y-%m-%d")
             today_hour = datetime.datetime.now().hour
@@ -262,13 +186,14 @@ def recogniseSentence(sentence):
                 sera = "sera"
                 faire = "fera"
 
-            sentence_meteo = getRandomSentenceFromId('weatherInfo')
+            sentence_meteo = getRandomSentenceFromId('weather')
             sentence_meteo = sentence_meteo.replace('&sera', sera)
             sentence_meteo = sentence_meteo.replace('&faire', faire)
             sentence_meteo = sentence_meteo.replace('%condition',
                                                     homeassistant.meteo.get_condition(homeassistant_weather_entity_id))
             sentence_meteo = sentence_meteo.replace('%temperature',
-                                                    homeassistant.meteo.get_temperature(homeassistant_weather_entity_id))
+                                                    homeassistant.meteo.get_temperature(
+                                                        homeassistant_weather_entity_id))
             sentence_meteo = sentence_meteo.replace('%lowtemp', homeassistant.meteo.get_temperature_low(
                 homeassistant_weather_entity_id))
             sentence_meteo = sentence_meteo.replace('%wind_speed',
@@ -294,7 +219,7 @@ def recogniseSentence(sentence):
                     return spotipy.play_song_without_artist(song)
 
         else:
-            return get_answer('dontUnderstand')
+            return chatbot.chat.get_response_for_tag_custom('dont_understand')
 
 
 def is_custom_sentence(sentence_id, sentence):
