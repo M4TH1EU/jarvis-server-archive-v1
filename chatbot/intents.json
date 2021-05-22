@@ -7,8 +7,7 @@
         "ca va",
         "comment vas-tu",
         "ça va",
-        "comment tu vas",
-        "Salut"
+        "comment tu vas"
       ],
       "responses": [
         "Je vais bien monsieur",
@@ -20,39 +19,35 @@
       "context_set": ""
     },
     {
-      "tag": "goodbye",
-      "patterns": [
-        "Tchao",
-        "A plus tard",
-        "A plus",
-        "Tcho",
-        "Au revoir",
-        "A bientot"
-      ],
-      "responses": [
-        "Sad to see you go :(",
-        "Talk to you later",
-        "Goodbye!"
-      ],
-      "context_set": ""
-    },
-    {
       "tag": "lights_on",
       "patterns": [
         "allume la lumière",
         "allume les lumières",
         "allume les lampes",
-        "démarre la lumière",
-        "démarre les lumières",
         "allumer lumière",
-        "lumière",
-        "lumières",
-        "ampoules"
+        "tu peux m'allumer la lumière"
       ],
       "responses": [
         "J'allume les lumières",
         "J'allume la lumière",
         "Les lumières s'allument monsieur"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "lights_off",
+      "patterns": [
+        "eteint la lumière",
+        "eteint voir la lumière",
+        "eteint les lumières",
+        "eteint les lampes",
+        "eteindre lumière",
+        "tu peux m'eteindre les lumières"
+      ],
+      "responses": [
+        "J'eteinds les lumières",
+        "J'eteinds la lumière",
+        "Les lumières s'eteignent monsieur"
       ],
       "context_set": ""
     },
@@ -63,17 +58,333 @@
         "allume les leds",
         "allume les led",
         "allume les bandes leds",
-        "démarre les leds",
-        "démarre les led",
-        "démarre les leds",
-        "allumer leds",
-        "leds",
-        "led"
+        "demarre les leds",
+        "demarre les led",
+        "demarre les leds",
+        "allumer leds"
       ],
       "responses": [
         "J'allume les leds",
-        "J'allume la guirlande leds",
         "Les leds s'allument monsieur"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "leds_off",
+      "patterns": [
+        "eteint la bande led",
+        "eteint les leds",
+        "eteint les led",
+        "eteint les bandes leds",
+        "eteindre leds",
+        "eteindre les leds"
+      ],
+      "responses": [
+        "J'eteinds les leds",
+        "J'eteinds la guirlande led",
+        "Les leds s'eteignent monsieur"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "next_track",
+      "patterns": [
+        "morceau suivant",
+        "mets le morceau suivant",
+        "joue le titre suivant",
+        "joue le morceau suivant",
+        "change de musique",
+        "change de morceau"
+      ],
+      "responses": [
+        "Voici le morceau suivant monsieur",
+        "Voici le morceau suivant",
+        "Je passe cette chanson",
+        "Chanson suivante",
+        "Morceau suivant"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "previous_track",
+      "patterns": [
+        "morceau precedent",
+        "mets le morceau precedent",
+        "mets le morceau d'avant",
+        "joue le titre precedent",
+        "joue le morceau precedent",
+        "joue la chanson precedente",
+        "rejoue la chanson precedente",
+        "mets le morceau precedent"
+      ],
+      "responses": [
+        "Voici le morceau precedent monsieur",
+        "Voici le morceau precedent",
+        "Je remets la chanson d'avant",
+        "Chanson precedente",
+        "Morceau precedent"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "resume_music",
+      "patterns": [
+        "Reprend la musique",
+        "Remets la musique",
+        "Relance la musique",
+        "Redemarre la musique",
+        "Mets de la musique"
+      ],
+      "responses": [
+        "Je relance la musique",
+        "La musique reprend",
+        "De suite",
+        "Le son reprend",
+        "Je remets la musique"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "pause_music",
+      "patterns": [
+        "Arrete la musique",
+        "Stop la musique",
+        "Mets la musique en pause",
+        "Pause la musique",
+        "Mets en pause la musique"
+      ],
+      "responses": [
+        "La musique s'arrete",
+        "Je mets sur pause ",
+        "Le musique est sur pause",
+        "Je mets la musique sur pause"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "turn_up_volume",
+      "patterns": [
+        "Monte le son",
+        "Monte le volume",
+        "Augmente le son",
+        "Augmente le volume"
+      ],
+      "responses": [
+        "Je monte le son",
+        "J'augmente le volume"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "turn_down_volume",
+      "patterns": [
+        "Baisse le son",
+        "Descend le son",
+        "Baisse le volume",
+        "Descend le volume"
+      ],
+      "responses": [
+        "Je descend le volume",
+        "Je baisse le volume",
+        "Je diminue le volume"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "what_time_is_it",
+      "patterns": [
+        "Il est quelle heure",
+        "C'est quelle heure",
+        "On vit quelle heure",
+        "Quelle heure est-il"
+      ],
+      "responses": [
+        "Il est",
+        "Il est actuellement"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "wikipedia_search",
+      "patterns": [
+        "donne-moi des infos sur",
+        "c'est quoi",
+        "c'est qui",
+        "Cherche sur wikipedia",
+        "Renseigne toi sur wikipedia"
+      ],
+      "responses": [
+        "Je n'ai malheureusement rien trouve",
+        "Je ne trouve rien à ce propos sur Wikipedia"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "weather",
+      "patterns": [
+        "Il fait combien",
+        "Il fait quel temps",
+        "Il fait quel temperature la",
+        "Il fait combien de degrès"
+      ],
+      "responses": [
+        "La journee &sera %condition, avec des temperatures entre %lowtemp et %temperature avec un vent atteignant les %wind_speed",
+        "Cette journee &sera %condition avec une temperature moyenne de %temperature avec une temperature minimal de %lowtemp et un vent de %wind_speed",
+        "Aujourd'hui &sera %condition, il &faire en moyenne %temperature avec un minimum de %lowtemp, le vent sera %wind_speed_words",
+        "Le temps &sera %condition avec une temperature moyenne de %temperature avec une temperature minimal de %lowtemp et un vent de %wind_speed"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "alarm",
+      "patterns": [
+        "mets le reveil à",
+        "defini le reveil à",
+        "reveille moi à",
+        "mets une alarme à",
+        "mets l'alarme à"
+      ],
+      "responses": [
+        "Je mets l'alarme pour %time"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "turn_on_printer",
+      "patterns": [
+        "allume l'imprimante 3d",
+        "allume voir l'imprimante 3d",
+        "mets en marche l'imprimante 3d",
+        "tu pourrais allumer l'imprimante 3d"
+      ],
+      "responses": [
+        "J'allume l'imprimante 3D",
+        "L'imprimante 3D demarre",
+        "Je demarre l'imprimante 3D"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "turn_off_printer",
+      "patterns": [
+        "eteint l'imprimante 3D",
+        "eteint voir l'imprimante 3d",
+        "arrete l'imprimante 3d"
+      ],
+      "responses": [
+        "J'eteint l'imprimante",
+        "J'eteint l'imprimante 3D",
+        "L'imprimante s'eteint",
+        "L'imprimante 3D s'eteint"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "turn_on_pc",
+      "patterns": [
+        "Allume le pc",
+        "allume l'ordinateur",
+        "demarre le pc",
+        "demarre l'ordinateur"
+      ],
+      "responses": [
+        "J'allume le pc",
+        "J'allume l'ordinateur",
+        "Je demarre le PC",
+        "Je demarre l'ordinateur",
+        "L'ordinateur demarre",
+        "Le PC demarre",
+        "Le PC s'allume",
+        "L'ordinateur s'allume"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "turn_off_pc",
+      "patterns": [
+        "eteint le pc",
+        "arrete le pc",
+        "eteint l'ordinateur",
+        "arrete l'ordinateur"
+      ],
+      "responses": [
+        "J'eteins le pc",
+        "J'eteins l'ordinateur",
+        "J'arrete le PC",
+        "J'arrete l'ordinateur",
+        "L'ordinateur s'arrete",
+        "Le PC s'arrete"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "sleep_pc",
+      "patterns": [
+        "Mets le pc en veille",
+        "Passe le pc en veille"
+      ],
+      "responses": [
+        "Je mets le PC en veille",
+        "Je mets l'ordinateur en veille"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "turn_on_wall_tablet",
+      "patterns": [
+        "allume la tablette",
+        "allume la tablette murale",
+        "allume l'ecran de la tablette",
+        "allume l'ecran de la tablette murale"
+      ],
+      "responses": [
+        "J'allume la tablette murale",
+        "La tablette s'allume",
+        "L'ecran de la tablette s'allume",
+        "J'allume la tablette"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "turn_off_wall_tablet",
+      "patterns": [
+        "eteint la tablette",
+        "eteint la tablette murale",
+        "eteint l'ecran de la tablette",
+        "eteint l'ecran de la tablette murale"
+      ],
+      "responses": [
+        "J'eteint la tablette murale",
+        "La tablette s'eteint",
+        "L'ecran de la tablette s'eteint",
+        "J'eteint la tablette"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "song_detection",
+      "patterns": [
+        "c'est quoi cette chanson",
+        "c'est quoi le nom de cette chanson",
+        "c'est qui qui chante ça"
+      ],
+      "infoResponses": [
+        "Donnez-moi quelques secondes",
+        "J'ecoute, un instant",
+        "Un instant, j'ecoute",
+        "Une petite seconde, j'ecoute"
+      ],
+      "responses": [
+        "Le titre de cette chanson est %title de %singer",
+        "Cette chanson s'appelle %title et elle est chantee par %singer",
+        "Le nom de cette chanson est %title, elle est chantee par %singer",
+        "%title de %singer"
+      ],
+      "responsesFail": [
+        "Je n'ai pas trouve le nom de cette chanson",
+        "Je suis desole mais je n'ai pas trouve cette chanson",
+        "Je ne saurais pas vous le dire, desole",
+        "Je n'ai malheureusement rien trouve"
       ],
       "context_set": ""
     }

@@ -2,6 +2,9 @@ import json
 import random
 
 import torch
+import unicodedata
+
+from unidecode import unidecode
 
 from model import NeuralNet
 from nltk_utils import bag_of_words, tokenize
@@ -25,11 +28,27 @@ model = NeuralNet(input_size, hidden_size, output_size).to(device)
 model.load_state_dict(model_state)
 model.eval()
 
-bot_name = "Sam"
+
+def strip_accents(text):
+    try:
+        text = unicode(text, 'utf-8')
+    except NameError:  # unicode is a default on python 3
+        pass
+
+    text = unicodedata.normalize('NFD', text) \
+        .encode('ascii', 'ignore') \
+        .decode("utf-8")
+
+    return str(text)
+
+
+bot_name = "Jarvis"
 print("Let's chat! (type 'quit' to exit)")
 while True:
     # sentence = "do you use credit cards?"
     sentence = input("You: ")
+    sentence = unidecode(sentence)  # convert accent to better recognition
+
     if sentence == "quit":
         break
 
@@ -50,4 +69,4 @@ while True:
             if tag == intent["tag"]:
                 print(f"{bot_name}: {random.choice(intent['responses'])}")
     else:
-        print(f"{bot_name}: I do not understand...")
+        print(f"{bot_name}: Je n'ai pas compris...")
