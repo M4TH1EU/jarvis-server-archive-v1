@@ -1,5 +1,8 @@
 import datetime as datetime
 
+import spacy
+from nltk.corpus import stopwords
+
 import chatbot.chat
 import homeassistant.homeassistant
 import homeassistant.lights
@@ -12,6 +15,7 @@ from plugins import wiki, spotipy
 
 sentences = {}
 last_answer = ""
+nlp = spacy.load("fr_core_news_sm")
 
 
 def get_custom_answer(text):
@@ -159,8 +163,26 @@ def recogniseSentence(sentence):
     else:
 
         # cherche XYZ sur wikipédia
-        if is_custom_sentence('wikipedia_search', sentence):
-            get_custom_answer(wiki.get_description(get_words_out_of_custom_sentence('wikipedia_search', sentence)))
+        if tag == 'wikipedia_search':
+            sentence = sentence[0].lower() + sentence[1:]
+
+            person_name = get_person_in_sentence(sentence)
+            if person_name != "none":
+                print("Search : ", person_name)
+                return wiki.get_description(person_name)
+            else:
+                stop_words_french = set(stopwords.words('french'))
+                filtered_sentence = [w for w in sentence.lower().split() if not w in stop_words_french]
+                filtered_sentence = " ".join(filtered_sentence)
+
+                patterns = chatbot.chat.get_all_patterns_for_tag('wikipedia_search')
+                patterns_stop_words = " ".join(patterns).lower().split()
+
+                sentence_without_patterns_words = ' '.join(
+                    filter(lambda x: x.lower() not in patterns_stop_words, filtered_sentence.split()))
+
+                print("Search : ", sentence_without_patterns_words)
+                return wiki.get_description(sentence_without_patterns_words)
 
         # mets le réveil à 6h45
         elif is_custom_sentence('alarm', sentence):
@@ -223,10 +245,17 @@ def recogniseSentence(sentence):
 
 
 def is_custom_sentence(sentence_id, sentence):
-    if sentence.startswith(tuple(getSentencesById(sentence_id))):
-        return True
-    else:
-        return False
+    return False
+
+
+def get_person_in_sentence(sentence):
+    doc = nlp(sentence)
+
+    for ent in doc.ents:
+        if ent.label_ == 'PER':
+            return ent.text
+
+    return "none"
 
 
 def get_words_out_of_custom_sentence(sentence_id, sentence):

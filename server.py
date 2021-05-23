@@ -27,7 +27,7 @@ def get_sentence_in_body(name):
     if not isinstance(data, dict):
         data = json.loads(data)
 
-    data = str(data[name]).lower()
+    data = str(data[name])
     return data
 
 

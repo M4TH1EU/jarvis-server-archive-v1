@@ -11,7 +11,7 @@ def tokenize(sentence):
     split sentence into array of words/tokens
     a token can be a word or punctuation character, or number
     """
-    return nltk.word_tokenize(sentence)
+    return nltk.word_tokenize(sentence, language="french")
 
 
 def stem(word):

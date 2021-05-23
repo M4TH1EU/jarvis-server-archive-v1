@@ -3,7 +3,7 @@ import re
 import wikipedia
 from translate import Translator
 
-import sentences
+import chatbot.chat
 
 
 def get_description(name):
@@ -19,7 +19,7 @@ def get_description(name):
                 wikipedia.set_lang("en")
                 page = wikipedia.page(name, auto_suggest=False)
         except:
-            return sentences.getRandomSentenceFromId('wikipediaNotFound')
+            return chatbot.chat.get_response_for_tag('wikipedia_search')
 
     summary = re.sub("[\(\[].*?[\)\]]", "", page.summary)
     summary = summary.replace("Inc.", "Inc")

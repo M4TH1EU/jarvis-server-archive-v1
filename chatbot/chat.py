@@ -2,6 +2,7 @@ import json
 import random
 
 import torch
+from nltk.corpus import stopwords
 from unidecode import unidecode
 
 from chatbot.model import NeuralNet
@@ -27,9 +28,8 @@ model.load_state_dict(model_state)
 model.eval()
 
 
-def get_tag_for_sentence(sentence):
-    sentence = unidecode(sentence)  # convert accent to better recognition
-
+def get_tag_for_sentence(input_sentence):
+    sentence = unidecode(input_sentence)  # convert accent to better recognition
     sentence = tokenize(sentence)
     X = bag_of_words(sentence, all_words)
     X = X.reshape(1, X.shape[0])
@@ -42,10 +42,15 @@ def get_tag_for_sentence(sentence):
 
     probs = torch.softmax(output, dim=1)
     prob = probs[0][predicted.item()]
-    if prob.item() > 0.75:
+    if prob.item() > 0.75 and len(sentence) > 2:
         for intent in intents['intents']:
             if tag == intent["tag"]:
-                # return random.choice(intent['responses'])
+                stop_words = set(stopwords.words('french'))
+                filtered_sentence = [w for w in sentence if not w in stop_words]
+
+                print("SENTENCE : ", sentence)
+                print("SENTENCE FILTERED : ", filtered_sentence)
+
                 return tag
     else:
         return get_response_for_tag_custom('dont_understand')
@@ -61,3 +66,9 @@ def get_response_for_tag_custom(tag):
     for intent in intents['custom']:
         if intent['tag'] == tag:
             return random.choice(intent['responses'])
+
+
+def get_all_patterns_for_tag(tag):
+    for intent in intents['intents']:
+        if intent['tag'] == tag:
+            return intent['patterns']
