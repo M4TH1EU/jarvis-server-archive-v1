@@ -6,6 +6,7 @@ import flask
 from flask import Flask, jsonify, request
 
 import automations
+import chatbot.chat
 import sentences
 
 # elevate.elevate()
@@ -43,6 +44,12 @@ def get_body(name):
 def get_hotword():
     check_api_key(request)
     return jsonify(hotword)
+
+
+@app.route("/sentence/get_by_id", methods=['POST'])
+def get_by_id():
+    sentence_id = get_body("sentenceId")
+    return jsonify(chatbot.chat.get_response_for_tag(sentence_id))
 
 
 @app.route("/send_record", methods=['POST'])
