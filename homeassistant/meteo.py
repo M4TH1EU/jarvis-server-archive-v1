@@ -38,7 +38,7 @@ def get_low_temp(entity_id):
 
 
 def get_wind_speed(entity_id):
-    return str(int(get_attribute(entity_id, 'wind_speed'))) + " kilomètres heures"
+    return int(get_attribute(entity_id, 'wind_speed'))
 
 
 def get_humidity(entity_id):

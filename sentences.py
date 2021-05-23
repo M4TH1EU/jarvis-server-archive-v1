@@ -195,23 +195,41 @@ def recogniseSentence(sentence):
                 sera = "sera"
                 faire = "fera"
 
-            sentence_meteo = chatbot.chat.get_response_for_tag('weather')
-            sentence_meteo = sentence_meteo.replace('&sera', sera)
-            sentence_meteo = sentence_meteo.replace('&faire', faire)
-            sentence_meteo = sentence_meteo.replace('%condition',
-                                                    homeassistant.meteo.get_condition(homeassistant_weather_entity_id))
-            sentence_meteo = sentence_meteo.replace('%temperature',
-                                                    homeassistant.meteo.get_temperature(
-                                                        homeassistant_weather_entity_id))
-            sentence_meteo = sentence_meteo.replace('%lowtemp', homeassistant.meteo.get_temperature_low(
+            sentence_weather = chatbot.chat.get_response_for_tag('weather')
+            sentence_weather = sentence_weather.replace('&sera', sera)
+            sentence_weather = sentence_weather.replace('&faire', faire)
+            sentence_weather = sentence_weather.replace('%condition',
+                                                        homeassistant.meteo.get_condition(
+                                                            homeassistant_weather_entity_id))
+            sentence_weather = sentence_weather.replace('%temperature',
+                                                        homeassistant.meteo.get_temperature(
+                                                            homeassistant_weather_entity_id))
+            sentence_weather = sentence_weather.replace('%lowtemp', homeassistant.meteo.get_temperature_low(
                 homeassistant_weather_entity_id))
-            sentence_meteo = sentence_meteo.replace('%wind_speed',
-                                                    homeassistant.meteo.get_wind_speed(homeassistant_weather_entity_id))
 
-            # TODO : add different types of wind speed
-            sentence_meteo = sentence_meteo.replace('%wind_words', "faible")
+            wind_speed = int(homeassistant.meteo.get_wind_speed(homeassistant_weather_entity_id))
 
-            return sentence_meteo
+            if wind_speed < 8:
+                wind_speed_words = "très faible"
+            elif wind_speed < 20:
+                wind_speed_words = "calme"
+            elif wind_speed < 30:
+                wind_speed_words = "agité"
+            elif wind_speed < 45:
+                wind_speed_words = "fort"
+            elif wind_speed < 60:
+                wind_speed_words = "très fort"
+            elif wind_speed < 80:
+                wind_speed_words = "destructeur"
+            elif wind_speed < 200:
+                wind_speed_words = "massivement destructeur et mortel"
+            else:
+                wind_speed_words = "non défini"
+
+            sentence_weather = sentence_weather.replace('%wind_speed_words', wind_speed_words)
+            sentence_weather = sentence_weather.replace('%wind_speed', str(wind_speed) + ' kilomètres heure')
+
+            return sentence_weather
 
         # joue i'm still standing de elton john
         elif is_tag(tag, 'play_song'):

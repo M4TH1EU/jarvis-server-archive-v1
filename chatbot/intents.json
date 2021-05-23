@@ -215,7 +215,6 @@
         "Augmente le volume",
         "Monte un peu le son"
       ],
-
       "responses": [
         "Je monte le son",
         "J'augmente le volume"
@@ -274,13 +273,15 @@
         "Il fait combien",
         "Il fait quel temps",
         "Il fait quel temperature la",
-        "Il fait combien de degres"
+        "Il fait combien de degres",
+        "C'est quoi la météo actuelle",
+        "Donne moi le temps actuel"
       ],
       "responses": [
         "La journée &sera %condition, avec des températures entre %lowtemp et %temperature avec un vent atteignant les %wind_speed",
         "Cette journée &sera %condition avec une température moyenne de %temperature avec une température minimal de %lowtemp et un vent de %wind_speed",
-        "Aujourd'hui &sera %condition, il &faire en moyenne %temperature avec un minimum de %lowtemp, le vent sera %wind_speed_words",
-        "Le temps &sera %condition avec une température moyenne de %temperature avec une température minimal de %lowtemp et un vent de %wind_speed"
+        "Aujourd'hui &sera %condition, il &faire en moyenne %temperature avec un minimum de %lowtemp, le vent &sera %wind_speed_words",
+        "Le temps &sera %condition avec une température moyenne de %temperature et une température minimal de %lowtemp et un vent de %wind_speed"
       ],
       "context_set": ""
     },
