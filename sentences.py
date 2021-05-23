@@ -163,15 +163,8 @@ def recogniseSentence(sentence):
                 print("Search : ", person_name)
                 return wiki.get_description(person_name)
             else:
-                stop_words_french = set(stopwords.words('french'))
-                filtered_sentence = [w for w in sentence.lower().split() if not w in stop_words_french]
-                filtered_sentence = " ".join(filtered_sentence)
-
-                patterns = chatbot.chat.get_all_patterns_for_tag('wikipedia_search')
-                patterns_stop_words = " ".join(patterns).lower().split()
-
-                sentence_without_patterns_words = ' '.join(
-                    filter(lambda x: x.lower() not in patterns_stop_words, filtered_sentence.split()))
+                filtered_sentence = get_sentence_without_stopwords(sentence)
+                sentence_without_patterns_words = get_sentence_without_patterns_words(filtered_sentence, 'wikipedia')
 
                 print("Search : ", sentence_without_patterns_words)
                 return wiki.get_description(sentence_without_patterns_words)
@@ -241,6 +234,23 @@ def recogniseSentence(sentence):
 
 def is_tag(tag, name):
     return tag == name
+
+
+def get_sentence_without_stopwords(sentence):
+    stop_words_french = set(stopwords.words('french'))
+    filtered_sentence = [w for w in sentence.lower().split() if w not in stop_words_french]
+    filtered_sentence = " ".join(filtered_sentence)
+    return filtered_sentence
+
+
+def get_sentence_without_patterns_words(sentence, tag):
+    patterns = chatbot.chat.get_all_patterns_for_tag(tag)
+    patterns_stop_words = " ".join(patterns).lower().split()
+
+    sentence_without_patterns_words = ' '.join(
+        filter(lambda x: x.lower() not in patterns_stop_words, sentence.split()))
+
+    return sentence_without_patterns_words
 
 
 def get_person_in_sentence(sentence):
