@@ -141,11 +141,11 @@
         "mets le morceau precedent"
       ],
       "responses": [
-        "Voici le morceau précédente monsieur",
-        "Voici le morceau précédente",
+        "Voici le morceau précédent monsieur",
+        "Voici le morceau précédent",
         "Je remets la chanson d'avant",
         "Chanson précédente",
-        "Morceau précédente"
+        "Morceau précédent"
       ],
       "context_set": ""
     },
@@ -189,6 +189,8 @@
       "patterns": [
         "Monte le son",
         "Monte le volume",
+        "Monter le son",
+        "Monter le volume",
         "Augmente le son",
         "Augmente le volume"
       ],
@@ -231,6 +233,7 @@
       "tag": "wikipedia_search",
       "patterns": [
         "donne-moi des infos sur",
+        "donne moi des infos sur",
         "c'est quoi",
         "c'est qui",
         "Cherche sur wikipedia",
@@ -266,7 +269,8 @@
         "defini le reveil a",
         "reveille moi a",
         "mets une alarme a",
-        "mets l'alarme a"
+        "mets l'alarme a",
+        "mets voir une alarme a"
       ],
       "responses": [
         "Je mets l'alarme pour %time"
@@ -279,7 +283,8 @@
         "allume l'imprimante 3d",
         "allume voir l'imprimante 3d",
         "mets en marche l'imprimante 3d",
-        "tu pourrais allumer l'imprimante 3d"
+        "tu pourrais allumer l'imprimante 3d",
+        "démarre moi voir l'imprimante 3d"
       ],
       "responses": [
         "J'allume l'imprimante 3D",
