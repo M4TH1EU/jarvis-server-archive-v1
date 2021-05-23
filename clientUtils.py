@@ -33,6 +33,13 @@ def speak(speech):
     call_client_api("POST", "/speak", data)
 
 
+def sound(sound_name):
+    data = {
+        'sound_name': sound_name
+    }
+    call_client_api("POST", "/sound", data)
+
+
 def call_client_api(method, url, json_data=None):
     if json_data is None:
         json_data = {}

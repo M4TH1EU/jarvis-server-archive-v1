@@ -4,6 +4,7 @@ import spacy
 from nltk.corpus import stopwords
 
 import chatbot.chat
+import clientUtils
 import homeassistant.homeassistant
 import homeassistant.lights
 import homeassistant.meteo
@@ -89,7 +90,7 @@ def recogniseSentence(sentence):
 
     # non rien finalement
     elif is_tag(tag, 'nothingDetection'):
-        # TODO: find a way to replace the beepy sound
+        clientUtils.sound("listened.mp3")
         return "Okay"
 
     # allume l'imprimante 3d
@@ -163,7 +164,8 @@ def recogniseSentence(sentence):
                 return wiki.get_description(person_name)
             else:
                 filtered_sentence = get_sentence_without_stopwords(sentence)
-                sentence_without_patterns_words = get_sentence_without_patterns_words(filtered_sentence, 'wikipedia_search')
+                sentence_without_patterns_words = get_sentence_without_patterns_words(filtered_sentence,
+                                                                                      'wikipedia_search')
 
                 print("Search : ", sentence_without_patterns_words)
                 return wiki.get_description(sentence_without_patterns_words)
