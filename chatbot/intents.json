@@ -172,7 +172,8 @@
         "Remets la musique",
         "Relance la musique",
         "Redemarre la musique",
-        "Mets de la musique"
+        "Mets de la musique",
+        "Tu peux remettre la musique"
       ],
       "responses": [
         "Je relance la musique",
@@ -190,7 +191,10 @@
         "Stop la musique",
         "Mets la musique en pause",
         "Pause la musique",
-        "Mets en pause la musique"
+        "Mets en pause la musique",
+        "Coupe la musique",
+        "Coupe voir la musique une seconde",
+        "Coupe moi le son"
       ],
       "responses": [
         "La musique s'arrête",
@@ -208,8 +212,10 @@
         "Monter le son",
         "Monter le volume",
         "Augmente le son",
-        "Augmente le volume"
+        "Augmente le volume",
+        "Monte un peu le son"
       ],
+
       "responses": [
         "Je monte le son",
         "J'augmente le volume"
