@@ -18,14 +18,6 @@ last_answer = ""
 nlp = spacy.load("fr_core_news_sm")
 
 
-def get_custom_answer(text):
-    return text
-
-
-def getSentencesById(sentence_id):
-    return sentences[sentence_id]
-
-
 def recogniseSentence(sentence):
     tag = chatbot.chat.get_tag_for_sentence(sentence)
 
@@ -93,7 +85,7 @@ def recogniseSentence(sentence):
         current_time = current_time.replace('00:', 'minuit ')
         current_time = current_time.replace('12:', 'midi ')
 
-        return get_custom_answer(chatbot.chat.get_response_for_tag('what_time_is_it') + " " + current_time)
+        return chatbot.chat.get_response_for_tag('what_time_is_it') + " " + current_time
 
     # non rien finalement
     elif is_tag(tag, 'nothingDetection'):
@@ -158,7 +150,7 @@ def recogniseSentence(sentence):
 
         answer_sentence = answer_sentence.replace("%title", title)
         answer_sentence = answer_sentence.replace("%singer", singer)
-        return get_custom_answer(answer_sentence)
+        return answer_sentence
 
     else:
 
@@ -186,7 +178,8 @@ def recogniseSentence(sentence):
 
         # mets le réveil à 6h45
         elif is_tag(tag, 'alarm'):
-            spoke_time = get_words_out_of_custom_sentence('alarm', sentence)
+            spoke_time = "7h30"
+            # TODO: get the day and the hour in the sentence
             spoke_time = spoke_time.replace("demain", "").replace("matin", "").replace(" ", "")
 
             hours = spoke_time.split("h")[0]
@@ -221,13 +214,15 @@ def recogniseSentence(sentence):
             sentence_meteo = sentence_meteo.replace('%wind_speed',
                                                     homeassistant.meteo.get_wind_speed(homeassistant_weather_entity_id))
             sentence_meteo = sentence_meteo.replace('%wind_words', "faible")
-            return get_custom_answer(sentence_meteo)
+            return sentence_meteo
 
         # joue i'm still standing de elton john
         elif is_tag(tag, 'play_song'):
-            print("custom : " + get_words_out_of_custom_sentence('playSong', sentence))
+            # words = get_words_out_of_custom_sentence('playSong', sentence).replace("'", '')
+            # TODO : get the song title and author
 
-            words = get_words_out_of_custom_sentence('playSong', sentence).replace("'", '')
+            words = "i'm still standing de elton john"
+
             song = words
 
             if " de " in words:
@@ -244,10 +239,6 @@ def recogniseSentence(sentence):
             return chatbot.chat.get_response_for_tag_custom('dont_understand')
 
 
-def is_custom_sentence(sentence_id, sentence):
-    return False
-
-
 def is_tag(tag, name):
     return tag == name
 
@@ -260,10 +251,3 @@ def get_person_in_sentence(sentence):
             return ent.text
 
     return "none"
-
-
-def get_words_out_of_custom_sentence(sentence_id, sentence):
-    for var in getSentencesById(sentence_id):
-        if sentence.startswith(var):
-            custom_words_found = [word for word in sentence.split() if word not in var.split()]
-            return " ".join(custom_words_found)
