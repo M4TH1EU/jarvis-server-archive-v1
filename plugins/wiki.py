@@ -22,7 +22,8 @@ def get_description(name):
             return chatbot.chat.get_response_for_tag('wikipedia_search')
 
     summary = re.sub("[\(\[].*?[\)\]]", "", page.summary)
-    summary = summary.replace("Inc.", "Inc")
+    summary = re.sub('/.*?/ ', '', summary, flags=re.DOTALL)
+    summary = summary.replace("Inc.", "Incorporation")
     summary = summary.split(". ")[0]
     if "en.wiki" in page.url:
         translator = Translator(to_lang="fr", from_lang="en")
