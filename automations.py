@@ -66,4 +66,5 @@ def register():
     check_if_eth_miner_is_offline(20, 'mobile_app_oneplus_8t')
     check_temperature(2, 'sensor.processor_temperature', 'mobile_app_oneplus_8t')
     check_temperature(2, 'sensor.tour_mathieu_amd_ryzen_7_3700x_temperatures_cpu_package', 'mobile_app_oneplus_8t')
-    check_temperature(2, 'sensor.tour_mathieu_nvidia_nvidia_geforce_rtx_3070_temperatures_gpu_core', 'mobile_app_oneplus_8t')
+    check_temperature(2, 'sensor.tour_mathieu_nvidia_nvidia_geforce_rtx_3070_temperatures_gpu_core',
+                      'mobile_app_oneplus_8t')

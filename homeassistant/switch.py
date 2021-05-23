@@ -33,4 +33,3 @@ def toggle(entity_id):
     entity_id : str
     """
     call_service('{"entity_id": "' + entity_id + '" }', "switch/toggle")
-
