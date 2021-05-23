@@ -2,7 +2,6 @@ import json
 import os
 import tempfile
 
-import elevate
 import flask
 from flask import Flask, jsonify, request
 
@@ -86,6 +85,6 @@ def send():
 if __name__ == '__main__':
     # sentences.registerSentences()
     automations.register()
-    
+
     app.config['JSON_AS_ASCII'] = False
     app.run(port=5000, debug=False, host='0.0.0.0', threaded=True)

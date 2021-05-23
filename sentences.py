@@ -133,8 +133,6 @@ def recogniseSentence(sentence):
         title = ""
         singer = ""
 
-        answer_sentence = chatbot.chat.get_response_for_tag('song_detection')
-
         if homeassistant.spotify.is_music_playing('media_player.spotify_mathieu_broillet'):
             song_info = homeassistant.spotify.get_infos_playing_song('media_player.spotify_mathieu_broillet')
             title = song_info[0]
@@ -148,6 +146,7 @@ def recogniseSentence(sentence):
             else:
                 return chatbot.chat.get_response_for_tag('songNotFound')
 
+        answer_sentence = chatbot.chat.get_response_for_tag('song_detection')
         answer_sentence = answer_sentence.replace("%title", title)
         answer_sentence = answer_sentence.replace("%singer", singer)
         return answer_sentence

@@ -397,7 +397,7 @@
         "c'est quoi le nom de cette chanson",
         "c'est qui qui chante ça"
       ],
-      "infoResponses": [
+      "responses_please_wait": [
         "Donnez-moi quelques secondes",
         "J'écoute, un instant",
         "Un instant, j'écoute",
@@ -409,7 +409,7 @@
         "Le nom de cette chanson est %title, elle est chantée par %singer",
         "%title de %singer"
       ],
-      "responsesFail": [
+      "responses_fail": [
         "Je n'ai pas trouve le nom de cette chanson",
         "Je suis désolé mais je n'ai pas trouve cette chanson",
         "Je ne saurais pas vous le dire, désolé",
