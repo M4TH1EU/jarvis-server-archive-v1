@@ -2,7 +2,6 @@ import json
 import random
 
 import torch
-from nltk.corpus import stopwords
 from unidecode import unidecode
 
 from chatbot.model import NeuralNet
@@ -29,6 +28,18 @@ model.eval()
 
 
 def get_tag_for_sentence(input_sentence):
+    """
+    Return the matching tag of the input_sentence given in parameter.
+    It usually is what the STT engine recognise or what the user's type when using no-voice mode
+
+    Parameters
+    ----------
+    input_sentence is your sentence
+
+    Returns tag from the intents.json file
+    -------
+
+    """
     sentence = unidecode(input_sentence)  # convert accent to better recognition
     sentence = tokenize(sentence)
     X = bag_of_words(sentence, all_words)
@@ -51,6 +62,17 @@ def get_tag_for_sentence(input_sentence):
 
 
 def get_response_for_tag(tag):
+    """
+    Return a random sentence using it's tag.
+
+    Parameters
+    ----------
+    tag is the intent's tag
+
+    Returns
+    -------
+
+    """
     # added support for get_by_id request to get custom tag sentences
     for intent in intents['custom']:
         if intent['tag'] == tag:
