@@ -45,18 +45,17 @@ def get_tag_for_sentence(input_sentence):
     if prob.item() > 0.75 and len(sentence) > 2:
         for intent in intents['intents']:
             if tag == intent["tag"]:
-                stop_words = set(stopwords.words('french'))
-                filtered_sentence = [w for w in sentence if not w in stop_words]
-
-                print("SENTENCE : ", sentence)
-                print("SENTENCE FILTERED : ", filtered_sentence)
-
                 return tag
     else:
         return get_response_for_tag_custom('dont_understand')
 
 
 def get_response_for_tag(tag):
+    # added support for get_by_id request to get custom tag sentences
+    for intent in intents['custom']:
+        if intent['tag'] == tag:
+            return get_response_for_tag_custom(tag)
+
     for intent in intents['intents']:
         if intent['tag'] == tag:
             return random.choice(intent['responses'])
