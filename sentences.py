@@ -205,28 +205,26 @@ def recogniseSentence(sentence):
                 homeassistant_weather_entity_id))
             sentence_meteo = sentence_meteo.replace('%wind_speed',
                                                     homeassistant.meteo.get_wind_speed(homeassistant_weather_entity_id))
+
+            # TODO : add different types of wind speed
             sentence_meteo = sentence_meteo.replace('%wind_words', "faible")
+
             return sentence_meteo
 
         # joue i'm still standing de elton john
         elif is_tag(tag, 'play_song'):
-            # words = get_words_out_of_custom_sentence('playSong', sentence).replace("'", '')
-            # TODO : get the song title and author
+            singer = get_person_in_sentence(sentence)
+            print(singer)
 
-            words = "i'm still standing de elton john"
+            song_name = get_sentence_without_patterns_words(sentence, 'play_song').replace(singer, '')
+            print(song_name)
 
-            song = words
-
-            if " de " in words:
-                song = words.split(" de ")[0]
-                artist = words.split(" de ")[1]
-                return spotipy.play_song(artist, song)
-            else:
-                if " de " in sentence:
-                    return spotipy.play_artist(song)
-                else:
-                    return spotipy.play_song_without_artist(song)
-
+            if singer != 'none' and song_name:
+                return spotipy.play_song(singer, song_name)
+            elif singer != 'none' and not song_name:
+                return spotipy.play_artist(singer)
+            elif singer == 'none' and song_name:
+                return spotipy.play_song_without_artist(song_name)
         else:
             return chatbot.chat.get_response_for_tag_custom('dont_understand')
 
@@ -254,6 +252,17 @@ def get_sentence_without_patterns_words(sentence, tag):
 
 def get_person_in_sentence(sentence):
     doc = nlp(sentence)
+
+    for word in doc:
+        # print(word.text, word.pos_) # prints every words from the sentence with their types
+
+        de_words = ['de ', 'd\'', 'des']
+
+        # support for lowercase name with spotify (play_song)
+        for de_word in de_words:
+            if word.text == de_word.replace(' ', '') and (str(word.pos_) == 'ADP' or str(word.pos_) == 'DET'):
+                person = sentence.split(" ".join([de_word]))[1]
+                return person
 
     for ent in doc.ents:
         if ent.label_ == 'PER':

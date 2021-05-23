@@ -78,4 +78,4 @@ def get_response_from_custom_list_for_tag(tag, list_name):
     for intent in intents['intents']:
         if intent['tag'] == tag:
             if list_name in intent:
-                return intent[list_name]
+                return random.choice(intent[list_name])

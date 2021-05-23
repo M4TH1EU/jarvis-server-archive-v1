@@ -4,7 +4,7 @@ import random
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
-import sentences
+import chatbot.chat
 
 scope = "user-read-playback-state, user-modify-playback-state, user-read-currently-playing"
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope,
@@ -19,9 +19,9 @@ def play_song(artist, song):
         track_uri = songs_found[0]['uri']
         sp.add_to_queue(uri=track_uri)
         sp.next_track()
-        return sentences.getRandomSentenceFromId('doneSir')
+        return chatbot.chat.get_response_for_tag_custom('done_sir')
     else:
-        return sentences.getRandomSentenceFromId('songNotFound')
+        return chatbot.chat.get_response_from_custom_list_for_tag('play_song', 'responses_fail')
 
 
 def play_artist(artist):
@@ -31,9 +31,10 @@ def play_artist(artist):
             'uri']
         sp.add_to_queue(uri=track_uri)
         sp.next_track()
-        return sentences.getRandomSentenceFromId('doneSir')
+        return chatbot.chat.get_response_for_tag_custom('done_sir')
+
     else:
-        return sentences.getRandomSentenceFromId('songNotFound')
+        return chatbot.chat.get_response_from_custom_list_for_tag('play_song', 'responses_fail')
 
 
 def play_song_without_artist(song):
@@ -42,9 +43,9 @@ def play_song_without_artist(song):
         track_uri = songs_found[0]['uri']
         sp.add_to_queue(uri=track_uri)
         sp.next_track()
-        return sentences.getRandomSentenceFromId('doneSir')
+        return chatbot.chat.get_response_for_tag_custom('done_sir')
     else:
-        return sentences.getRandomSentenceFromId('songNotFound')
+        return chatbot.chat.get_response_from_custom_list_for_tag('play_song', 'responses_fail')
 
 
 def is_music_playing():

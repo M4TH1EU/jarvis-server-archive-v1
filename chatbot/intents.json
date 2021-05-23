@@ -6,6 +6,19 @@
         "Je n'ai pas compris",
         "J'ai pas compris"
       ]
+    },
+    {
+      "tag": "done_sir",
+      "responses": [
+        "Voilà monsieur",
+        "Bien-sur monsieur",
+        "Et voilà",
+        "Et voici monsieur",
+        "Tout de suite",
+        "C'est fait",
+        "C'est fait monsieur",
+        "Bien-sur"
+      ]
     }
   ],
   "intents": [
@@ -117,7 +130,10 @@
         "joue le titre suivant",
         "joue le morceau suivant",
         "change de musique",
-        "change de morceau"
+        "change de morceau",
+        "mets la prochaine chanson",
+        "mets le prochain morceau",
+        "mets la chason des"
       ],
       "responses": [
         "Voici le morceau suivant monsieur",
@@ -414,6 +430,30 @@
         "Je suis désolé mais je n'ai pas trouve cette chanson",
         "Je ne saurais pas vous le dire, désolé",
         "Je n'ai malheureusement rien trouvé"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "play_song",
+      "patterns": [
+        "joue le morceau de",
+        "joue le titre de",
+        "joue la chanson de",
+        "joue de",
+        "joue moi voir de",
+        "tu peux me jouer",
+        "joue un peu de",
+        "mets le morceau",
+        "mets la chanson",
+        "joue moi des"
+      ],
+      "responses": [
+        "using done_sir custom"
+      ],
+      "responses_fail": [
+        "Je n'ai pas trouvé ce morceau monsieur",
+        "Je n'ai rien trouvé sur Spotifaie",
+        "Je ne trouve rien avec cette recherche"
       ],
       "context_set": ""
     }
