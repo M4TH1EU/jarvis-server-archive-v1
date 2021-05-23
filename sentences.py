@@ -159,11 +159,11 @@ def recogniseSentence(sentence):
 
             person_name = get_person_in_sentence(sentence)
             if person_name != "none":
-                print("Search : ", person_name)
+                print("Search with person name: ", person_name)
                 return wiki.get_description(person_name)
             else:
                 filtered_sentence = get_sentence_without_stopwords(sentence)
-                sentence_without_patterns_words = get_sentence_without_patterns_words(filtered_sentence, 'wikipedia')
+                sentence_without_patterns_words = get_sentence_without_patterns_words(filtered_sentence, 'wikipedia_search')
 
                 print("Search : ", sentence_without_patterns_words)
                 return wiki.get_description(sentence_without_patterns_words)
@@ -250,22 +250,23 @@ def get_sentence_without_patterns_words(sentence, tag):
     return sentence_without_patterns_words
 
 
-def get_person_in_sentence(sentence):
+def get_person_in_sentence(sentence, play_song=False):
     doc = nlp(sentence)
-
-    for word in doc:
-        # print(word.text, word.pos_) # prints every words from the sentence with their types
-
-        de_words = ['de ', 'd\'', 'des']
-
-        # support for lowercase name with spotify (play_song)
-        for de_word in de_words:
-            if word.text == de_word.replace(' ', '') and (str(word.pos_) == 'ADP' or str(word.pos_) == 'DET'):
-                person = sentence.split(" ".join([de_word]))[1]
-                return person
 
     for ent in doc.ents:
         if ent.label_ == 'PER':
             return ent.text
+
+    if play_song:
+        for word in doc:
+            # print(word.text, word.pos_) # prints every words from the sentence with their types
+
+            de_words = ['de ', 'd\'', 'des']
+
+            # support for lowercase name with spotify (play_song)
+            for de_word in de_words:
+                if word.text == de_word.replace(' ', '') and (str(word.pos_) == 'ADP' or str(word.pos_) == 'DET'):
+                    person = sentence.split(" ".join([de_word]))[1]
+                    return person
 
     return "none"
