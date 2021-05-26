@@ -1,0 +1,16 @@
+{
+  "bleu": "0000FF",
+  "rouge": "FF0000",
+  "blanc": "FFFFFF",
+  "orange": "ff9011",
+  "violet": "911ef6",
+  "rose": "f61eda",
+  "vert": "03ff37",
+  "vert clair": "03ff03",
+  "vert foncé": "017111",
+  "bleu clair": "00eaf6",
+  "bleu foncé": "0028f6",
+  "jaune": "d5f600",
+  "turquoise": "00f3f6",
+  "kaki": "aee8bb"
+}

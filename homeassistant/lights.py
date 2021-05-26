@@ -57,7 +57,7 @@ def change_color_with_rgb(entity_id, r, g, b):
 
     """
     call_service('{"entity_id": "' + entity_id +
-                 '", "rgb_color": "[' + r + ',' + g + ',' + b + ']" }', "light/turn_on")
+                 '", "rgb_color": "[' + r + ', ' + g + ', ' + b + ']" }', "light/turn_on")
 
 
 def change_brightness(entity_id, brightness):

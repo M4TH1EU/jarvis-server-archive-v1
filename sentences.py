@@ -12,6 +12,7 @@ import homeassistant.spotify
 import homeassistant.switch
 import plugins.alarms
 import plugins.shazam
+import utils.colorUtils
 from plugins import wiki, spotipy
 
 sentences = {}
@@ -42,7 +43,13 @@ def recogniseSentence(sentence):
 
     # allume les leds
     elif is_tag(tag, 'leds_on'):
-        homeassistant.lights.turn_on("light.leds_chambre")
+        color = get_sentence_without_stopwords_and_pattern(sentence, "leds_on")
+        if utils.colorUtils.does_color_exists(color):
+            rgb = utils.colorUtils.get_color_code_for_color(color)
+            homeassistant.lights.change_color_with_rgb("light.leds_chambre", rgb[0], rgb[1], rgb[2])
+        else:
+            homeassistant.lights.turn_off("light.leds_chambre")
+
         return chatbot.chat.get_response_for_tag('leds_on')
 
     # éteint les leds

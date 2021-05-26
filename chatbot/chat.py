@@ -84,6 +84,14 @@ def get_response_for_tag(tag):
 
 
 def get_response_for_tag_custom(tag):
+    """
+    Get a response from the intents.json for a custom atg
+    Parameters
+    ----------
+    tag is the tag of the intent your want to get a response
+
+    Returns random response
+    """
     for intent in intents['custom']:
         if intent['tag'] == tag:
             return random.choice(intent['responses'])

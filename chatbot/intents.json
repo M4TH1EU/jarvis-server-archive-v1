@@ -61,7 +61,8 @@
         "allume les lumieres",
         "allume les lampes",
         "allumer lumiere",
-        "tu peux m'allumer la lumiere"
+        "tu peux m'allumer la lumiere",
+        "allume moi voir la lumière"
       ],
       "responses": [
         "J'allume les lumières",
@@ -97,7 +98,8 @@
         "demarre les leds",
         "demarre les led",
         "demarre les leds",
-        "allumer leds"
+        "allumer leds",
+        "allume moi voir les leds"
       ],
       "responses": [
         "J'allume les leds",
