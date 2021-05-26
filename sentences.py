@@ -163,12 +163,10 @@ def recogniseSentence(sentence):
                 print("Search with person name: ", person_name)
                 return wiki.get_description(person_name)
             else:
-                filtered_sentence = get_sentence_without_stopwords(sentence)
-                sentence_without_patterns_words = get_sentence_without_patterns_words(filtered_sentence,
-                                                                                      'wikipedia_search')
+                filtered_sentence = get_sentence_without_stopwords_and_pattern(sentence, 'wikipedia_search')
 
-                print("Search : ", sentence_without_patterns_words)
-                return wiki.get_description(sentence_without_patterns_words)
+                print("Search : ", filtered_sentence)
+                return wiki.get_description(filtered_sentence)
 
         # mets le réveil à 6h45
         elif is_tag(tag, 'alarm'):
@@ -268,6 +266,12 @@ def get_sentence_without_patterns_words(sentence, tag):
         filter(lambda x: x.lower() not in patterns_stop_words, sentence.split()))
 
     return sentence_without_patterns_words
+
+
+def get_sentence_without_stopwords_and_pattern(sentence, tag):
+    filtered_sentence = get_sentence_without_stopwords(sentence)
+    filtered_sentence = get_sentence_without_patterns_words(filtered_sentence, tag)
+    return filtered_sentence
 
 
 def get_person_in_sentence(sentence, play_song=False):
