@@ -10,8 +10,6 @@ import homeassistant.lights
 import homeassistant.spotify
 import homeassistant.switch
 import homeassistant.weather
-import services.alarms
-import services.shazam
 import utils.colorUtils
 
 sentences = {}

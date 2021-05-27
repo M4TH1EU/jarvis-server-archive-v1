@@ -32,7 +32,7 @@ def get_description(name):
     summary = summary.replace("Inc.", "Incorporation")
     # keep only the first sentence
     summary = summary.split(". ")[0]
-    
+
     if "en.wiki" in page.url:
         translator = Translator(to_lang="fr", from_lang="en")
         summary = translator.translate(summary)

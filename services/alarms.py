@@ -17,7 +17,7 @@ def create_alarm(sentence):
 
     spoke_time = time(hour=int(hours), minute=int(minutes))
     time_formatted = spoke_time.strftime("%H:%M")
-    
+
     add_alarm(time_formatted)
 
     return chatbot.chat.get_response_for_tag('alarm').replace("%time", time_formatted)
