@@ -9,6 +9,8 @@ import automations
 import chatbot.chat
 import sentences
 
+path = os.getcwd()
+
 # elevate.elevate()
 
 app = Flask(__name__)

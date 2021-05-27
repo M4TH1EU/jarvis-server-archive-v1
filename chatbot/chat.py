@@ -4,12 +4,13 @@ import random
 import torch
 from unidecode import unidecode
 
+import server
 from chatbot.model import NeuralNet
 from chatbot.nltk_utils import bag_of_words, tokenize
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-with open('chatbot/intents.json', encoding='utf-8', mode='r') as json_data:
+with open(server.path + '\\chatbot\\intents.json', encoding='utf-8', mode='r') as json_data:
     intents = json.load(json_data)
 
 FILE = "chatbot/data.pth"
@@ -108,3 +109,35 @@ def get_response_from_custom_list_for_tag(tag, list_name):
         if intent['tag'] == tag:
             if list_name in intent:
                 return random.choice(intent[list_name])
+
+
+def has_service_for_tag(tag):
+    for intent in intents['intents']:
+        if intent['tag'] == tag:
+            if intent.get('service') is not None:
+                return True
+
+    return False
+
+
+def get_service_for_tag(tag):
+    """
+
+    Parameters
+    ----------
+    tag
+
+    Returns
+    -------
+    str
+    """
+
+    for intent in intents['intents']:
+        if intent['tag'] == tag:
+            return intent['service']
+
+
+def get_field_in_intent_for_tag(field_name, tag):
+    for intent in intents['intents']:
+        if intent['tag'] == tag:
+            return intent[field_name]
