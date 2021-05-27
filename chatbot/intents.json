@@ -443,6 +443,7 @@
       "entity_id": "light.mi_pad_screen",
       "patterns": [
         "eteint la tablette",
+        "eteins la tablette",
         "eteint la tablette murale",
         "eteint l'ecran de la tablette",
         "eteint l'ecran de la tablette murale"

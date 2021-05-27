@@ -23,7 +23,7 @@ def get_description(name):
             return chatbot.chat.get_response_for_tag('wikipedia_search')
 
     # remove everything between (...)
-    summary = re.sub("[\(].*?[\)]"), "", page.summary
+    summary = re.sub("[\(].*?[\)]", "", page.summary)
     # remove everything between [...]
     summary = re.sub("[\[].*?[\]]", "", summary)
     # remove everything between /.../
