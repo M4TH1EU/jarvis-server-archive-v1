@@ -1,8 +1,9 @@
 import json
+import os
 
-import server
+path = os.getcwd()
 
-with open(server.path + '\\utils\\colors.json', encoding='utf-8', mode='r') as json_data:
+with open(path + '\\utils\\colors.json', encoding='utf-8', mode='r') as json_data:
     colors = json.load(json_data)
 
 

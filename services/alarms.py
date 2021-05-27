@@ -2,7 +2,7 @@ import os
 import pickle
 from datetime import datetime
 
-alarms_file = (os.path.dirname(__file__).replace("\\plugins", "") + '\\config\\alarms')
+alarms_file = (os.path.dirname(__file__).replace("\\services", "") + '\\config\\alarms')
 
 
 def check():

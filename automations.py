@@ -5,7 +5,7 @@ import requests as requests
 
 import homeassistant.homeassistant
 import homeassistant.lights
-import plugins.alarms
+import services.alarms
 
 
 def check_if_lights_are_on_but_not_home(minutes, lights_id, person_id, mobile_app_id):
@@ -23,7 +23,7 @@ def check_if_lights_are_on_but_not_home(minutes, lights_id, person_id, mobile_ap
 
 def check_if_there_is_an_alarm(minutes, person_id):
     if homeassistant.homeassistant.is_home(person_id):
-        if plugins.alarms.check():
+        if services.alarms.check():
             # play song
             print("MUSIC MAESTRO")
     timer = threading.Timer(minutes * 60, check_if_there_is_an_alarm, [minutes])

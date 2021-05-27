@@ -1,4 +1,5 @@
 import json
+import os
 import random
 
 import torch
@@ -8,9 +9,10 @@ import server
 from chatbot.model import NeuralNet
 from chatbot.nltk_utils import bag_of_words, tokenize
 
+path = os.getcwd()
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-with open(server.path + '\\chatbot\\intents.json', encoding='utf-8', mode='r') as json_data:
+with open(path + '\\chatbot\\intents.json', encoding='utf-8', mode='r') as json_data:
     intents = json.load(json_data)
 
 FILE = "chatbot/data.pth"

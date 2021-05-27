@@ -56,6 +56,8 @@
     },
     {
       "tag": "lights_on",
+      "service": "homeassistant/light/turn_on",
+      "entity_id": "light.lumieres_chambre",
       "patterns": [
         "allume la lumiere",
         "allume les lumieres",
@@ -73,6 +75,8 @@
     },
     {
       "tag": "lights_off",
+      "service": "homeassistant/light/turn_off",
+      "entity_id": "light.lumieres_chambre",
       "patterns": [
         "eteint la lumiere",
         "eteint voir la lumiere",
@@ -90,6 +94,8 @@
     },
     {
       "tag": "leds_on",
+      "service": "homeassistant/light/turn_on",
+      "entity_id": "light.leds_chambre",
       "patterns": [
         "allume la bande led",
         "allume les leds",
@@ -109,6 +115,8 @@
     },
     {
       "tag": "leds_off",
+      "service": "homeassistant/light/turn_off",
+      "entity_id": "light.leds_chambre",
       "patterns": [
         "eteint la bande led",
         "eteint les leds",
@@ -119,13 +127,15 @@
       ],
       "responses": [
         "J'éteinds les leds",
-        "J'éteinds la guirlande led",
+        "J'éteinds les guirlandes leds",
         "Les leds s'éteignent monsieur"
       ],
       "context_set": ""
     },
     {
       "tag": "next_track",
+      "service": "homeassistant/media_player/media_next_track",
+      "entity_id": "media_player.spotify_mathieu_broillet",
       "patterns": [
         "morceau suivant",
         "mets le morceau suivant",
@@ -148,6 +158,8 @@
     },
     {
       "tag": "previous_track",
+      "service": "homeassistant/media_player/media_previous_track",
+      "entity_id": "media_player.spotify_mathieu_broillet",
       "patterns": [
         "morceau precedent",
         "mets le morceau precedent",
@@ -169,6 +181,8 @@
     },
     {
       "tag": "resume_music",
+      "service": "homeassistant/media_player/media_play",
+      "entity_id": "media_player.spotify_mathieu_broillet",
       "patterns": [
         "Reprend la musique",
         "Remets la musique",
@@ -188,6 +202,8 @@
     },
     {
       "tag": "pause_music",
+      "service": "homeassistant/media_player/media_pause",
+      "entity_id": "media_player.spotify_mathieu_broillet",
       "patterns": [
         "Arrete la musique",
         "Stop la musique",
@@ -208,6 +224,8 @@
     },
     {
       "tag": "turn_up_volume",
+      "service": "homeassistant/media_player/volume_up",
+      "entity_id": "media_player.spotify_mathieu_broillet",
       "patterns": [
         "Monte le son",
         "Monte le volume",
@@ -225,6 +243,8 @@
     },
     {
       "tag": "turn_down_volume",
+      "service": "homeassistant/media_player/volume_down",
+      "entity_id": "media_player.spotify_mathieu_broillet",
       "patterns": [
         "Baisse le son",
         "Descend le son",
@@ -271,6 +291,8 @@
     },
     {
       "tag": "weather",
+      "service": "homeassistant$/weather/summary",
+      "entity_id": "weather.bussigny_sur_oron",
       "patterns": [
         "Il fait combien",
         "Il fait quel temps",
@@ -283,7 +305,7 @@
         "La journée &sera %condition, avec des températures entre %lowtemp et %temperature avec un vent atteignant les %wind_speed",
         "Cette journée &sera %condition avec une température moyenne de %temperature avec une température minimal de %lowtemp et un vent de %wind_speed",
         "Aujourd'hui &sera %condition, il &faire en moyenne %temperature avec un minimum de %lowtemp, le vent &sera %wind_speed_words",
-        "Le temps &sera %condition avec une température moyenne de %temperature et une température minimal de %lowtemp et un vent de %wind_speed"
+        "Le temps &sera %condition avec une température moyenne de %temperature, une température minimal de %lowtemp et un vent de %wind_speed"
       ],
       "context_set": ""
     },
@@ -304,6 +326,8 @@
     },
     {
       "tag": "turn_on_3d_printer",
+      "service": "homeassistant/switch/turn_on",
+      "entity_id": "switch.bfd9b202b8140c15780fpe",
       "patterns": [
         "allume l'imprimante 3d",
         "allume voir l'imprimante 3d",
@@ -320,6 +344,8 @@
     },
     {
       "tag": "turn_off_3d_printer",
+      "service": "homeassistant/switch/turn_off",
+      "entity_id": "switch.bfd9b202b8140c15780fpe",
       "patterns": [
         "eteint l'imprimante 3D",
         "eteint voir l'imprimante 3d",
@@ -335,6 +361,8 @@
     },
     {
       "tag": "turn_on_pc",
+      "service": "homeassistant/switch/turn_on",
+      "entity_id": "switch.wake_on_lan_pc_tour",
       "patterns": [
         "Allume le pc",
         "allume l'ordinateur",
@@ -355,6 +383,8 @@
     },
     {
       "tag": "turn_off_pc",
+      "service": "homeassistant/switch/turn_off",
+      "entity_id": "switch.wake_on_lan_pc_tour",
       "patterns": [
         "eteint le pc",
         "arrete le pc",
@@ -373,6 +403,8 @@
     },
     {
       "tag": "sleep_pc",
+      "service": "homeassistant/shell_command/sleep_tour_mathieu",
+      "entity_id": "",
       "patterns": [
         "Mets le pc en veille",
         "Passe le pc en veille"
@@ -385,6 +417,8 @@
     },
     {
       "tag": "turn_on_wall_tablet",
+      "service": "homeassistant/light/turn_on",
+      "entity_id": "light.mi_pad_screen",
       "patterns": [
         "allume la tablette",
         "allume la tablette murale",
@@ -401,6 +435,8 @@
     },
     {
       "tag": "turn_off_wall_tablet",
+      "service": "homeassistant/light/turn_off",
+      "entity_id": "light.mi_pad_screen",
       "patterns": [
         "eteint la tablette",
         "eteint la tablette murale",
@@ -463,6 +499,22 @@
         "Je n'ai pas trouvé ce morceau monsieur",
         "Je n'ai rien trouvé sur Spotifaie",
         "Je ne trouve rien avec cette recherche"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "nothing",
+      "service": "jarvis/client/play_sound",
+      "entity_id": "listened.mp3",
+      "patterns": [
+        "non rien enfaite",
+        "rien finalement",
+        "c'est tout bon enfaite",
+        "c'est tout bon merci",
+        "enfaite c'est tout bon"
+      ],
+      "responses": [
+        ""
       ],
       "context_set": ""
     }
