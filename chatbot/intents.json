@@ -313,6 +313,8 @@
     },
     {
       "tag": "alarm",
+      "service": "jarvis/alarms/create_alarm",
+      "sentence_as_arg": true,
       "patterns": [
         "mets le reveil a",
         "defini le reveil a",

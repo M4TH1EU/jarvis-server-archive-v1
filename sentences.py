@@ -95,21 +95,6 @@ def recogniseSentence(sentence):
 
             return chatbot.chat.get_response_for_tag('what_time_is_it') + " " + current_time
 
-        else:
-            # mets le réveil à 6h45
-            if is_tag(tag, 'alarm'):
-                spoke_time = "7h30"
-                # TODO: get the day and the hour in the sentence
-                spoke_time = spoke_time.replace("demain", "").replace("matin", "").replace(" ", "")
-
-                hours = spoke_time.split("h")[0]
-                minutes = spoke_time.split("h")[1]
-
-                spoke_time = datetime.time(hour=int(hours), minute=int(minutes))
-                services.alarms.add_alarm(spoke_time.strftime("%H:%M"))
-            else:
-                return chatbot.chat.get_response_for_tag_custom('dont_understand')
-
     return chatbot.chat.get_response_for_tag(tag)
 
 
