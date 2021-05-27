@@ -1,3 +1,4 @@
+# NOT TO BE MISTAKEN WITH "spotify.py" from homeassistant folder, this is for the spotiPy library (used for searching titles and playing songs, homeassistant cannot find spotify track id or search songs/artists)
 import os
 import random
 
@@ -5,6 +6,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
 import chatbot.chat
+from sentences import get_person_in_sentence, get_sentence_without_patterns_words
 
 scope = "user-read-playback-state, user-modify-playback-state, user-read-currently-playing"
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope,
@@ -58,3 +60,18 @@ def get_infos_playing_song():
     song = song_info['item']['name']
 
     return [song, artist]
+
+
+def play_song(sentence):
+    singer = get_person_in_sentence(sentence)
+    print(singer)
+
+    song_name = get_sentence_without_patterns_words(sentence, 'play_song').replace(singer, '')
+    print(song_name)
+
+    if singer != 'none' and song_name:
+        return play_song(singer, song_name)
+    elif singer != 'none' and not song_name:
+        return play_artist(singer)
+    elif singer == 'none' and song_name:
+        return play_song_without_artist(song_name)

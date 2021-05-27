@@ -13,7 +13,6 @@ import homeassistant.weather
 import services.alarms
 import services.shazam
 import utils.colorUtils
-from services import spotipy
 
 sentences = {}
 last_answer = ""
@@ -108,21 +107,6 @@ def recogniseSentence(sentence):
 
                 spoke_time = datetime.time(hour=int(hours), minute=int(minutes))
                 services.alarms.add_alarm(spoke_time.strftime("%H:%M"))
-
-            # joue i'm still standing de elton john
-            elif is_tag(tag, 'play_song'):
-                singer = get_person_in_sentence(sentence)
-                print(singer)
-
-                song_name = get_sentence_without_patterns_words(sentence, 'play_song').replace(singer, '')
-                print(song_name)
-
-                if singer != 'none' and song_name:
-                    return spotipy.play_song(singer, song_name)
-                elif singer != 'none' and not song_name:
-                    return spotipy.play_artist(singer)
-                elif singer == 'none' and song_name:
-                    return spotipy.play_song_without_artist(song_name)
             else:
                 return chatbot.chat.get_response_for_tag_custom('dont_understand')
 

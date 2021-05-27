@@ -484,6 +484,8 @@
     },
     {
       "tag": "play_song",
+      "service": "jarvis/spotipy/play_song",
+      "sentence_as_arg": true,
       "patterns": [
         "joue le morceau de",
         "joue le titre de",
