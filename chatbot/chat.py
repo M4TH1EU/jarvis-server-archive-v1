@@ -162,6 +162,6 @@ def get_service_for_tag(tag):
 def get_field_in_intent_for_tag(field_name, tag):
     for intent in intents['intents']:
         if intent['tag'] == tag:
-            return intent[field_name]
-
-    return "none"
+            if intent.get(field_name) is not None:
+                return intent[field_name]
+    return None

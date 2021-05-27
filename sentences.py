@@ -42,7 +42,7 @@ def recogniseSentence(sentence):
                 name = service.removeprefix('homeassistant$/').split("/")[1]
                 service = service.removeprefix('homeassistant$/').split("/")[0]
                 entity_id = chatbot.chat.get_entity_if_set_for_tag(tag)
-                if chatbot.chat.get_field_in_intent_for_tag("sentence_as_arg", tag):
+                if chatbot.chat.get_field_in_intent_for_tag("sentence_as_arg", tag) is not None:
                     entity_id = sentence
                 method = import_service_and_return_method("homeassistant." + service, name)
                 return method(entity_id)
@@ -61,7 +61,7 @@ def recogniseSentence(sentence):
             entity_id = chatbot.chat.get_entity_if_set_for_tag(tag)
 
             # if the intent ask to use the sentence as an arg then replace entity_id by the sentence (used for wikipedia_search p. ex)
-            if chatbot.chat.get_field_in_intent_for_tag("sentence_as_arg", tag):
+            if chatbot.chat.get_field_in_intent_for_tag("sentence_as_arg", tag) is not None:
                 entity_id = sentence
 
             # importing the service method extracted from the service in the intent

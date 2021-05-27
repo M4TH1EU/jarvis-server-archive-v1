@@ -137,6 +137,7 @@ def song_recognition(entity_id):
             title = song[0]
             singer = song[1]
             # track_id = song[2]
+            return [title, singer]
         else:
             return chatbot.chat.get_response_from_custom_list_for_tag('song_recognition', 'responses_fail')
 
@@ -148,11 +149,11 @@ def song_recognition(entity_id):
             singer = song_info[1]
         # if entity_id is not playing then shazam
         else:
-            shazam()
+            title, singer = shazam()
 
     # if no entity_id is specified then shazam
     else:
-        shazam()
+        title, singer = shazam()
 
     # if the title or the singer are empty return fail response (can happend when a microphone error occurs and no audio is send from the client)
     if not title or not singer:

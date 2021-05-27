@@ -11,10 +11,12 @@ filename = tempfile.gettempdir() + '\\received_song.wav'
 
 
 def recognise_song():
-    clientUtils.ask_for_microphone_output(3, chatbot.chat.get_response_from_custom_list_for_tag('song_recognition',
+    clientUtils.ask_for_microphone_output(5, chatbot.chat.get_response_from_custom_list_for_tag('song_recognition',
                                                                                                 'responses_please_wait'))
+    # loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(asyncio.ProactorEventLoop())
 
-    loop = asyncio.new_event_loop()
+    loop = asyncio.get_event_loop()
     return loop.run_until_complete(get_shazam_song())
 
 
