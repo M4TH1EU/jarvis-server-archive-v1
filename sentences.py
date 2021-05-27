@@ -13,7 +13,7 @@ import homeassistant.weather
 import services.alarms
 import services.shazam
 import utils.colorUtils
-from services import wiki, spotify
+from services import spotipy
 
 sentences = {}
 last_answer = ""
@@ -45,6 +45,8 @@ def recogniseSentence(sentence):
                 name = service.removeprefix('homeassistant$/').split("/")[1]
                 service = service.removeprefix('homeassistant$/').split("/")[0]
                 entity_id = chatbot.chat.get_entity_if_set_for_tag(tag)
+                if chatbot.chat.get_field_in_intent_for_tag("sentence_as_arg", tag):
+                    entity_id = sentence
                 method = import_service_and_return_method("homeassistant." + service, name)
                 return method(entity_id)
             else:
@@ -60,6 +62,10 @@ def recogniseSentence(sentence):
             service = service.removeprefix('jarvis/').split("/")[0]
 
             entity_id = chatbot.chat.get_entity_if_set_for_tag(tag)
+
+            # if the intent ask to use the sentence as an arg then replace entity_id by the sentence (used for wikipedia_search p. ex)
+            if chatbot.chat.get_field_in_intent_for_tag("sentence_as_arg", tag):
+                entity_id = sentence
 
             # importing the service method extracted from the service in the intent
             method = import_service_and_return_method("services." + service, name)
@@ -91,23 +97,8 @@ def recogniseSentence(sentence):
             return chatbot.chat.get_response_for_tag('what_time_is_it') + " " + current_time
 
         else:
-
-            # cherche XYZ sur wikipédia
-            if tag == 'wikipedia_search':
-                sentence = sentence[0].lower() + sentence[1:]
-
-                person_name = get_person_in_sentence(sentence)
-                if person_name != "none":
-                    print("Search with person name: ", person_name)
-                    return wiki.get_description(person_name)
-                else:
-                    filtered_sentence = get_sentence_without_stopwords_and_pattern(sentence, 'wikipedia_search')
-
-                    print("Search : ", filtered_sentence)
-                    return wiki.get_description(filtered_sentence)
-
             # mets le réveil à 6h45
-            elif is_tag(tag, 'alarm'):
+            if is_tag(tag, 'alarm'):
                 spoke_time = "7h30"
                 # TODO: get the day and the hour in the sentence
                 spoke_time = spoke_time.replace("demain", "").replace("matin", "").replace(" ", "")
@@ -127,11 +118,11 @@ def recogniseSentence(sentence):
                 print(song_name)
 
                 if singer != 'none' and song_name:
-                    return spotify.play_song_spotipy(singer, song_name)
+                    return spotipy.play_song(singer, song_name)
                 elif singer != 'none' and not song_name:
-                    return spotify.play_artist_spotipy(singer)
+                    return spotipy.play_artist(singer)
                 elif singer == 'none' and song_name:
-                    return spotify.play_song_without_artist_spotipy(song_name)
+                    return spotipy.play_song_without_artist(song_name)
             else:
                 return chatbot.chat.get_response_for_tag_custom('dont_understand')
 

@@ -274,6 +274,8 @@
     },
     {
       "tag": "wikipedia_search",
+      "service": "jarvis/wiki/search_wikipedia",
+      "sentence_as_arg": true,
       "patterns": [
         "donne-moi des infos sur",
         "donne moi des infos sur",

@@ -84,6 +84,8 @@ def get_response_for_tag(tag):
         if intent['tag'] == tag:
             return random.choice(intent['responses'])
 
+    return "none"
+
 
 def get_response_for_tag_custom(tag):
     """
@@ -97,12 +99,14 @@ def get_response_for_tag_custom(tag):
     for intent in intents['custom']:
         if intent['tag'] == tag:
             return random.choice(intent['responses'])
+    return "none"
 
 
 def get_all_patterns_for_tag(tag):
     for intent in intents['intents']:
         if intent['tag'] == tag:
             return intent['patterns']
+    return "none"
 
 
 def get_response_from_custom_list_for_tag(tag, list_name):
@@ -110,6 +114,7 @@ def get_response_from_custom_list_for_tag(tag, list_name):
         if intent['tag'] == tag:
             if list_name in intent:
                 return random.choice(intent[list_name])
+    return "none"
 
 
 def has_service_for_tag(tag):
@@ -158,3 +163,5 @@ def get_field_in_intent_for_tag(field_name, tag):
     for intent in intents['intents']:
         if intent['tag'] == tag:
             return intent[field_name]
+
+    return "none"
