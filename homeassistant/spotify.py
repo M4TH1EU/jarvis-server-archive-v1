@@ -1,5 +1,7 @@
 import json
 
+import chatbot.chat
+import services.shazam
 from homeassistant.homeassistant import call_service, get_state
 
 
@@ -112,3 +114,51 @@ def get_infos_playing_song(entity_id):
     song = song_info['media_title']
 
     return [song, artist]
+
+
+def song_recognition(entity_id):
+    """
+    Return the name of a song using either shazam or homeassistant media_player entity (if entity_id set)
+    Parameters
+    ----------
+    entity_id
+
+    Returns
+    -------
+    str
+    """
+
+    title = ""
+    singer = ""
+
+    def shazam():
+        song = services.shazam.recognise_song()
+        if len(song) > 0:
+            title = song[0]
+            singer = song[1]
+            # track_id = song[2]
+        else:
+            return chatbot.chat.get_response_from_custom_list_for_tag('song_recognition', 'responses_fail')
+
+    if entity_id:
+        # if entity is playing return the playing song with entity_id
+        if is_music_playing(entity_id):
+            song_info = get_infos_playing_song(entity_id)
+            title = song_info[0]
+            singer = song_info[1]
+        # if entity_id is not playing then shazam
+        else:
+            shazam()
+
+    # if no entity_id is specified then shazam
+    else:
+        shazam()
+
+    # if the title or the singer are empty return fail response (can happend when a microphone error occurs and no audio is send from the client)
+    if not title or not singer:
+        return chatbot.chat.get_response_from_custom_list_for_tag('song_recognition', 'responses_fail')
+
+    answer_sentence = chatbot.chat.get_response_for_tag('song_recognition')
+    answer_sentence = answer_sentence.replace("%title", title)
+    answer_sentence = answer_sentence.replace("%singer", singer)
+    return answer_sentence

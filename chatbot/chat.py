@@ -5,7 +5,6 @@ import random
 import torch
 from unidecode import unidecode
 
-import server
 from chatbot.model import NeuralNet
 from chatbot.nltk_utils import bag_of_words, tokenize
 
@@ -120,6 +119,22 @@ def has_service_for_tag(tag):
                 return True
 
     return False
+
+
+def has_entity_id_for_tag(tag):
+    for intent in intents['intents']:
+        if intent['tag'] == tag:
+            if intent.get('entity_id') is not None:
+                return True
+
+    return False
+
+
+def get_entity_if_set_for_tag(tag):
+    if not has_entity_id_for_tag(tag):
+        return ""
+    else:
+        return get_field_in_intent_for_tag("entity_id", tag)
 
 
 def get_service_for_tag(tag):

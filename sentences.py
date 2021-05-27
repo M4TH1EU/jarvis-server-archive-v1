@@ -13,7 +13,7 @@ import homeassistant.weather
 import services.alarms
 import services.shazam
 import utils.colorUtils
-from services import wiki, spotipy
+from services import wiki, spotify
 
 sentences = {}
 last_answer = ""
@@ -30,6 +30,9 @@ def import_service_and_return_method(module, name):
 def recogniseSentence(sentence):
     tag = chatbot.chat.get_tag_for_sentence(sentence)
 
+    if tag is None:
+        return chatbot.chat.get_response_for_tag_custom('dont_understand')
+
     if chatbot.chat.has_service_for_tag(tag):
         service = chatbot.chat.get_service_for_tag(tag)
         print(service)
@@ -41,7 +44,7 @@ def recogniseSentence(sentence):
                 # see the elif(..."jarvis") below for more informations on what this does
                 name = service.removeprefix('homeassistant$/').split("/")[1]
                 service = service.removeprefix('homeassistant$/').split("/")[0]
-                entity_id = chatbot.chat.get_field_in_intent_for_tag("entity_id", tag)
+                entity_id = chatbot.chat.get_entity_if_set_for_tag(tag)
                 method = import_service_and_return_method("homeassistant." + service, name)
                 return method(entity_id)
             else:
@@ -56,7 +59,7 @@ def recogniseSentence(sentence):
             # splitting the service from the intent (weather in "jarvis/weather/summary)
             service = service.removeprefix('jarvis/').split("/")[0]
 
-            entity_id = chatbot.chat.get_field_in_intent_for_tag("entity_id", tag)
+            entity_id = chatbot.chat.get_entity_if_set_for_tag(tag)
 
             # importing the service method extracted from the service in the intent
             method = import_service_and_return_method("services." + service, name)
@@ -86,30 +89,6 @@ def recogniseSentence(sentence):
             current_time = current_time.replace('12:', 'midi ')
 
             return chatbot.chat.get_response_for_tag('what_time_is_it') + " " + current_time
-
-        # c'est quoi le titre de cette chanson
-        elif is_tag(tag, 'song_detection'):
-
-            title = ""
-            singer = ""
-
-            if homeassistant.spotify.is_music_playing('media_player.spotify_mathieu_broillet'):
-                song_info = homeassistant.spotify.get_infos_playing_song('media_player.spotify_mathieu_broillet')
-                title = song_info[0]
-                singer = song_info[1]
-            else:
-                song = services.shazam.recognise_song()
-                if len(song) > 0:
-                    title = song[0]
-                    singer = song[1]
-                    # track_id = song[2]
-                else:
-                    return chatbot.chat.get_response_for_tag('songNotFound')
-
-            answer_sentence = chatbot.chat.get_response_for_tag('song_detection')
-            answer_sentence = answer_sentence.replace("%title", title)
-            answer_sentence = answer_sentence.replace("%singer", singer)
-            return answer_sentence
 
         else:
 
@@ -148,13 +127,14 @@ def recogniseSentence(sentence):
                 print(song_name)
 
                 if singer != 'none' and song_name:
-                    return spotipy.play_song(singer, song_name)
+                    return spotify.play_song_spotipy(singer, song_name)
                 elif singer != 'none' and not song_name:
-                    return spotipy.play_artist(singer)
+                    return spotify.play_artist_spotipy(singer)
                 elif singer == 'none' and song_name:
-                    return spotipy.play_song_without_artist(song_name)
+                    return spotify.play_song_without_artist_spotipy(song_name)
             else:
                 return chatbot.chat.get_response_for_tag_custom('dont_understand')
+
     return chatbot.chat.get_response_for_tag(tag)
 
 

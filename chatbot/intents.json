@@ -452,7 +452,9 @@
       "context_set": ""
     },
     {
-      "tag": "song_detection",
+      "tag": "song_recognition",
+      "service": "homeassistant$/spotify/song_recognition",
+      "entity_id": "media_player.spotify_mathieu_broillet",
       "patterns": [
         "c'est quoi cette chanson",
         "c'est quoi le nom de cette chanson",
@@ -472,7 +474,7 @@
       ],
       "responses_fail": [
         "Je n'ai pas trouve le nom de cette chanson",
-        "Je suis désolé mais je n'ai pas trouve cette chanson",
+        "Je suis désolé mais je n'ai pas trouvé cette chanson",
         "Je ne saurais pas vous le dire, désolé",
         "Je n'ai malheureusement rien trouvé"
       ],
