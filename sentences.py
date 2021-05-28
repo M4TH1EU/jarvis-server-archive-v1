@@ -35,7 +35,7 @@ def recogniseSentence(sentence):
         data = chatbot.chat.get_data_for_tag(tag)
 
         # if the data contains "sentence: true" then replace "true" by the sentence
-        if 'sentence' in data is True:
+        if 'sentence' in data and data['sentence'] is True:
             data['sentence'] = sentence
 
         print(data)
@@ -54,9 +54,10 @@ def recogniseSentence(sentence):
                 service = service.removeprefix('homeassistant/')
                 if 'entity_id' in data:
                     entity_id = data.get('entity_id')
+
                     homeassistant.homeassistant.call_service('{"entity_id": "' + entity_id + '" }', service)
                 else:
-                    print("HomeAssistant services need an entity_id")
+                    raise Exception("HomeAssistant services need an entity_id in data")
 
         elif service.startswith("jarvis"):
             # splitting the service name from the intent (summary in "jarvis/weather/summary)
@@ -65,17 +66,11 @@ def recogniseSentence(sentence):
             # splitting the service from the intent (weather in "jarvis/weather/summary)
             service = service.removeprefix('jarvis/').split("/")[0]
 
-            entity_id = chatbot.chat.get_entity_if_set_for_tag(tag)
-
-            # if the intent ask to use the sentence as an arg then replace entity_id by the sentence (used for wikipedia_search p. ex)
-            if chatbot.chat.get_field_in_intent_for_tag("sentence_as_arg", tag) is not None:
-                entity_id = sentence
-
             # importing the service method extracted from the service in the intent
             method = import_service_and_return_method("services." + service, name)
 
             # returns what the method from the service returned
-            return method(entity_id)
+            return method(data)
 
         return chatbot.chat.get_response_for_tag(tag)
     else:

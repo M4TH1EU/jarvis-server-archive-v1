@@ -40,15 +40,19 @@ def get_description(name):
     return summary
 
 
-def search_wikipedia(sentence):
-    sentence = sentence[0].lower() + sentence[1:]
+def search_wikipedia(data):
+    if 'sentence' in data:
+        sentence = data.get('sentence')
+        sentence = sentence[0].lower() + sentence[1:]
 
-    person_name = get_person_in_sentence(sentence)
-    if person_name != "none":
-        print("Search with person name: ", person_name)
-        return get_description(person_name)
+        person_name = get_person_in_sentence(sentence)
+        if person_name != "none":
+            print("Search with person name: ", person_name)
+            return get_description(person_name)
+        else:
+            filtered_sentence = get_sentence_without_stopwords_and_pattern(sentence, 'wikipedia_search')
+
+            print("Search : ", filtered_sentence)
+            return get_description(filtered_sentence)
     else:
-        filtered_sentence = get_sentence_without_stopwords_and_pattern(sentence, 'wikipedia_search')
-
-        print("Search : ", filtered_sentence)
-        return get_description(filtered_sentence)
+        raise Exception("wiki.search_wikipedia needs 'sentence: true' in data")
