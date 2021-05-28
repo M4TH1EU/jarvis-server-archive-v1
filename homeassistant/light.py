@@ -1,7 +1,10 @@
 import json
 
+import chatbot.chat
 import homeassistant.homeassistant
 from homeassistant.homeassistant import call_service
+from sentences import get_sentence_without_stopwords_and_pattern, get_ascii_sentence
+from utils import colorUtils
 
 
 def turn_on(entity_id):
@@ -14,6 +17,40 @@ def turn_on(entity_id):
     """
 
     call_service('{"entity_id": "' + entity_id + '" }', "light/turn_on")
+
+
+def turn_on(data):
+    """
+    Turn on a light using data from intent
+
+    Parameters
+    ----------
+    data : dict
+    """
+
+    tag = "none"
+    if 'tag' in data:
+        tag = data.get('tag')
+
+        if 'entity_id' in data:
+            entity_id = data.get('entity_id')
+
+            if 'sentence' in data:
+                sentence = get_ascii_sentence(data.get('sentence'))
+
+                color = get_sentence_without_stopwords_and_pattern(sentence, tag)
+                if colorUtils.does_color_exists(color):
+                    rgb = colorUtils.get_color_code_for_color(color)
+                    homeassistant.light.change_color_with_rgb(entity_id, rgb)
+                else:
+                    print("Didn't found color : " + color)
+
+            else:
+                homeassistant.light.turn_on(entity_id)
+
+        return chatbot.chat.get_response_for_tag(tag)
+
+    raise Exception("light.turn_on needs tag, sentence, entity_id as data")
 
 
 def turn_off(entity_id):
@@ -44,20 +81,18 @@ def change_color_with_name(entity_id, color):
                  '", "color_name": "' + color + '" }', "light/turn_on")
 
 
-def change_color_with_rgb(entity_id, r, g, b):
+def change_color_with_rgb(entity_id, rgb):
     """
     Change the color of a specified light with RGB code
 
     Parameters
     ----------
     entity_id : str
-    r : int
-    g : int
-    b : int
+    rgb: list
 
     """
     call_service('{"entity_id": "' + entity_id +
-                 '", "rgb_color": "[' + r + ', ' + g + ', ' + b + ']" }', "light/turn_on")
+                 '", "rgb_color": "' + str(rgb) + '" }', "light/turn_on")
 
 
 def change_brightness(entity_id, brightness):

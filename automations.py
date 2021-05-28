@@ -4,13 +4,13 @@ import threading
 import requests as requests
 
 import homeassistant.homeassistant
-import homeassistant.lights
+import homeassistant.light
 import services.alarms
 
 
 def check_if_lights_are_on_but_not_home(minutes, lights_id, person_id, mobile_app_id):
     if not homeassistant.homeassistant.is_home(person_id):
-        if homeassistant.lights.is_on(lights_id):
+        if homeassistant.light.is_on(lights_id):
             homeassistant.homeassistant.send_notification(mobile_app_id,
                                                           'Les lumières sont allumées.',
                                                           'Une ou plusieurs lampes sont toujours allumées alors que vous n\'êtes pas à la maison...',

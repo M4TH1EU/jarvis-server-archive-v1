@@ -56,7 +56,7 @@
     },
     {
       "tag": "lights_on",
-      "service": "homeassistant/light/turn_on",
+      "service": "homeassistant$/light/turn_on",
       "data": {
         "entity_id": "light.lumieres_chambre",
         "sentence": true
@@ -99,7 +99,7 @@
     },
     {
       "tag": "leds_on",
-      "service": "homeassistant/light/turn_on",
+      "service": "homeassistant$/light/turn_on",
       "data": {
         "entity_id": "light.leds_chambre",
         "sentence": true

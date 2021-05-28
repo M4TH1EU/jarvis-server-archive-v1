@@ -3,14 +3,14 @@ import importlib
 
 import spacy
 from nltk.corpus import stopwords
+from unidecode import unidecode
 
 import chatbot.chat
 import homeassistant.homeassistant
-import homeassistant.lights
+import homeassistant.light
 import homeassistant.spotify
 import homeassistant.switch
 import homeassistant.weather
-import utils.colorUtils
 
 sentences = {}
 last_answer = ""
@@ -33,6 +33,9 @@ def recogniseSentence(sentence):
     if chatbot.chat.has_service_for_tag(tag):
         service = chatbot.chat.get_service_for_tag(tag)
         data = chatbot.chat.get_data_for_tag(tag)
+
+        # add the tag to data
+        data['tag'] = tag
 
         # if the data contains "sentence: true" then replace "true" by the sentence
         if 'sentence' in data and data['sentence'] is True:
@@ -75,20 +78,8 @@ def recogniseSentence(sentence):
         return chatbot.chat.get_response_for_tag(tag)
     else:
 
-        # allume les leds
-        # TODO : add color turn_on / change for lights
-        if is_tag(tag, 'leds_on_disable'):
-            color = get_sentence_without_stopwords_and_pattern(sentence, "leds_on")
-            if utils.colorUtils.does_color_exists(color):
-                rgb = utils.colorUtils.get_color_code_for_color(color)
-                homeassistant.lights.change_color_with_rgb("light.leds_chambre", rgb[0], rgb[1], rgb[2])
-            else:
-                homeassistant.lights.turn_off("light.leds_chambre")
-
-            return chatbot.chat.get_response_for_tag('leds_on')
-
         # il est quelle heure
-        elif is_tag(tag, 'what_time_is_it'):
+        if is_tag(tag, 'what_time_is_it'):
             current_time = datetime.datetime.now().strftime("%H:%M")
             current_time = current_time.replace('00:', 'minuit ')
             current_time = current_time.replace('12:', 'midi ')
@@ -145,3 +136,7 @@ def get_person_in_sentence(sentence, play_song=False):
                     return person
 
     return "none"
+
+
+def get_ascii_sentence(sentence):
+    return unidecode(sentence)
