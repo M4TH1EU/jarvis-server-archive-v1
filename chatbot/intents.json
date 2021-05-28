@@ -57,7 +57,10 @@
     {
       "tag": "lights_on",
       "service": "homeassistant/light/turn_on",
-      "entity_id": "light.lumieres_chambre",
+      "data": {
+        "entity_id": "light.lumieres_chambre",
+        "sentence": true
+      },
       "patterns": [
         "allume la lumiere",
         "allume les lumieres",
@@ -76,7 +79,9 @@
     {
       "tag": "lights_off",
       "service": "homeassistant/light/turn_off",
-      "entity_id": "light.lumieres_chambre",
+      "data": {
+        "entity_id": "light.lumieres_chambre"
+      },
       "patterns": [
         "eteint la lumiere",
         "eteint voir la lumiere",
@@ -95,7 +100,10 @@
     {
       "tag": "leds_on",
       "service": "homeassistant/light/turn_on",
-      "entity_id": "light.leds_chambre",
+      "data": {
+        "entity_id": "light.leds_chambre",
+        "sentence": true
+      },
       "patterns": [
         "allume la bande led",
         "allume les leds",
@@ -116,7 +124,9 @@
     {
       "tag": "leds_off",
       "service": "homeassistant/light/turn_off",
-      "entity_id": "light.leds_chambre",
+      "data": {
+        "entity_id": "light.leds_chambre"
+      },
       "patterns": [
         "eteint la bande led",
         "eteint les leds",
@@ -135,7 +145,9 @@
     {
       "tag": "next_track",
       "service": "homeassistant/media_player/media_next_track",
-      "entity_id": "media_player.spotify_mathieu_broillet",
+      "data": {
+        "entity_id": "media_player.spotify_mathieu_broillet"
+      },
       "patterns": [
         "morceau suivant",
         "mets le morceau suivant",
@@ -159,7 +171,9 @@
     {
       "tag": "previous_track",
       "service": "homeassistant/media_player/media_previous_track",
-      "entity_id": "media_player.spotify_mathieu_broillet",
+      "data": {
+        "entity_id": "media_player.spotify_mathieu_broillet"
+      },
       "patterns": [
         "morceau precedent",
         "mets le morceau precedent",
@@ -182,7 +196,9 @@
     {
       "tag": "resume_music",
       "service": "homeassistant/media_player/media_play",
-      "entity_id": "media_player.spotify_mathieu_broillet",
+      "data": {
+        "entity_id": "media_player.spotify_mathieu_broillet"
+      },
       "patterns": [
         "Reprend la musique",
         "Remets la musique",
@@ -203,7 +219,9 @@
     {
       "tag": "pause_music",
       "service": "homeassistant/media_player/media_pause",
-      "entity_id": "media_player.spotify_mathieu_broillet",
+      "data": {
+        "entity_id": "media_player.spotify_mathieu_broillet"
+      },
       "patterns": [
         "Arrete la musique",
         "Stop la musique",
@@ -225,7 +243,9 @@
     {
       "tag": "turn_up_volume",
       "service": "homeassistant/media_player/volume_up",
-      "entity_id": "media_player.spotify_mathieu_broillet",
+      "data": {
+        "entity_id": "media_player.spotify_mathieu_broillet"
+      },
       "patterns": [
         "Monte le son",
         "Monte le volume",
@@ -244,7 +264,9 @@
     {
       "tag": "turn_down_volume",
       "service": "homeassistant/media_player/volume_down",
-      "entity_id": "media_player.spotify_mathieu_broillet",
+      "data": {
+        "entity_id": "media_player.spotify_mathieu_broillet"
+      },
       "patterns": [
         "Baisse le son",
         "Descend le son",
@@ -275,7 +297,9 @@
     {
       "tag": "wikipedia_search",
       "service": "jarvis/wiki/search_wikipedia",
-      "sentence_as_arg": true,
+      "data": {
+        "sentence": true
+      },
       "patterns": [
         "donne-moi des infos sur",
         "donne moi des infos sur",
@@ -294,7 +318,9 @@
     {
       "tag": "weather",
       "service": "homeassistant$/weather/summary",
-      "entity_id": "weather.bussigny_sur_oron",
+      "data": {
+        "entity_id": "weather.bussigny_sur_oron"
+      },
       "patterns": [
         "Il fait combien",
         "Il fait quel temps",
@@ -314,7 +340,9 @@
     {
       "tag": "alarm",
       "service": "jarvis/alarms/create_alarm",
-      "sentence_as_arg": true,
+      "data": {
+        "sentence": true
+      },
       "patterns": [
         "mets le reveil a",
         "defini le reveil a",
@@ -331,7 +359,9 @@
     {
       "tag": "turn_on_3d_printer",
       "service": "homeassistant/switch/turn_on",
-      "entity_id": "switch.bfd9b202b8140c15780fpe",
+      "data": {
+        "entity_id": "switch.bfd9b202b8140c15780fpe"
+      },
       "patterns": [
         "allume l'imprimante 3d",
         "allume voir l'imprimante 3d",
@@ -349,7 +379,9 @@
     {
       "tag": "turn_off_3d_printer",
       "service": "homeassistant/switch/turn_off",
-      "entity_id": "switch.bfd9b202b8140c15780fpe",
+      "data": {
+        "entity_id": "switch.bfd9b202b8140c15780fpe"
+      },
       "patterns": [
         "eteint l'imprimante 3D",
         "eteint voir l'imprimante 3d",
@@ -366,7 +398,9 @@
     {
       "tag": "turn_on_pc",
       "service": "homeassistant/switch/turn_on",
-      "entity_id": "switch.wake_on_lan_pc_tour",
+      "data": {
+        "entity_id": "switch.wake_on_lan_pc_tour"
+      },
       "patterns": [
         "Allume le pc",
         "allume l'ordinateur",
@@ -388,7 +422,9 @@
     {
       "tag": "turn_off_pc",
       "service": "homeassistant/switch/turn_off",
-      "entity_id": "switch.wake_on_lan_pc_tour",
+      "data": {
+        "entity_id": "switch.wake_on_lan_pc_tour"
+      },
       "patterns": [
         "eteint le pc",
         "arrete le pc",
@@ -408,7 +444,6 @@
     {
       "tag": "sleep_pc",
       "service": "homeassistant/shell_command/sleep_tour_mathieu",
-      "entity_id": "",
       "patterns": [
         "Mets le pc en veille",
         "Passe le pc en veille"
@@ -422,7 +457,9 @@
     {
       "tag": "turn_on_wall_tablet",
       "service": "homeassistant/light/turn_on",
-      "entity_id": "light.mi_pad_screen",
+      "data": {
+        "entity_id": "light.mi_pad_screen"
+      },
       "patterns": [
         "allume la tablette",
         "allume la tablette murale",
@@ -440,7 +477,9 @@
     {
       "tag": "turn_off_wall_tablet",
       "service": "homeassistant/light/turn_off",
-      "entity_id": "light.mi_pad_screen",
+      "data": {
+        "entity_id": "light.mi_pad_screen"
+      },
       "patterns": [
         "eteint la tablette",
         "eteins la tablette",
@@ -459,7 +498,9 @@
     {
       "tag": "song_recognition",
       "service": "homeassistant$/spotify/song_recognition",
-      "entity_id": "media_player.spotify_mathieu_broillet",
+      "data": {
+        "entity_id": "media_player.spotify_mathieu_broillet"
+      },
       "patterns": [
         "c'est quoi cette chanson",
         "c'est quoi le nom de cette chanson",
@@ -488,7 +529,9 @@
     {
       "tag": "play_song",
       "service": "jarvis/spotipy/play_song",
-      "sentence_as_arg": true,
+      "data": {
+        "sentence": true
+      },
       "patterns": [
         "joue le morceau de",
         "joue le titre de",
@@ -514,7 +557,9 @@
     {
       "tag": "nothing",
       "service": "jarvis/client/play_sound",
-      "entity_id": "listened.mp3",
+      "data": {
+        "sound_name": "listened.mp3"
+      },
       "patterns": [
         "non rien enfaite",
         "rien finalement",

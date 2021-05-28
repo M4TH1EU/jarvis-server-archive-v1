@@ -32,6 +32,13 @@ def recogniseSentence(sentence):
 
     if chatbot.chat.has_service_for_tag(tag):
         service = chatbot.chat.get_service_for_tag(tag)
+        data = chatbot.chat.get_data_for_tag(tag)
+
+        # if the data contains "sentence: true" then replace "true" by the sentence
+        if 'sentence' in data is True:
+            data['sentence'] = sentence
+
+        print(data)
         print(service)
 
         if service.startswith("homeassistant"):
@@ -41,15 +48,15 @@ def recogniseSentence(sentence):
                 # see the elif(..."jarvis") below for more informations on what this does
                 name = service.removeprefix('homeassistant$/').split("/")[1]
                 service = service.removeprefix('homeassistant$/').split("/")[0]
-                entity_id = chatbot.chat.get_entity_if_set_for_tag(tag)
-                if chatbot.chat.get_field_in_intent_for_tag("sentence_as_arg", tag) is not None:
-                    entity_id = sentence
                 method = import_service_and_return_method("homeassistant." + service, name)
-                return method(entity_id)
+                return method(data)
             else:
                 service = service.removeprefix('homeassistant/')
-                entity_id = chatbot.chat.get_field_in_intent_for_tag("entity_id", tag)
-                homeassistant.homeassistant.call_service('{"entity_id": "' + entity_id + '" }', service)
+                if 'entity_id' in data:
+                    entity_id = data.get('entity_id')
+                    homeassistant.homeassistant.call_service('{"entity_id": "' + entity_id + '" }', service)
+                else:
+                    print("HomeAssistant services need an entity_id")
 
         elif service.startswith("jarvis"):
             # splitting the service name from the intent (summary in "jarvis/weather/summary)

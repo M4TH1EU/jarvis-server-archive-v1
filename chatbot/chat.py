@@ -126,22 +126,6 @@ def has_service_for_tag(tag):
     return False
 
 
-def has_entity_id_for_tag(tag):
-    for intent in intents['intents']:
-        if intent['tag'] == tag:
-            if intent.get('entity_id') is not None:
-                return True
-
-    return False
-
-
-def get_entity_if_set_for_tag(tag):
-    if not has_entity_id_for_tag(tag):
-        return ""
-    else:
-        return get_field_in_intent_for_tag("entity_id", tag)
-
-
 def get_service_for_tag(tag):
     """
 
@@ -165,3 +149,26 @@ def get_field_in_intent_for_tag(field_name, tag):
             if intent.get(field_name) is not None:
                 return intent[field_name]
     return None
+
+
+def get_field_in_data_for_tag(field_name, tag):
+    for intent in intents['intents']:
+        if intent['tag'] == tag:
+            data = intent.get('data')
+            if data is not None:
+                if data.get(field_name) is not None:
+                    return data.get(field_name)
+    return None
+
+
+def get_data_for_tag(tag):
+    for intent in intents['intents']:
+        if intent['tag'] == tag:
+            if intent.get('data') is not None:
+                data_dict = intent.get('data')
+                return data_dict
+            else:
+                entity_id = get_field_in_data_for_tag('entity_id', tag)
+                if entity_id is not None:
+                    return {"entity_id": entity_id}
+    return {}
