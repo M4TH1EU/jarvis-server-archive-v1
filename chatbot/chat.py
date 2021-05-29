@@ -165,8 +165,7 @@ def get_data_for_tag(tag):
     for intent in intents['intents']:
         if intent['tag'] == tag:
             if intent.get('data') is not None:
-                data_dict = intent.get('data')
-                return data_dict
+                return intent.get('data')
             else:
                 entity_id = get_field_in_data_for_tag('entity_id', tag)
                 if entity_id is not None:

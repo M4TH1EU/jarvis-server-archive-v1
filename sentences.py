@@ -38,8 +38,9 @@ def recogniseSentence(sentence):
         data['tag'] = tag
 
         # if the data contains "sentence: true" then replace "true" by the sentence
-        if 'sentence' in data and data['sentence'] is True:
-            data['sentence'] = sentence
+        # if 'sentence' in data and data['sentence'] is True:
+        # TODO: find why data doesn't reset itself on next recognition
+        data['sentence'] = sentence
 
         print(data)
         print(service)

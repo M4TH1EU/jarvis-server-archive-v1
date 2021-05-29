@@ -62,16 +62,33 @@ def get_infos_playing_song():
     return [song, artist]
 
 
-def play_song(sentence):
-    singer = get_person_in_sentence(sentence)
-    print(singer)
+def play_a_song(data):
+    """
+    Retrieve the author and the title from a sentence and play it
+    Parameters
+    ----------
+    data: dict
 
-    song_name = get_sentence_without_patterns_words(sentence, 'play_song').replace(singer, '')
-    print(song_name)
+    Returns
+    -------
 
-    if singer != 'none' and song_name:
-        return play_song(singer, song_name)
-    elif singer != 'none' and not song_name:
-        return play_artist(singer)
-    elif singer == 'none' and song_name:
-        return play_song_without_artist(song_name)
+    """
+    if 'sentence' in data:
+        sentence = data.get('sentence')
+
+        singer = get_person_in_sentence(sentence, play_song=True)
+        print("singer : " + singer)
+
+        song_name = get_sentence_without_patterns_words(sentence, 'play_song').replace(singer, '')
+        print("song name : " + song_name)
+
+        song_name = song_name.replace('\'', '')
+
+        if singer != 'none' and song_name:
+            return play_song(singer, song_name)
+        elif singer != 'none' and not song_name:
+            return play_artist(singer)
+        elif singer == 'none' and song_name:
+            return play_song_without_artist(song_name)
+    else:
+        raise Exception("spotipy.play_song need a sentence in data")

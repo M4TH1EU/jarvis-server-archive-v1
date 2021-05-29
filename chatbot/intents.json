@@ -528,7 +528,7 @@
     },
     {
       "tag": "play_song",
-      "service": "jarvis/spotipy/play_song",
+      "service": "jarvis/spotipy/play_a_song",
       "data": {
         "sentence": true
       },
@@ -537,7 +537,9 @@
         "joue le titre de",
         "joue la chanson de",
         "joue de",
+        "joue-moi",
         "joue moi voir de",
+        "joue-moi voir de",
         "tu peux me jouer",
         "joue un peu de",
         "mets le morceau",
