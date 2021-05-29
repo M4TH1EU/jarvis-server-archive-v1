@@ -39,12 +39,11 @@ def turn_on(data):
                 sentence = get_ascii_sentence(data.get('sentence'))
 
                 color = get_sentence_without_stopwords_and_pattern(sentence, tag)
-                if colorUtils.does_color_exists(color):
+                if not color and colorUtils.does_color_exists(color):
                     rgb = colorUtils.get_color_code_for_color(color)
                     homeassistant.light.change_color_with_rgb(entity_id, rgb)
                 else:
-                    print("Didn't found color : " + color)
-
+                    homeassistant.light.turn_on(entity_id)
             else:
                 homeassistant.light.turn_on(entity_id)
 

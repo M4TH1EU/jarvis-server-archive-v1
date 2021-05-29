@@ -589,6 +589,48 @@
         ""
       ],
       "context_set": ""
+    },
+    {
+      "tag": "turn_on_tv",
+      "service": "homeassistant/switch/turn_on",
+      "data": {
+        "entity_id": "switch.tv_philips"
+      },
+      "patterns": [
+        "allume la tv",
+        "allume la tele",
+        "demarre la tele",
+        "allume la television",
+        "arrete la tv",
+        "eteint voir la television"
+      ],
+      "responses": [
+        "Je démarre la télévision",
+        "La télévision s'allume monsieur",
+        "La TV démarre",
+        "J'allume la tèlè"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "turn_off_tv",
+      "service": "homeassistant/switch/turn_off",
+      "data": {
+        "entity_id": "switch.tv_philips"
+      },
+      "patterns": [
+        "eteint la tv",
+        "eteint la television",
+        "arrete la tv",
+        "eteint voir la television"
+      ],
+      "responses": [
+        "J'éteint la TV",
+        "La télévision s'éteint",
+        "La TV s'éteint",
+        "J'éteint la télévision"
+      ],
+      "context_set": ""
     }
   ]
 }
