@@ -1,0 +1,25 @@
+{
+  "intents": [
+    {
+      "tag": "wikipedia_search",
+      "service": "jarvis/wiki/search_wikipedia",
+      "data": {
+        "sentence": true
+      },
+      "patterns": [
+        "donne-moi des infos sur",
+        "donne moi des infos sur",
+        "c'est quoi",
+        "c'est qui",
+        "Cherche sur wikipedia",
+        "Renseigne toi sur",
+        "tu arrive a me dire"
+      ],
+      "responses": [
+        "Je n'ai malheureusement rien trouvé",
+        "Je ne trouve rien à ce propos sur Wikipedia"
+      ],
+      "context_set": ""
+    }
+  ]
+}

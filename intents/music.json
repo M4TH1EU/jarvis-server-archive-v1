@@ -1,0 +1,203 @@
+{
+  "intents": [
+    {
+      "tag": "next_track",
+      "service": "homeassistant/media_player/media_next_track",
+      "data": {
+        "entity_id": "media_player.spotify_mathieu_broillet"
+      },
+      "patterns": [
+        "morceau suivant",
+        "mets le morceau suivant",
+        "joue le titre suivant",
+        "joue le morceau suivant",
+        "change de musique",
+        "change de morceau",
+        "mets la prochaine chanson",
+        "mets le prochain morceau",
+        "mets la chason des"
+      ],
+      "responses": [
+        "Voici le morceau suivant monsieur",
+        "Voici le morceau suivant",
+        "Je passe cette chanson",
+        "Chanson suivante",
+        "Morceau suivant"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "previous_track",
+      "service": "homeassistant/media_player/media_previous_track",
+      "data": {
+        "entity_id": "media_player.spotify_mathieu_broillet"
+      },
+      "patterns": [
+        "morceau precedent",
+        "mets le morceau precedent",
+        "mets le morceau d'avant",
+        "joue le titre precedent",
+        "joue le morceau precedent",
+        "joue la chanson precedente",
+        "rejoue la chanson precedente",
+        "mets le morceau precedent"
+      ],
+      "responses": [
+        "Voici le morceau précédent monsieur",
+        "Voici le morceau précédent",
+        "Je remets la chanson d'avant",
+        "Chanson précédente",
+        "Morceau précédent"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "resume_music",
+      "service": "homeassistant/media_player/media_play",
+      "data": {
+        "entity_id": "media_player.spotify_mathieu_broillet"
+      },
+      "patterns": [
+        "Reprend la musique",
+        "Remets la musique",
+        "Relance la musique",
+        "Redemarre la musique",
+        "Mets de la musique",
+        "Tu peux remettre la musique"
+      ],
+      "responses": [
+        "Je relance la musique",
+        "La musique reprend",
+        "De suite",
+        "Le son reprend",
+        "Je remets la musique"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "pause_music",
+      "service": "homeassistant/media_player/media_pause",
+      "data": {
+        "entity_id": "media_player.spotify_mathieu_broillet"
+      },
+      "patterns": [
+        "Arrete la musique",
+        "Stop la musique",
+        "Mets la musique en pause",
+        "Pause la musique",
+        "Mets en pause la musique",
+        "Coupe la musique",
+        "Coupe voir la musique une seconde",
+        "Coupe moi le son"
+      ],
+      "responses": [
+        "La musique s'arrête",
+        "Je mets sur pause ",
+        "Le musique est sur pause",
+        "Je mets la musique sur pause"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "turn_up_volume",
+      "service": "homeassistant/media_player/volume_up",
+      "data": {
+        "entity_id": "media_player.spotify_mathieu_broillet"
+      },
+      "patterns": [
+        "Monte le son",
+        "Monte le volume",
+        "Monter le son",
+        "Monter le volume",
+        "Augmente le son",
+        "Augmente le volume",
+        "Monte un peu le son"
+      ],
+      "responses": [
+        "Je monte le son",
+        "J'augmente le volume"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "turn_down_volume",
+      "service": "homeassistant/media_player/volume_down",
+      "data": {
+        "entity_id": "media_player.spotify_mathieu_broillet"
+      },
+      "patterns": [
+        "Baisse le son",
+        "Descend le son",
+        "Baisse le volume",
+        "Descend le volume"
+      ],
+      "responses": [
+        "Je descend le volume",
+        "Je baisse le volume",
+        "Je diminue le volume"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "song_recognition",
+      "service": "homeassistant$/spotify/song_recognition",
+      "data": {
+        "entity_id": "media_player.spotify_mathieu_broillet"
+      },
+      "patterns": [
+        "c'est quoi cette chanson",
+        "c'est quoi le nom de cette chanson",
+        "c'est qui qui chante ça"
+      ],
+      "responses_please_wait": [
+        "Donnez-moi quelques secondes",
+        "J'écoute, un instant",
+        "Un instant, j'écoute",
+        "Une petite seconde, j'écoute"
+      ],
+      "responses": [
+        "Le titre de cette chanson est %title de %singer",
+        "Cette chanson s'appelle %title et elle est chantée par %singer",
+        "Le nom de cette chanson est %title, elle est chantée par %singer",
+        "%title de %singer"
+      ],
+      "responses_fail": [
+        "Je n'ai pas trouve le nom de cette chanson",
+        "Je suis désolé mais je n'ai pas trouvé cette chanson",
+        "Je ne saurais pas vous le dire, désolé",
+        "Je n'ai malheureusement rien trouvé"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "play_song",
+      "service": "jarvis/spotipy/play_a_song",
+      "data": {
+        "sentence": true
+      },
+      "patterns": [
+        "joue le morceau de",
+        "joue le titre de",
+        "joue la chanson de",
+        "joue de",
+        "joue-moi",
+        "joue moi voir de",
+        "joue-moi voir de",
+        "tu peux me jouer",
+        "joue un peu de",
+        "mets le morceau",
+        "mets la chanson",
+        "joue moi des"
+      ],
+      "responses": [
+        "using done_sir custom"
+      ],
+      "responses_fail": [
+        "Je n'ai pas trouvé ce morceau monsieur",
+        "Je n'ai rien trouvé sur Spotifaie",
+        "Je ne trouve rien avec cette recherche"
+      ],
+      "context_set": ""
+    }
+  ]
+}

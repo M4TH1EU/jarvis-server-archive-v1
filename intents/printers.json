@@ -1,0 +1,77 @@
+{
+  "intents": [
+    {
+      "tag": "turn_on_3d_printer",
+      "service": "homeassistant/switch/turn_on",
+      "data": {
+        "entity_id": "switch.bfd9b202b8140c15780fpe"
+      },
+      "patterns": [
+        "allume l'imprimante 3d",
+        "allume voir l'imprimante 3d",
+        "mets en marche l'imprimante 3d",
+        "tu pourrais allumer l'imprimante 3d",
+        "démarre moi voir l'imprimante 3d"
+      ],
+      "responses": [
+        "J'allume l'imprimante 3D",
+        "L'imprimante 3D démarre",
+        "Je démarre l'imprimante 3D"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "turn_off_3d_printer",
+      "service": "homeassistant/switch/turn_off",
+      "data": {
+        "entity_id": "switch.bfd9b202b8140c15780fpe"
+      },
+      "patterns": [
+        "eteint l'imprimante 3D",
+        "eteint voir l'imprimante 3d",
+        "arrete l'imprimante 3d"
+      ],
+      "responses": [
+        "J'éteint l'imprimante",
+        "J'éteint l'imprimante 3D",
+        "L'imprimante s'éteint",
+        "L'imprimante 3D s'éteint"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "nothing",
+      "service": "jarvis/client/play_sound",
+      "data": {
+        "sound_name": "listened.mp3"
+      },
+      "patterns": [
+        "non rien enfaite",
+        "rien finalement",
+        "c'est tout bon enfaite",
+        "c'est tout bon merci",
+        "enfaite c'est tout bon"
+      ],
+      "responses": [
+        ""
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "joke_random",
+      "service": "jarvis/jokes/random",
+      "patterns": [
+        "raconte moi-voir une blague",
+        "dis moi une blague",
+        "raconte une blague",
+        "fait moi rire",
+        "donne une bonne blague",
+        "raconte moi une blagounette"
+      ],
+      "responses": [
+        ""
+      ],
+      "context_set": ""
+    }
+  ]
+}

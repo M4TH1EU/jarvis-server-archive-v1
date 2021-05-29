@@ -1,0 +1,92 @@
+{
+  "intents": [
+    {
+      "tag": "lights_on",
+      "service": "homeassistant$/light/turn_on",
+      "data": {
+        "entity_id": "light.lumieres_chambre",
+        "sentence": true
+      },
+      "patterns": [
+        "allume la lumiere",
+        "allume les lumieres",
+        "allume les lampes",
+        "allumer lumiere",
+        "tu peux m'allumer la lumiere",
+        "allume moi voir la lumière"
+      ],
+      "responses": [
+        "J'allume les lumières",
+        "J'allume la lumière",
+        "Les lumières s'allument monsieur"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "lights_off",
+      "service": "homeassistant/light/turn_off",
+      "data": {
+        "entity_id": "light.lumieres_chambre"
+      },
+      "patterns": [
+        "eteint la lumiere",
+        "eteint voir la lumiere",
+        "eteint les lumieres",
+        "eteint les lampes",
+        "eteindre lumiere",
+        "tu peux m'eteindre les lumieres"
+      ],
+      "responses": [
+        "J'éteinds les lumières",
+        "J'éteinds la lumière",
+        "Les lumières s'éteignent monsieur"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "leds_on",
+      "service": "homeassistant$/light/turn_on",
+      "data": {
+        "entity_id": "light.leds_chambre",
+        "sentence": true
+      },
+      "patterns": [
+        "allume la bande led",
+        "allume les leds",
+        "allume les led",
+        "allume les bandes leds",
+        "demarre les leds",
+        "demarre les led",
+        "demarre les leds",
+        "allumer leds",
+        "allume moi voir les leds"
+      ],
+      "responses": [
+        "J'allume les leds",
+        "Les leds s'allument monsieur"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "leds_off",
+      "service": "homeassistant/light/turn_off",
+      "data": {
+        "entity_id": "light.leds_chambre"
+      },
+      "patterns": [
+        "eteint la bande led",
+        "eteint les leds",
+        "eteint les led",
+        "eteint les bandes leds",
+        "eteindre leds",
+        "eteindre les leds"
+      ],
+      "responses": [
+        "J'éteinds les leds",
+        "J'éteinds les guirlandes leds",
+        "Les leds s'éteignent monsieur"
+      ],
+      "context_set": ""
+    }
+  ]
+}

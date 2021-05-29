@@ -1,0 +1,37 @@
+{
+  "intents": [
+    {
+      "tag": "what_time_is_it",
+      "patterns": [
+        "Il est quelle heure",
+        "C'est quelle heure",
+        "On vit quelle heure",
+        "Quelle heure est-il"
+      ],
+      "responses": [
+        "Il est",
+        "Il est actuellement"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "alarm",
+      "service": "jarvis/alarms/create_alarm",
+      "data": {
+        "sentence": true
+      },
+      "patterns": [
+        "mets le reveil a",
+        "defini le reveil a",
+        "reveille moi a",
+        "mets une alarme a",
+        "mets l'alarme a",
+        "mets voir une alarme a"
+      ],
+      "responses": [
+        "Je mets l'alarme pour %time"
+      ],
+      "context_set": ""
+    }
+  ]
+}

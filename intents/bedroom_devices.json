@@ -1,0 +1,146 @@
+{
+  "intents": [
+    {
+      "tag": "turn_on_pc",
+      "service": "homeassistant/switch/turn_on",
+      "data": {
+        "entity_id": "switch.wake_on_lan_pc_tour"
+      },
+      "patterns": [
+        "Allume le pc",
+        "allume l'ordinateur",
+        "demarre le pc",
+        "demarre l'ordinateur"
+      ],
+      "responses": [
+        "J'allume le pc",
+        "J'allume l'ordinateur",
+        "Je démarre le PC",
+        "Je démarre l'ordinateur",
+        "L'ordinateur démarre",
+        "Le PC demarre",
+        "Le PC s'allume",
+        "L'ordinateur s'allume"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "turn_off_pc",
+      "service": "homeassistant/switch/turn_off",
+      "data": {
+        "entity_id": "switch.wake_on_lan_pc_tour"
+      },
+      "patterns": [
+        "eteint le pc",
+        "arrete le pc",
+        "eteint l'ordinateur",
+        "arrete l'ordinateur"
+      ],
+      "responses": [
+        "J'éteins le pc",
+        "J'éteins l'ordinateur",
+        "J'arrête le PC",
+        "J'arrête l'ordinateur",
+        "L'ordinateur s'arrête",
+        "Le PC s'arrête"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "sleep_pc",
+      "service": "homeassistant/shell_command/sleep_tour_mathieu",
+      "patterns": [
+        "Mets le pc en veille",
+        "Passe le pc en veille"
+      ],
+      "responses": [
+        "Je mets le PC en veille",
+        "Je mets l'ordinateur en veille"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "turn_on_wall_tablet",
+      "service": "homeassistant/light/turn_on",
+      "data": {
+        "entity_id": "light.mi_pad_screen"
+      },
+      "patterns": [
+        "allume la tablette",
+        "allume la tablette murale",
+        "allume l'ecran de la tablette",
+        "allume l'ecran de la tablette murale"
+      ],
+      "responses": [
+        "J'allume la tablette murale",
+        "La tablette s'allume",
+        "L'écran de la tablette s'allume",
+        "J'allume la tablette"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "turn_off_wall_tablet",
+      "service": "homeassistant/light/turn_off",
+      "data": {
+        "entity_id": "light.mi_pad_screen"
+      },
+      "patterns": [
+        "eteint la tablette",
+        "eteins la tablette",
+        "eteint la tablette murale",
+        "eteint l'ecran de la tablette",
+        "eteint l'ecran de la tablette murale"
+      ],
+      "responses": [
+        "J'éteint la tablette murale",
+        "La tablette s'éteint",
+        "L'écran de la tablette s'éteint",
+        "J'éteint la tablette"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "turn_on_tv",
+      "service": "homeassistant/switch/turn_on",
+      "data": {
+        "entity_id": "switch.tv_philips"
+      },
+      "patterns": [
+        "allume la tv",
+        "allume la tele",
+        "demarre la tele",
+        "allume la television",
+        "arrete la tv",
+        "eteint voir la television"
+      ],
+      "responses": [
+        "Je démarre la télévision",
+        "La télévision s'allume monsieur",
+        "La TV démarre",
+        "J'allume la tèlè"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "turn_off_tv",
+      "service": "homeassistant/switch/turn_off",
+      "data": {
+        "entity_id": "switch.tv_philips"
+      },
+      "patterns": [
+        "eteint la tv",
+        "eteint la television",
+        "arrete la tv",
+        "eteint voir la television"
+      ],
+      "responses": [
+        "J'éteint la TV",
+        "La télévision s'éteint",
+        "La TV s'éteint",
+        "J'éteint la télévision"
+      ],
+      "context_set": ""
+    }
+  ]
+}
