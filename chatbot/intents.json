@@ -573,6 +573,22 @@
         ""
       ],
       "context_set": ""
+    },
+    {
+      "tag": "joke_random",
+      "service": "jarvis/jokes/random",
+      "patterns": [
+        "raconte moi-voir une blague",
+        "dis moi une blague",
+        "raconte une blague",
+        "fait moi rire",
+        "donne une bonne blague",
+        "raconte moi une blagounette"
+      ],
+      "responses": [
+        ""
+      ],
+      "context_set": ""
     }
   ]
 }
