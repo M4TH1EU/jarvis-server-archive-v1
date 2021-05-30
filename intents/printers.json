@@ -38,40 +38,6 @@
         "L'imprimante 3D s'éteint"
       ],
       "context_set": ""
-    },
-    {
-      "tag": "nothing",
-      "service": "jarvis/client/play_sound",
-      "data": {
-        "sound_name": "listened.mp3"
-      },
-      "patterns": [
-        "non rien enfaite",
-        "rien finalement",
-        "c'est tout bon enfaite",
-        "c'est tout bon merci",
-        "enfaite c'est tout bon"
-      ],
-      "responses": [
-        ""
-      ],
-      "context_set": ""
-    },
-    {
-      "tag": "joke_random",
-      "service": "jarvis/jokes/random",
-      "patterns": [
-        "raconte moi-voir une blague",
-        "dis moi une blague",
-        "raconte une blague",
-        "fait moi rire",
-        "donne une bonne blague",
-        "raconte moi une blagounette"
-      ],
-      "responses": [
-        ""
-      ],
-      "context_set": ""
     }
   ]
 }
