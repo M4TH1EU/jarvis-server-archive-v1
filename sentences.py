@@ -8,7 +8,7 @@ from unidecode import unidecode
 import chatbot.chat
 import homeassistant.homeassistant
 import homeassistant.light
-import homeassistant.mediaplayer
+import homeassistant.media_player
 import homeassistant.switch
 import homeassistant.weather
 import intents.intents
@@ -64,13 +64,10 @@ def recogniseSentence(sentence):
                 method = import_service_and_return_method("homeassistant." + service, name)
                 return method(data)
             else:
-                service = service.removeprefix('homeassistant/')
-                if 'entity_id' in data:
-                    entity_id = data.get('entity_id')
+                domain = service.removeprefix('homeassistant/')
+                service = domain.split("/")[1]
 
-                    homeassistant.homeassistant.call_service('{"entity_id": "' + entity_id + '" }', service)
-                else:
-                    raise Exception("HomeAssistant services need an entity_id in data")
+                homeassistant.homeassistant.call_api(domain, service, data)
 
         elif service.startswith("jarvis"):
             # splitting the service name from the intent (summary in "jarvis/weather/summary)

@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 
+import homeassistant
 import intents.intents
 from homeassistant.homeassistant import get_state
 
@@ -31,7 +32,7 @@ def get_temperature_low(entity_id):
 
 
 def get_condition(entity_id):
-    return conditions.get(json.loads(get_state(entity_id))['state'])
+    return conditions.get(homeassistant.homeassistant.get_state(entity_id).state)
 
 
 def get_low_temp(entity_id):
@@ -97,7 +98,7 @@ def get_attribute_for_day(entity_id, name, day_date):
 
     """
     state = get_state(entity_id)
-    forecast_array = json.loads(state)['attributes']['forecast']
+    forecast_array = state.attributes['forecast']
 
     for forecast in forecast_array:
         if forecast['datetime'] == day_date:

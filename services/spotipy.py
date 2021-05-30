@@ -1,4 +1,4 @@
-# NOT TO BE MISTAKEN WITH "mediaplayer.py" from homeassistant folder, this is for the spotiPy library (used for searching titles and playing songs, homeassistant cannot find spotify track id or search songs/artists)
+# NOT TO BE MISTAKEN WITH "media_player.py" from homeassistant folder, this is for the spotiPy library (used for searching titles and playing songs, homeassistant cannot find spotify track id or search songs/artists)
 import os
 import random
 

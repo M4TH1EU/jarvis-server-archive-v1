@@ -31,7 +31,7 @@ def check_if_there_is_an_alarm(minutes, person_id):
 
 
 def check_temperature(minutes, entity_id, mobile_app_id):
-    entity_state = json.loads(homeassistant.homeassistant.get_state(entity_id))
+    entity_state = homeassistant.homeassistant.get_state(entity_id).state
     temperature = int(float(entity_state['state']))
     if temperature >= 85:
         friendly_name = entity_state['attributes']['friendly_name']

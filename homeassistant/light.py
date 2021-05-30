@@ -16,7 +16,7 @@ def turn_on(entity_id):
     entity_id : str
     """
 
-    call_service('{"entity_id": "' + entity_id + '" }', "light/turn_on")
+    homeassistant.homeassistant.call_api("light", "turn_on", {'entity_id': entity_id})
 
 
 def turn_on(data):
@@ -64,7 +64,7 @@ def turn_off(entity_id):
 
 
 def is_on(entity_id):
-    return json.loads(homeassistant.homeassistant.get_state(entity_id))['state'] == 'on'
+    return homeassistant.homeassistant.get_state(entity_id).state == 'on'
 
 
 def change_color_with_name(entity_id, color):
@@ -76,8 +76,7 @@ def change_color_with_name(entity_id, color):
     entity_id : str
     color : str
     """
-    call_service('{"entity_id": "' + entity_id +
-                 '", "color_name": "' + color + '" }', "light/turn_on")
+    homeassistant.homeassistant.call_api("light", "turn_on", {'entity_id': entity_id, 'color_name': color})
 
 
 def change_color_with_rgb(entity_id, rgb):
@@ -90,8 +89,7 @@ def change_color_with_rgb(entity_id, rgb):
     rgb: list
 
     """
-    call_service('{"entity_id": "' + entity_id +
-                 '", "rgb_color": "' + str(rgb) + '" }', "light/turn_on")
+    homeassistant.homeassistant.call_api("light", "turn_on", {'entity_id': entity_id, 'rgb_color': str(rgb)})
 
 
 def change_brightness(entity_id, brightness):
@@ -104,5 +102,5 @@ def change_brightness(entity_id, brightness):
     brightness : int
 
     """
-    call_service('{"entity_id": "' + entity_id +
-                 '", "brightness": "' + brightness + '" }', "light/turn_on")
+
+    homeassistant.homeassistant.call_api("light", "turn_on", {'entity_id': entity_id, 'brightness': brightness})

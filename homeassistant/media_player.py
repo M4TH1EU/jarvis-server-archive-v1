@@ -1,11 +1,12 @@
 import json
 
+import homeassistant
 import intents.intents
 import services.shazam
 from homeassistant.homeassistant import call_service, get_state
 
 
-def next_track(entity_id):
+def media_next_track(entity_id):
     """
     Play the next track
 
@@ -13,11 +14,10 @@ def next_track(entity_id):
     ----------
     entity_id : str
     """
+    homeassistant.homeassistant.call_api("media_player", "media_next_track", {'entity_id': entity_id})
 
-    call_service('{"entity_id": "' + entity_id + '" }', "media_player/media_next_track")
 
-
-def previous_track(entity_id):
+def media_previous_track(entity_id):
     """
     Play the next track
 
@@ -25,11 +25,11 @@ def previous_track(entity_id):
     ----------
     entity_id : str
     """
+    homeassistant.homeassistant.call_api("media_player", "media_previous_track", {'entity_id': entity_id})
 
-    call_service('{"entity_id": "' + entity_id + '" }', "media_player/media_previous_track")
 
 
-def pause(entity_id):
+def media_pause(entity_id):
     """
     Pause the song
 
@@ -38,10 +38,10 @@ def pause(entity_id):
     entity_id : str
     """
 
-    call_service('{"entity_id": "' + entity_id + '" }', "media_player/media_pause")
+    homeassistant.homeassistant.call_api("media_player", "media_pause", {'entity_id': entity_id})
 
 
-def play(entity_id):
+def media_play(entity_id):
     """
     Resume the song
 
@@ -50,10 +50,10 @@ def play(entity_id):
     entity_id : str
     """
 
-    call_service('{"entity_id": "' + entity_id + '" }', "media_player/media_play")
+    homeassistant.homeassistant.call_api("media_player", "media_play", {'entity_id': entity_id})
 
 
-def turn_up_volume(entity_id):
+def volume_up(entity_id):
     """
     Turn the volume up
 
@@ -63,11 +63,11 @@ def turn_up_volume(entity_id):
     """
 
     # calling it twice to really see a volume difference
-    call_service('{"entity_id": "' + entity_id + '" }', "media_player/volume_up")
-    call_service('{"entity_id": "' + entity_id + '" }', "media_player/volume_up")
+    homeassistant.homeassistant.call_api("media_player", "volume_up", {'entity_id': entity_id})
+    homeassistant.homeassistant.call_api("media_player", "volume_up", {'entity_id': entity_id})
 
 
-def turn_down_volume(entity_id):
+def volume_down(entity_id):
     """
     Turn the volume down
 
@@ -77,8 +77,8 @@ def turn_down_volume(entity_id):
     """
 
     # calling it twice to really see a volume difference
-    call_service('{"entity_id": "' + entity_id + '" }', "media_player/volume_down")
-    call_service('{"entity_id": "' + entity_id + '" }', "media_player/volume_down")
+    homeassistant.homeassistant.call_api("media_player", "volume_down", {'entity_id': entity_id})
+    homeassistant.homeassistant.call_api("media_player", "volume_down", {'entity_id': entity_id})
 
 
 def is_music_playing(entity_id):
@@ -93,7 +93,7 @@ def is_music_playing(entity_id):
     ----------
     bool
     """
-    return json.loads(get_state(entity_id))['state'] == 'playing'
+    return homeassistant.homeassistant.get_state(entity_id).state == 'playing'
 
 
 def get_infos_playing_song(entity_id):
@@ -109,7 +109,7 @@ def get_infos_playing_song(entity_id):
     dict
     """
 
-    song_info = json.loads(get_state(entity_id))['attributes']
+    song_info = homeassistant.homeassistant.get_state(entity_id).attributes
     artist = song_info['media_artist']
     song = song_info['media_title']
 

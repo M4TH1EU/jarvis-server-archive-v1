@@ -2,10 +2,30 @@ import json
 import os
 
 import requests
+from homeassistant_api import Client
 from requests.structures import CaseInsensitiveDict
 
 token = os.getenv('HOMEASSISTANT_API_TOKEN')  # long-term token
 ha_url = os.getenv('HOMEASSISTANT_API_URL')  # https://my.homeassistant.com/api/
+client = Client(ha_url, token)
+service_domains = client.get_services()
+
+
+def call_api(domain, service, data):
+    """
+    Used to call homeassistant api
+    Parameters
+    ----------
+    domain: str (ex. light or media_player)
+    service: str (ex. turn_on or toggle)
+    data: dict
+
+    Returns
+    -------
+
+    """
+
+    service_domains.__getattribute__(domain).services.__getattribute__(service).trigger(**data)
 
 
 def call_service(data, service):
@@ -36,23 +56,14 @@ def call_service(data, service):
 
 def get_state(entity_id):
     """
-        Retrieve the state of an entity (GET) on the HA API with a given payload
+        Retrieve the state of an entity on the HA API
 
         Parameters
         ----------
         entity_id : str
         """
 
-    try:
-        url_service = ha_url + "states/" + entity_id
-        headers = CaseInsensitiveDict()
-        headers["Authorization"] = 'Bearer ' + token
-        headers["Content-Type"] = "application/json"
-
-        return requests.get(url_service, headers=headers).content
-    except:
-        print("Error when calling HomeAssistant API")
-        return ""
+    return client.get_entity(entity_id)
 
 
 def send_notification(device, title, message, action1=None, action2=None, action3=None):
@@ -84,8 +95,8 @@ def send_notification(device, title, message, action1=None, action2=None, action
         if 2 < len(action3):
             data['data']['actions'][2]['uri'] = action3[2]
 
-    call_service(json.dumps(data), 'notify/' + device)
+    call_api("notify", device, **{"data": data})
 
 
 def is_home(entity_id):
-    return json.loads(get_state(entity_id))['state'] == 'home'
+    return get_state(entity_id).state == 'home'
