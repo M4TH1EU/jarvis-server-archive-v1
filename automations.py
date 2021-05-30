@@ -26,7 +26,7 @@ def check_if_there_is_an_alarm(minutes, person_id):
         if services.alarms.check():
             # play song
             print("MUSIC MAESTRO")
-    timer = threading.Timer(minutes * 60, check_if_there_is_an_alarm, [minutes])
+    timer = threading.Timer(minutes * 60, check_if_there_is_an_alarm, [minutes, person_id])
     timer.start()
 
 
