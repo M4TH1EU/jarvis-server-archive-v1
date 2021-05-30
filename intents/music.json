@@ -140,7 +140,7 @@
     },
     {
       "tag": "song_recognition",
-      "service": "homeassistant$/spotify/song_recognition",
+      "service": "homeassistant$/mediaplayer/song_recognition",
       "data": {
         "entity_id": "media_player.spotify_mathieu_broillet"
       },

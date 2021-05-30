@@ -8,7 +8,7 @@ from unidecode import unidecode
 import chatbot.chat
 import homeassistant.homeassistant
 import homeassistant.light
-import homeassistant.spotify
+import homeassistant.mediaplayer
 import homeassistant.switch
 import homeassistant.weather
 import intents.intents
