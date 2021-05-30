@@ -110,9 +110,7 @@
         "allume la tv",
         "allume la tele",
         "demarre la tele",
-        "allume la television",
-        "arrete la tv",
-        "eteint voir la television"
+        "allume la television"
       ],
       "responses": [
         "Je démarre la télévision",
