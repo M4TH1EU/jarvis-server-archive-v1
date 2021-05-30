@@ -1,6 +1,5 @@
 import json
 
-import chatbot.chat
 import homeassistant.homeassistant
 import intents.intents
 from homeassistant.homeassistant import call_service
