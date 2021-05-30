@@ -5,17 +5,19 @@ import random
 import torch
 from unidecode import unidecode
 
+import pathfile
 from chatbot.model import NeuralNet
 from chatbot.nltk_utils import bag_of_words, tokenize
 
-path = os.getcwd()
+path = os.path.dirname(pathfile.__file__)
+
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 with open(path + '\\chatbot\\intents.json', encoding='utf-8', mode='r') as json_data:
     intents = json.load(json_data)
 
-FILE = "chatbot/data.pth"
-data = torch.load(FILE)
+file = path + "\\chatbot\\data.pth"
+data = torch.load(file)
 
 input_size = data["input_size"]
 hidden_size = data["hidden_size"]
