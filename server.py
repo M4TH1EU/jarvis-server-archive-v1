@@ -1,12 +1,15 @@
 import json
 import os
+import sys
 import tempfile
+import threading
 
 import flask
 from flask import Flask, jsonify, request
 
 import automations
 import chatbot.chat
+import chatbot.train
 import sentences
 
 path = os.getcwd()
@@ -92,7 +95,11 @@ def send():
 
 
 if __name__ == '__main__':
-    # sentences.registerSentences()
+    if 'train' in sys.argv:
+        chatbot.train.train()
+        exit(0)
+
+    threading.Thread(target=sentences.load_nlp)
     automations.register()
 
     app.config['JSON_AS_ASCII'] = False

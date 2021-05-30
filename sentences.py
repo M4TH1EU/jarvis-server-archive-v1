@@ -14,7 +14,13 @@ import homeassistant.weather
 
 sentences = {}
 last_answer = ""
-nlp = spacy.load("fr_core_news_sm")
+nlp = "waiting"  # create blank object while loading the real model in a background thread
+
+
+def load_nlp():
+    global nlp
+    nlp = spacy.load("fr_core_news_sm")
+    print("Spacy loaded.")
 
 
 def import_service_and_return_method(module, name):
@@ -118,23 +124,27 @@ def get_sentence_without_stopwords_and_pattern(sentence, tag):
 
 
 def get_person_in_sentence(sentence, play_song=False):
-    doc = nlp(sentence)
+    global nlp
+    if nlp is None:
+        raise Exception("Spacy NLP engine is not setup yet")
+    else:
+        doc = nlp(sentence)
 
-    for ent in doc.ents:
-        if ent.label_ == 'PER':
-            return ent.text
+        for ent in doc.ents:
+            if ent.label_ == 'PER':
+                return ent.text
 
-    if play_song:
-        for word in doc:
-            # print(word.text, word.pos_) # prints every words from the sentence with their types
+        if play_song:
+            for word in doc:
+                # print(word.text, word.pos_) # prints every words from the sentence with their types
 
-            de_words = ['de ', 'd\'', 'des']
+                de_words = ['de ', 'd\'', 'des']
 
-            # support for lowercase name with spotify (play_song)
-            for de_word in de_words:
-                if word.text == de_word.replace(' ', '') and (str(word.pos_) == 'ADP' or str(word.pos_) == 'DET'):
-                    person = sentence.split(" ".join([de_word]))[1]
-                    return person
+                # support for lowercase name with spotify (play_song)
+                for de_word in de_words:
+                    if word.text == de_word.replace(' ', '') and (str(word.pos_) == 'ADP' or str(word.pos_) == 'DET'):
+                        person = sentence.split(" ".join([de_word]))[1]
+                        return person
 
     return "none"
 
