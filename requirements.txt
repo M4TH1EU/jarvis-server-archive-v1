@@ -9,3 +9,4 @@ spotipy
 py1337x
 wikipedia
 spacy
+translate
