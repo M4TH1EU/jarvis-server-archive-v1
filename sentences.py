@@ -11,6 +11,7 @@ import homeassistant.light
 import homeassistant.spotify
 import homeassistant.switch
 import homeassistant.weather
+import intents.intents
 
 sentences = {}
 last_answer = ""
@@ -34,11 +35,13 @@ def recogniseSentence(sentence):
     tag = chatbot.chat.get_tag_for_sentence(sentence)
 
     if tag is None:
-        return chatbot.chat.get_response_for_tag_custom('dont_understand')
+        return "don't understand"
+        # TODO: implement I18N or something similar for langs
+        # return chatbot.chat.get_response_for_tag_custom('dont_understand')
 
-    if chatbot.chat.has_service_for_tag(tag):
-        service = chatbot.chat.get_service_for_tag(tag)
-        data = chatbot.chat.get_data_for_tag(tag)
+    if intents.intents.does_tag_has_service(tag):
+        service = intents.intents.get_tag_service(tag)
+        data = intents.intents.get_data_for_tag(tag)
 
         # add the tag to data
         data['tag'] = tag
@@ -82,7 +85,7 @@ def recogniseSentence(sentence):
             # returns what the method from the service returned
             return method(data)
 
-        return chatbot.chat.get_response_for_tag(tag)
+        return intents.intents.get_random_response_for_tag(tag)
     else:
 
         # il est quelle heure
@@ -91,9 +94,9 @@ def recogniseSentence(sentence):
             current_time = current_time.replace('00:', 'minuit ')
             current_time = current_time.replace('12:', 'midi ')
 
-            return chatbot.chat.get_response_for_tag('what_time_is_it') + " " + current_time
+            return intents.intents.get_random_response_for_tag('what_time_is_it') + " " + current_time
 
-    return chatbot.chat.get_response_for_tag(tag)
+    return intents.intents.get_random_response_for_tag(tag)
 
 
 def is_tag(tag, name):
@@ -108,7 +111,7 @@ def get_sentence_without_stopwords(sentence):
 
 
 def get_sentence_without_patterns_words(sentence, tag):
-    patterns = chatbot.chat.get_all_patterns_for_tag(tag)
+    patterns = intents.intents.get_list_of_patterns_for_tag(tag)
     patterns_stop_words = " ".join(patterns).lower().split()
 
     sentence_without_patterns_words = ' '.join(

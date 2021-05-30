@@ -4,6 +4,7 @@ import os
 import torch
 from unidecode import unidecode
 
+import intents.intents
 import pathfile
 from chatbot.model import NeuralNet
 from chatbot.nltk_utils import bag_of_words, tokenize
@@ -11,9 +12,6 @@ from chatbot.nltk_utils import bag_of_words, tokenize
 path = os.path.dirname(pathfile.__file__)
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-with open(path + '\\chatbot\\intents.json', encoding='utf-8', mode='r') as json_data:
-    intents = json.load(json_data)
 
 file = path + "\\chatbot\\data.pth"
 data = torch.load(file)
@@ -57,8 +55,6 @@ def get_tag_for_sentence(input_sentence):
     probs = torch.softmax(output, dim=1)
     prob = probs[0][predicted.item()]
     if prob.item() > 0.75 and len(sentence) > 2:
-        for intent in intents['intents']:
-            if tag == intent["tag"]:
-                return tag
+        return intents.intents.get_matching_intent_for_tag(tag).get('tag')
     else:
-        return get_response_for_tag_custom('dont_understand')
+        return intents.intents.get_random_response_for_tag('dont_understand')

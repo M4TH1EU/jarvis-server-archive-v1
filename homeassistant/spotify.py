@@ -1,6 +1,6 @@
 import json
 
-import chatbot.chat
+import intents.intents
 import services.shazam
 from homeassistant.homeassistant import call_service, get_state
 
@@ -139,7 +139,7 @@ def song_recognition(entity_id):
             # track_id = song[2]
             return [title, singer]
         else:
-            return chatbot.chat.get_response_from_custom_list_for_tag('song_recognition', 'responses_fail')
+            return intents.intents.get_random_from_list_for_tag('song_recognition', 'responses_fail')
 
     if entity_id:
         # if entity is playing return the playing song with entity_id
@@ -157,9 +157,9 @@ def song_recognition(entity_id):
 
     # if the title or the singer are empty return fail response (can happend when a microphone error occurs and no audio is send from the client)
     if not title or not singer:
-        return chatbot.chat.get_response_from_custom_list_for_tag('song_recognition', 'responses_fail')
+        return intents.intents.get_random_from_list_for_tag('song_recognition', 'responses_fail')
 
-    answer_sentence = chatbot.chat.get_response_for_tag('song_recognition')
+    answer_sentence = intents.intents.get_random_response_for_tag('song_recognition')
     answer_sentence = answer_sentence.replace("%title", title)
     answer_sentence = answer_sentence.replace("%singer", singer)
     return answer_sentence

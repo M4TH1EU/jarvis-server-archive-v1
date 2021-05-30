@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 
-from chatbot import chat
+import intents.intents
 from homeassistant.homeassistant import get_state
 
 conditions = {"clear-night": "étoillé",
@@ -131,7 +131,7 @@ def summary(data):
             sera = "sera"
             faire = "fera"
 
-        sentence_weather = chat.get_response_for_tag('weather')
+        sentence_weather = intents.intents.get_random_response_for_tag('weather')
         sentence_weather = sentence_weather.replace('&sera', sera)
         sentence_weather = sentence_weather.replace('&faire', faire)
         sentence_weather = sentence_weather.replace('%condition', get_condition(entity_id))

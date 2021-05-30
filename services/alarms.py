@@ -2,7 +2,7 @@ import os
 import pickle
 from datetime import datetime, time
 
-import chatbot.chat
+import intents.intents
 
 alarms_file = (os.path.dirname(__file__).replace("\\services", "") + '\\config\\alarms')
 
@@ -20,7 +20,7 @@ def create_alarm(sentence):
 
     add_alarm(time_formatted)
 
-    return chatbot.chat.get_response_for_tag('alarm').replace("%time", time_formatted)
+    return intents.intents.get_random_response_for_tag('alarm').replace("%time", time_formatted)
 
 
 def check():

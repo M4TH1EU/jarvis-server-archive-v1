@@ -3,7 +3,7 @@ import re
 import wikipedia
 from translate import Translator
 
-import chatbot.chat
+import intents.intents
 from sentences import get_person_in_sentence, get_sentence_without_stopwords_and_pattern
 
 
@@ -20,7 +20,7 @@ def get_description(name):
                 wikipedia.set_lang("en")
                 page = wikipedia.page(name, auto_suggest=False)
         except:
-            return chatbot.chat.get_response_for_tag('wikipedia_search')
+            return intents.intents.get_random_response_for_tag('wikipedia_search')
 
     # remove everything between (...)
     summary = re.sub("[\(].*?[\)]", "", page.summary)

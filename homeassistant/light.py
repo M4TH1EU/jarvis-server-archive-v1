@@ -2,6 +2,7 @@ import json
 
 import chatbot.chat
 import homeassistant.homeassistant
+import intents.intents
 from homeassistant.homeassistant import call_service
 from sentences import get_sentence_without_stopwords_and_pattern, get_ascii_sentence
 from utils import colorUtils
@@ -47,7 +48,7 @@ def turn_on(data):
             else:
                 homeassistant.light.turn_on(entity_id)
 
-        return chatbot.chat.get_response_for_tag(tag)
+        return intents.intents.get_random_response_for_tag(tag)
 
     raise Exception("light.turn_on needs tag, sentence, entity_id as data")
 
