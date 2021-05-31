@@ -1,11 +1,11 @@
 import json
-import os
 
 import requests
 from requests.structures import CaseInsensitiveDict
 
-client_url = "http://127.0.0.1:5001"
-token = os.getenv('JARVIS_API_KEY')
+import config
+
+client_url = config.get_in_config("CLIENT_URL")
 
 
 def ask_for_microphone_output(record_for_seconds, speech_before_input):
@@ -48,7 +48,7 @@ def call_client_api(method, url, json_data=None):
         url_service = client_url + url
 
         headers = CaseInsensitiveDict()
-        headers["Authorization"] = token
+        headers["Authorization"] = config.get_in_config("API_KEY")
         headers["Content-Type"] = "application/json; charset=utf8"
 
         if method == 'GET':

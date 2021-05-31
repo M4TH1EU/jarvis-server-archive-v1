@@ -1,11 +1,11 @@
-import os
-
 import requests
 from homeassistant_api import Client
 from requests.structures import CaseInsensitiveDict
 
-token = os.getenv('HOMEASSISTANT_API_TOKEN')  # long-term token
-ha_url = os.getenv('HOMEASSISTANT_API_URL')  # https://my.homeassistant.com/api/
+import config
+
+token = config.get_in_config('HOMEASSISTANT_API_TOKEN')  # long-term token
+ha_url = config.get_in_config('HOMEASSISTANT_API_URL')  # https://my.homeassistant.com/api/
 client = Client(ha_url, token)
 service_domains = client.get_services()
 

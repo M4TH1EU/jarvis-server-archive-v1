@@ -1,17 +1,17 @@
 # NOT TO BE MISTAKEN WITH "media_player.py" from homeassistant folder, this is for the spotiPy library (used for searching titles and playing songs, homeassistant cannot find spotify track id or search songs/artists)
-import os
 import random
 
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
+import config
 import intents.intents
 from sentences import get_person_in_sentence, get_sentence_without_patterns_words
 
 scope = "user-read-playback-state, user-modify-playback-state, user-read-currently-playing"
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope,
-                                               client_id=os.getenv('SPOTIFY_CLIENT_ID'),
-                                               client_secret=os.getenv('SPOTIFY_CLIENT_SECRET'),
+                                               client_id=config.get_in_config("SPOTIFY_CLIENT_ID"),
+                                               client_secret=config.get_in_config("SPOTIFY_CLIENT_SECRET"),
                                                redirect_uri='http://localhost:8888/callback/'))
 
 
