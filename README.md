@@ -34,7 +34,9 @@ like `fr_core_news_sm`.)*
 You should be good to go.
 
 # Usage (Work In Progress !)
-*(Warning : this is a work in progress, the documentation is far from complete, if you need/want more informations contact me on discord : ``M4TH1EU_#0001``)*
+
+*(Warning : this is a work in progress, the documentation is far from complete, if you need/want more informations
+contact me on discord : ``M4TH1EU_#0001``)*
 
 To run the server, type the command :  
 `python server.py`
@@ -97,10 +99,13 @@ The jarvis services are "home-made" services, there is a few available by defaul
 #### Client
 
 ```json 
-service: "jarvis/client/play_sound"
-requires in data: 
-  sound_name : str
+"service": "jarvis/client/play_sound"
+"data": {
+   "sound_name": "filename.mp3"
+}
 ```
+
+Play a sound on the client main speaker, the file must be inside `/sounds/` folder on the client
 
 #### Jokes
 
@@ -108,6 +113,8 @@ requires in data:
 service: "jarvis/jokes/random"
 no data required
 ```
+
+Tells a random joke from a french API *(others languages are coming)*
 
 #### Spotify
 
@@ -117,6 +124,9 @@ requires in data:
   sentence: true
 ```
 
+Take your sentence (what you say after Jarvis? ... ), extract the singer and/or the song title and plays it on spotify,
+must link you account in the config file.
+
 #### Wiki
 
 ```json 
@@ -125,12 +135,16 @@ requires in data:
   sentence: true
 ```
 
+Takes your sentence, extract what you asked to search, search it on wikipedia and return 1-2 sentences from the article.
+
 ### HomeAssistant services
 
 HomeAssistant services are a direct call to the HomeAssistant API  
-*(most of the HA API is supported, have a look at ``POST /api/services/<domain>/<service>`` [here](https://developers.home-assistant.io/docs/api/rest/))*  
+*(most of the HA API is supported, have a look
+at ``POST /api/services/<domain>/<service>`` [here](https://developers.home-assistant.io/docs/api/rest/))*
 
 Here are a few examples :
+
 #### Light
 
 ```json 
@@ -142,7 +156,10 @@ requires in data:
   entity_id: str
 ```
 
+Turn on/off and toggle lights with this simple service call, homeassistant services almost always needs an entity_id.
+
 #### Media Player
+
 ```json 
 service: "homeassistant/media_player/media_next_track"
 service: "homeassistant/media_player/media_previous_track"
@@ -150,15 +167,21 @@ service: "homeassistant/media_player/media_previous_track"
 requires in data:
   entity_id: str
 ```
+Play the previous/next track on a compatible media_player entity on homeassistant (e.g spotify integration)
 
 ## Data
+
 ```json 
 "data": {
    "entity_id": "switch.tv_philips"
 }
 ```
-Data is where you will pass the args for your request, let's take for example I want to send a notification on my phone with HomeAssistant notify service.  
-Under Service in development tools, for the notify service, it asks for ``title`` and ``message`` so in my intent I will write this :
+
+Data is where you will pass the args for your request, let's take for example I want to send a notification on my phone
+with HomeAssistant notify service.  
+Under Service in development tools, for the notify service, it asks for ``title`` and ``message`` so in my intent I will
+write this :
+
 ```json 
 "service": "homeassistant/notify/mobile_app_phone"
 "data": {
@@ -168,6 +191,7 @@ Under Service in development tools, for the notify service, it asks for ``title`
 ```
 
 ## Patterns
+
 ```json 
 "patterns": [
     "turn on the tv",
@@ -176,13 +200,18 @@ Under Service in development tools, for the notify service, it asks for ``title`
     "could you please turn on the television"
 ]
 ```
+
 Patterns are just sentences you would say to do a specific action.  
 The above patterns are for turning ON the TV, as you can see there's only 4 sentences.  
-Fortunately there is no need to say exactly what is written into the patterns, after training your model (see at the top) it will be possible to say e.g. ``turn the television on`` or ``please could you turn the television on`` and Jarvis will understand it.  
+Fortunately there is no need to say exactly what is written into the patterns, after training your model (see at the
+top) it will be possible to say e.g. ``turn the television on`` or ``please could you turn the television on`` and
+Jarvis will understand it.  
 If he don't then just add the sentence he didn't understand to the actuals patterns and retrain your model.
 
 ## Responses
+
 Responses are what Jarvis will say after doing an action.
+
 ```json 
 "responses": [
     "Turning on the TV",
@@ -191,6 +220,7 @@ Responses are what Jarvis will say after doing an action.
     "Turning on the television"
 ]
 ```
+
 Here, Jarvis will select a random response and speak it after turning on the TV
 
 ```
