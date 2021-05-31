@@ -10,6 +10,7 @@ __pycache__/
 # C extensions
 *.so
 
+
 # Distribution / packaging
 .Python
 build/
@@ -131,5 +132,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
 /ffmpeg/
-/config/
+/config/secrets.json
