@@ -27,7 +27,8 @@ def sortMusics(path):
             new_path = path + "\\" + artist + "\\" + album + "\\"
 
         os.makedirs(new_path, exist_ok=True)
-        os.rename(file, new_path + title + ".mp3")
+        if not os.path.isfile(new_path + title + ".mp3"):
+            os.rename(file, new_path + title + ".mp3")
 
     print("Done.")
 
@@ -43,6 +44,8 @@ def replace_bad_chars(string):
     -------
 
     """
+    if not string:
+        string = ""
 
     # a filename cannot contain : \ /  : * ? " < > |
     new_string = string.replace('\\', '')
@@ -63,4 +66,4 @@ def replace_bad_chars(string):
 
 
 if __name__ == '__main__':
-    sortMusics("C:\\Users\\Mathieu\\Music\\Titres likés")
+    sortMusics("C:\\Users\\Mathieu\\Music\\deemix Music mp3 320\\Happy Dance")
