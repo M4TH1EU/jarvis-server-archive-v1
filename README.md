@@ -31,6 +31,13 @@ it.
 type : `import spacy` followed by `spacy.cli.download("model")` replace model by what the website gives you, must look
 like `fr_core_news_sm`.)*
 
+Now go to Python Console and do the following commands : 
+```bash
+import nltk
+nltk.download('stopwords')
+nltk.download('punkt')
+```
+
 You should be good to go.
 
 # Usage (Work In Progress !)

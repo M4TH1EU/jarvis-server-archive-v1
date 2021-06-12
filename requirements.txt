@@ -11,3 +11,4 @@ wikipedia
 spacy
 translate
 HomeAssistant-API
+nltk
