@@ -2,21 +2,8 @@ import json
 
 import homeassistant.homeassistant
 import intents.intents
-from homeassistant.homeassistant import call_service
 from sentences import get_sentence_without_stopwords_and_pattern, get_ascii_sentence
 from utils import colorUtils
-
-
-def turn_on(entity_id):
-    """
-    Turn on a light
-
-    Parameters
-    ----------
-    entity_id : str
-    """
-
-    homeassistant.homeassistant.call_api("light", "turn_on", {'entity_id': entity_id})
 
 
 def turn_on(data):
@@ -25,31 +12,35 @@ def turn_on(data):
 
     Parameters
     ----------
-    data : dict
+    data : dict / str
     """
 
-    tag = "none"
-    if 'tag' in data:
-        tag = data.get('tag')
+    if isinstance(data, dict):
 
-        if 'entity_id' in data:
-            entity_id = data.get('entity_id')
+        tag = "none"
+        if 'tag' in data:
+            tag = data.get('tag')
 
-            if 'sentence' in data:
-                sentence = get_ascii_sentence(data.get('sentence'))
+            if 'entity_id' in data:
+                entity_id = data.get('entity_id')
 
-                color = get_sentence_without_stopwords_and_pattern(sentence, tag)
-                if not color and colorUtils.does_color_exists(color):
-                    rgb = colorUtils.get_color_code_for_color(color)
-                    homeassistant.light.change_color_with_rgb(entity_id, rgb)
+                if 'sentence' in data:
+                    sentence = get_ascii_sentence(data.get('sentence'))
+
+                    color = get_sentence_without_stopwords_and_pattern(sentence, tag)
+                    if not color and colorUtils.does_color_exists(color):
+                        rgb = colorUtils.get_color_code_for_color(color)
+                        homeassistant.light.change_color_with_rgb(entity_id, rgb)
+                    else:
+                        homeassistant.light.turn_on(entity_id)
                 else:
                     homeassistant.light.turn_on(entity_id)
-            else:
-                homeassistant.light.turn_on(entity_id)
 
-        return intents.intents.get_random_response_for_tag(tag)
-
-    raise Exception("light.turn_on needs tag, sentence, entity_id as data")
+            return intents.intents.get_random_response_for_tag(tag)
+        raise Exception("light.turn_on needs tag, sentence, entity_id as data")
+    elif isinstance(data, str):
+        entity_id = data
+        homeassistant.homeassistant.call_api("light", "turn_on", {'entity_id': entity_id})
 
 
 def turn_off(entity_id):
@@ -60,7 +51,8 @@ def turn_off(entity_id):
     ----------
     entity_id : str
     """
-    call_service('{"entity_id": "' + entity_id + '" }', "light/turn_off")
+    # call_service('{"entity_id": "' + entity_id + '" }', "light/turn_off")
+    homeassistant.homeassistant.call_api("light", "turn_off", {"entity_id": entity_id})
 
 
 def is_on(entity_id):
