@@ -56,25 +56,34 @@ def recogniseSentence(sentence):
 
         if service.startswith("homeassistant"):
 
-            # used for service like "homeassistant$/weather/summary", we need to run the summary() method in weather.py and not call the H.A API
+            # used for service like "homeassistant$/weather/summary", we need to run the summary() method in
+            # weather.py and not call the H.A API
             if service.startswith("homeassistant$"):
                 # see the elif(..."jarvis") below for more informations on what this does
-                name = service.removeprefix('homeassistant$/').split("/")[1]
-                service = service.removeprefix('homeassistant$/').split("/")[0]
+
+                # name = service.removeprefix('homeassistant$/').split("/")[1]
+                name = service.replace('homeassistant$/', '').split("/")[1]
+
+                # service = service.removeprefix('homeassistant$/').split("/")[0]
+                service = service.replace('homeassistant$/', '').split("/")[0]
+
                 method = import_service_and_return_method("homeassistant." + service, name)
                 return method(data)
             else:
-                domain = service.removeprefix('homeassistant/')
-                service = domain.split("/")[1]
+                # domain = service.removeprefix('homeassistant/')
+                domain = service.replace('homeassistant/', '').split('/')[0]
+                service = service.replace('homeassistant/', '').split('/')[1]
 
                 homeassistant.homeassistant.call_api(domain, service, data)
 
         elif service.startswith("jarvis"):
             # splitting the service name from the intent (summary in "jarvis/weather/summary)
-            name = service.removeprefix('jarvis/').split("/")[1]
+            # name = service.removeprefix('jarvis/').split("/")[1]
+            name = service.replace('jarvis/', '').split("/")[1]
 
             # splitting the service from the intent (weather in "jarvis/weather/summary)
-            service = service.removeprefix('jarvis/').split("/")[0]
+            # service = service.removeprefix('jarvis/').split("/")[0]
+            service = service.replace('jarvis/', '').split("/")[0]
 
             # importing the service method extracted from the service in the intent
             method = import_service_and_return_method("services." + service, name)
