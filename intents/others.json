@@ -19,6 +19,13 @@
       "context_set": ""
     },
     {
+      "tag": "dont_understand",
+      "responses": [
+        "Je n'ai pas compris"
+      ],
+      "context_set": ""
+    },
+    {
       "tag": "joke_random",
       "service": "jarvis/jokes/random",
       "patterns": [

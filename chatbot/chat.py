@@ -12,7 +12,7 @@ path = os.path.dirname(pathfile.__file__)
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-file = path + "\\chatbot\\data.pth"
+file = path + "/chatbot/data.pth"
 data = torch.load(file)
 
 input_size = data["input_size"]
@@ -56,4 +56,4 @@ def get_tag_for_sentence(input_sentence):
     if prob.item() > 0.75 and len(sentence) > 2:
         return intents.intents.get_matching_intent_for_tag(tag).get('tag')
     else:
-        return intents.intents.get_random_response_for_tag('dont_understand')
+        return 'dont_understand'
