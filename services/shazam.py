@@ -7,7 +7,7 @@ from shazamio import Shazam
 import clientUtils
 import intents.intents
 
-filename = tempfile.gettempdir() + '\\received_song.wav'
+filename = tempfile.gettempdir() + '/received_song.wav'
 
 
 def recognise_song():

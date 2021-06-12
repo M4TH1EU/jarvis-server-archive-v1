@@ -2,7 +2,7 @@ import glob
 import itertools
 import json
 import os
-from random import random
+import random
 
 import pathfile
 
@@ -19,7 +19,7 @@ def get_all_intents():
     else:
         result = []
 
-        files = glob.glob(path + "\\intents\\*.json")
+        files = glob.glob(path + "/intents/*.json")
         for f in files:
             with open(f, "rb") as infile:
                 result.append(json.load(infile)['intents'])

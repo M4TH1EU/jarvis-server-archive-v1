@@ -53,7 +53,7 @@ def get_by_id():
 def get_recorded_song():
     check_api_key(request)
 
-    filename = tempfile.gettempdir() + '\\received_song.wav'
+    filename = tempfile.gettempdir() + '/received_song.wav'
 
     received_bytes = request.data
 

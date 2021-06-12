@@ -126,7 +126,7 @@ def train():
         "tags": tags
     }
 
-    file = path + "\\chatbot\\data.pth"
+    file = path + "/chatbot/data.pth"
     torch.save(data, file)
 
     print(f'training complete. file saved to {file}')

@@ -4,7 +4,7 @@ from datetime import datetime, time
 
 import intents.intents
 
-alarms_file = (os.path.dirname(__file__).replace("\\services", "") + '\\config\\alarms')
+alarms_file = (os.path.dirname(__file__).replace("/services", "") + '/config/alarms')
 
 
 def create_alarm(sentence):
