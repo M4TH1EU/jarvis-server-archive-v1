@@ -24,6 +24,10 @@ def call_api(domain, service, data):
 
     """
 
+    # remove tag and sentence from the data because it is not relevant for homeassistant
+    data.pop('tag', None)
+    data.pop('sentence', None)
+
     service_domains.__getattribute__(domain).services.__getattribute__(service).trigger(**data)
 
 
