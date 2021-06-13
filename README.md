@@ -18,8 +18,16 @@ The server can run on anything that runs Python 3+ *(linux recommended)*
 
 ## Installation
 
-First of all, run the command `python -m pip3 install -r requirements.txt` to install the basic requirements for the
+If not already installed, you will need Python 3.9, you can install it with theses commands.
+```shell
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt-get update
+sudo apt install python3.9 python3.9-dev python3.9-distutils
+```
+
+After that, run the command `python -m pip3 install -r requirements.txt` to install the basic requirements for the
 project.  
+
 Then, you need to download a [spacy model](https://spacy.io/usage/models)
 for [NLP](https://en.wikipedia.org/wiki/Natural_language_processing) (Natural Language Processing). Go to the
 spacy [website](https://spacy.io/usage/models) and select your language, whether you want efficiency or accuracy *(
@@ -38,7 +46,14 @@ nltk.download('stopwords')
 nltk.download('punkt')
 ```
 
-You should be good to go.
+You should be **good** to go.
+
+### Optional & Errors
+If you have some CUDA erros do the following command :
+```shell
+ pip install --pre torch torchvision -f https://download.pytorch.org/whl/nightly/cu111/torch_nightly.html -U
+```
+
 
 # Usage (Work In Progress !)
 
