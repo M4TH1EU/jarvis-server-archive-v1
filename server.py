@@ -95,7 +95,7 @@ if __name__ == '__main__':
         chatbot.train.train()
 
     threading.Thread(target=sentences.load_nlp)
-    automations.register()
+    # automations.register()
 
     app.config['JSON_AS_ASCII'] = False
     app.run(port=config.get_in_config("PORT"), debug=False, host='0.0.0.0', threaded=True)
