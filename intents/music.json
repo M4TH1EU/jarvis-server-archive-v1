@@ -40,7 +40,8 @@
         "joue le morceau precedent",
         "joue la chanson precedente",
         "rejoue la chanson precedente",
-        "mets le morceau precedent"
+        "mets le morceau precedent",
+        "remets le morceau d'avant"
       ],
       "responses": [
         "Voici le morceau précédent monsieur",
