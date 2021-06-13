@@ -28,7 +28,10 @@ def call_api(domain, service, data):
     data.pop('tag', None)
     data.pop('sentence', None)
 
-    service_domains.__getattribute__(domain).services.__getattribute__(service).trigger(**data)
+    try:
+        service_domains.__getattribute__(domain).services.__getattribute__(service).trigger(**data)
+    except TypeError as e:
+        print("Warning: " + e.__str__())
 
 
 def call_service(data, service):
