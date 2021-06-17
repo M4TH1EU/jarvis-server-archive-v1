@@ -1,0 +1,16 @@
+{
+  "intents": [
+    {
+      "tag": "device_ip_address",
+      "service": "code/intents.network.ip/intent.get_ip_address",
+      "patterns": [
+        "c'est quoi ton addresse ip",
+        "tu as quoi comme addresse",
+        "qu-est-ce que c'est ton ip",
+        "qu-est-ce que c'est ton addresse ip"
+      ],
+      "responses": [],
+      "context_set": ""
+    }
+  ]
+}

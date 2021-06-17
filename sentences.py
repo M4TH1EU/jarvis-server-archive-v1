@@ -91,6 +91,18 @@ def recogniseSentence(sentence):
             # returns what the method from the service returned
             return method(data)
 
+        elif service.startswith("code"):
+            # code/intents.network.ip/intent.get_ip_address
+            services = service.split("/")
+            path = services[1]
+            method_to_call = services[2]
+            file = method_to_call.split(".")[0]
+            method = method_to_call.split(".")[1]
+
+            call = import_service_and_return_method(path + "." + file, method)
+
+            return call()
+
         return intents.intents.get_random_response_for_tag(tag)
     else:
 

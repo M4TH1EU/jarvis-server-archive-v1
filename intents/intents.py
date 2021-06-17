@@ -19,7 +19,7 @@ def get_all_intents():
     else:
         result = []
 
-        files = glob.glob(path + "/intents/*.json")
+        files = glob.glob(path + "/intents/**/*.json", recursive=True)
         for f in files:
             with open(f, "rb") as infile:
                 result.append(json.load(infile)['intents'])
