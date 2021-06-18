@@ -1,0 +1,23 @@
+{
+  "intents": [
+    {
+      "tag": "roll_a_dice",
+      "patterns": [
+        "lance un dé",
+        "lance le dé",
+        "lance un dé",
+        "lance voir un dé",
+        "donne moi un chiffre en 1 et 6"
+      ],
+      "responses": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "context_set": ""
+    }
+  ]
+}
