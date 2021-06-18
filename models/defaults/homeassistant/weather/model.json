@@ -1,0 +1,6 @@
+{
+  "name": "Weather",
+  "service": "homeassistant$/weather/summary",
+  "required": ["entity_id"],
+  "supported_languages": ["fr", "en"]
+}

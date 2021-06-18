@@ -1,0 +1,16 @@
+{
+  "patterns": [
+    "Il fait combien",
+    "Il fait quel temps",
+    "Il fait quel temperature la",
+    "Il fait combien de degres",
+    "C'est quoi la météo actuelle",
+    "Donne moi le temps actuel"
+  ],
+  "responses": [
+    "La journée &sera {weather-condition}, avec des températures entre {weather-lowest-temp} et {weather-temperature} avec un vent atteignant les {weather-wind-speed}",
+    "Cette journée &sera {weather-condition} avec une température moyenne de {weather-temperature} avec une température minimal de {weather-lowest-temp} et un vent de {weather-wind-speed}",
+    "Aujourd'hui &sera {weather-condition}, il &faire en moyenne {weather-temperature} avec un minimum de {weather-lowest-temp}, le vent &sera {weather-wind-speed-words}",
+    "Le temps &sera {weather-condition} avec une température moyenne de {weather-temperature}, une température minimal de {weather-lowest-temp} et un vent de {weather-wind-speed}"
+  ]
+}
