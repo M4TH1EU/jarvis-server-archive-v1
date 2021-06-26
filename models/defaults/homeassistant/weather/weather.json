@@ -1,0 +1,7 @@
+{
+  "temperature": {
+    "name": "Speaks the actual temperature from HA",
+    "required": ["entity_id"],
+    "supported_languages": ["fr"]
+  }
+}

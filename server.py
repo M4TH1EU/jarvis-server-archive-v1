@@ -7,7 +7,6 @@ import threading
 import flask
 from flask import Flask, jsonify, request
 
-import automations
 import chatbot.train
 import config
 import intents.intents

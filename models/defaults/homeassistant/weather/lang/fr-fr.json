@@ -1,0 +1,33 @@
+{
+  "temperature": {
+    "patterns": [
+      "Il fait combien",
+      "Il fait quel temperature la",
+      "Il fait combien de degres"
+    ],
+    "responses": [
+      "Il fait actuellement {degrees} degrés",
+      "La température est de {degrees} degrés"
+    ],
+    "degrees": "[[ from homeassistant.weather import get_temperature; print(get_temperature('weather.bussigny_sur_oron')) ]]"
+  },
+  "summary": {
+    "conditions": {
+      "no-need-here-just-kept-for-others-implementations": "null",
+      "clear-night": "étoillé",
+      "cloudy": "nuageux",
+      "fog": "brumeux",
+      "hail": "pluvieux avec quelques passages de grêles",
+      "lightning": "orageux",
+      "lightning-rainy": "orageux",
+      "partlycloudy": "partiellement nuageux",
+      "pouring": "pluvieux",
+      "rainy": "pluvieux",
+      "snowny": "neigeux",
+      "snowny-rainy": "neigeux avec quelques passage de pluie",
+      "sunny": "ensoleillé",
+      "windy": "venteux",
+      "exceptional": "exceptionnel"
+    }
+  }
+}

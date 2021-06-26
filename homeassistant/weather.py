@@ -1,38 +1,17 @@
 import json
 from datetime import datetime
 
-import homeassistant
 import intents.intents
 from homeassistant.homeassistant import get_state
 
-conditions = {"clear-night": "étoillé",
-              "cloudy": "nuageux",
-              "fog": "brumeux",
-              "hail": "pluvieux avec quelques passages de grêles",
-              "lightning": "orageux",
-              "lightning-rainy": "orageux",
-              "partlycloudy": "partiellement nuageux",
-              "pouring": "pluvieux",
-              "rainy": "pluvieux",
-              "snowny": "neigeux",
-              "snowny-rainy": "neigeux avec quelques passage de pluie",
-              "sunny": "ensoleillé",
-              "windy": "venteux",
-              "exceptional": "exceptionnel"
-              }
-
 
 def get_temperature(entity_id):
-    return str(int(get_attribute(entity_id, 'temperature'))) + "°"
+    return int(get_attribute(entity_id, 'temperature'))
 
 
 def get_temperature_low(entity_id):
     today_date = datetime.today().date().strftime("%Y-%m-%d")
     return str(int(get_attribute_for_day(entity_id, 'templow', today_date))) + "°"
-
-
-def get_condition(entity_id):
-    return conditions.get(homeassistant.homeassistant.get_state(entity_id).state)
 
 
 def get_low_temp(entity_id):
@@ -68,16 +47,12 @@ def get_attribute(entity_id, name):
 
     """
     state = get_state(entity_id)
-    json_state = json.loads(state)
+    json_state = json.loads(json.dumps(state))
     return json_state['attributes'][name]
 
 
 def get_temperature_for_day(entity_id, day_date):
     return str(int(get_attribute_for_day(entity_id, 'temperature', day_date))), "°"
-
-
-def get_condition_for_day(entity_id, day_date):
-    return conditions.get(get_attribute_for_day(entity_id, 'condition', day_date))
 
 
 def get_temperature_low_for_day(entity_id, day_date):
@@ -125,17 +100,16 @@ def summary(data):
 
         entity_id = data.get('entity_id')
 
-        sera = "est"
-        faire = "fait"
-
         if today_hour <= 10:
             sera = "sera"
             faire = "fera"
+        else:
+            sera = "est"
+            faire = "fait"
 
         sentence_weather = intents.intents.get_random_response_for_tag('weather')
         sentence_weather = sentence_weather.replace('&sera', sera)
         sentence_weather = sentence_weather.replace('&faire', faire)
-        sentence_weather = sentence_weather.replace('%condition', get_condition(entity_id))
         sentence_weather = sentence_weather.replace('%temperature', get_temperature(entity_id))
         sentence_weather = sentence_weather.replace('%lowtemp', get_low_temp(entity_id))
 
